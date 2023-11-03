@@ -97,6 +97,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'Message',
 					link: '/en/components/notice/message',
 				},
+				{
+					text: 'Tooltip',
+					link: '/en/components/notice/tooltip',
+				},
 			],
 		},
 	];

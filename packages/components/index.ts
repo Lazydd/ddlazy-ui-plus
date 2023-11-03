@@ -9,6 +9,7 @@ export * from './button';
 export * from './icon';
 export * from './message';
 export * from './transition';
+export * from './tooltip';
 
 export default {
 	install(app: App) {
