@@ -1,0 +1,7 @@
+:root {
+	--vp-code-copy-code-border-color: #2e2e32;
+	--vp-code-copy-code-bg: #202127;
+	--vp-code-copy-code-hover-border-color: #2e2e32;
+	--vp-code-copy-code-hover-bg: #1b1b1f;
+	--vp-code-copy-code-active-text: rgba(235, 235, 235, 0.6);
+}

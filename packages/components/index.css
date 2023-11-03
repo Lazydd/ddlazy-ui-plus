@@ -1,0 +1,102 @@
+.dd-fade-enter-active,
+.dd-fade-leave-active {
+	transition: opacity 0.5s;
+}
+.dd-fade-enter-from,
+.dd-fade-leave-to {
+	opacity: 0;
+}
+.dd-fade-enter-to,
+.dd-fade-leave {
+	opacity: 1;
+}
+/* 中心1缩放 */
+.dd-zoom-center-enter-active,
+.dd-zoom-center-leave-active {
+	transition: transform 0.2s;
+}
+.dd-zoom-center-enter-from,
+.dd-zoom-center-leave-to {
+	transform: scale(0, 1);
+	transform-origin: center center;
+}
+.dd-zoom-center-enter-to,
+.dd-zoom-center-leave {
+	transform: scale(1, 1);
+	transform-origin: center center;
+}
+/* 中心2缩放 */
+.dd-zoom-centerVertical-enter-active,
+.dd-zoom-centerVertical-leave-active {
+	transition: transform 0.2s;
+}
+.dd-zoom-centerVertical-enter-from,
+.dd-zoom-centerVertical-leave-to {
+	transform: scale(1, 0);
+	transform-origin: center center;
+}
+.dd-zoom-centerVertical-enter-to,
+.dd-zoom-centerVertical-leave {
+	transform: scale(1, 1);
+	transform-origin: center center;
+}
+/* 左侧缩放 */
+.dd-zoom-left-enter-active,
+.dd-zoom-left-leave-active {
+	transition: transform 0.2s;
+}
+.dd-zoom-left-enter-from,
+.dd-zoom-left-leave-to {
+	transform: scale(0, 1);
+	transform-origin: left center;
+}
+.dd-zoom-left-enter-to,
+.dd-zoom-left-leave {
+	transform: scale(1, 1);
+	transform-origin: left center;
+}
+/* 右侧缩放 */
+.dd-zoom-right-enter-active,
+.dd-zoom-right-leave-active {
+	transition: transform 0.2s;
+}
+.dd-zoom-right-enter-from,
+.dd-zoom-right-leave-to {
+	transform: scale(0, 1);
+	transform-origin: right center;
+}
+.dd-zoom-right-enter-to,
+.dd-zoom-right-leave {
+	transform: scale(1, 1);
+	transform-origin: right center;
+}
+/* 顶部缩放 */
+.dd-zoom-top-enter-active,
+.dd-zoom-top-leave-active {
+	transition: transform 0.2s;
+}
+.dd-zoom-top-enter-from,
+.dd-zoom-top-leave-to {
+	transform: scale(1, 0);
+	transform-origin: center top;
+}
+.dd-zoom-top-enter-to,
+.dd-zoom-top-leave {
+	transform: scale(1, 1);
+	transform-origin: center top;
+}
+/* 底部缩放 */
+.dd-zoom-bottom-enter-active,
+.dd-zoom-bottom-leave-active {
+	transition: transform 0.2s;
+}
+.dd-zoom-bottom-enter-from,
+.dd-zoom-bottom-leave-to {
+	transform: scale(1, 0);
+	transform-origin: center bottom;
+}
+.dd-zoom-bottom-enter-to,
+.dd-zoom-bottom-leave {
+	transform: scale(1, 1);
+	transform-origin: center bottom;
+}

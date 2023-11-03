@@ -1,0 +1,127 @@
+@keyframes loading {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.dd-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 15px;
+	height: 32px;
+	font-size: var(--dd-base-size);
+	border-radius: 4px;
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	background: var(--dd-white);
+	border: 1px solid #d9d9d9;
+	color: rgba(0, 0, 0, 0.88);
+	vertical-align: bottom;
+	text-align: center;
+	box-sizing: border-box;
+	outline: none;
+	margin: 0;
+	transition: 0.1s;
+	font-weight: 500;
+	user-select: none;
+	&.round {
+		border-radius: 20px;
+	}
+	&.circle {
+		border-radius: 50%;
+		padding: 8px;
+	}
+	.loading {
+		animation: loading 2s linear infinite;
+		pointer-events: none;
+		cursor: inherit !important;
+		color: inherit;
+	}
+	&:not(.disabled):not(.loading):not(.plain):not(.link):hover,
+	&:not(.disabled):not(.loading):not(.plain):not(.link):focus {
+		background: var(--dd-base-bg);
+		color: var(--dd-white);
+		border-color: var(--dd-base-bg);
+		opacity: 0.65;
+	}
+	&.plain {
+		&:hover,
+		&:focus {
+			background: var(--dd-white);
+			border-color: var(--dd-base-bg);
+			color: var(--dd-base-bg);
+		}
+	}
+	&.disabled {
+		cursor: not-allowed !important;
+		opacity: 0.65;
+	}
+	&.loading {
+		cursor: not-allowed !important;
+		opacity: 0.65;
+	}
+	&.link {
+		border: transparent !important;
+		background-color: transparent !important;
+		padding: 2px;
+		height: auto;
+		&:hover,
+		&:focus {
+			opacity: 0.65;
+		}
+	}
+	> span {
+		display: flex;
+		align-items: center;
+	}
+}
+//type
+.primary,
+.success,
+.info,
+.warning,
+.danger {
+	color: var(--dd-white);
+	background-color: var(--dd-base-bg);
+	border-color: var(--dd-base-bg);
+	&:not(.disabled):not(.loading):not(.plain):not(.link):hover,
+	&:not(.disabled):not(.loading):not(.plain):not(.link):focus {
+		background: var(--dd-base-bg);
+		border-color: var(--dd-base-bg);
+	}
+	&.plain {
+		background-color: var(--dd-white);
+		color: var(--dd-base-bg);
+		&:hover,
+		&:focus {
+			background: var(--dd-base-bg);
+			border-color: var(--dd-base-bg);
+			color: var(--dd-white);
+		}
+	}
+	&.link {
+		color: var(--dd-base-bg);
+	}
+}
+
+//size
+.large {
+	padding: 12px 19px;
+	height: 40px;
+	font-size: var(--dd-base-size);
+	border-radius: 4px;
+}
+.small {
+	padding: 5px 11px;
+	height: 24px;
+	font-size: var(--dd-base-size);
+	border-radius: 3px;
+}
+.ml5 {
+	margin-left: 5px;
+}

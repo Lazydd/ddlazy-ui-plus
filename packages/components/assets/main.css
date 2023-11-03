@@ -1,0 +1,31 @@
+:root {
+	--dd-base-bg: var(--dd-primary);
+	--dd-base-size: var(--dd-size);
+}
+
+.primary {
+	--dd-base-bg: var(--dd-primary);
+}
+.success {
+	--dd-base-bg: var(--dd-success);
+}
+.info {
+	--dd-base-bg: var(--dd-info);
+}
+.warning {
+	--dd-base-bg: var(--dd-warning);
+}
+.danger {
+	--dd-base-bg: var(--dd-danger);
+}
+
+.large {
+	--dd-base-size: var(--dd-large);
+}
+.small {
+	--dd-base-size: var(--dd-small);
+}
+
+* {
+	box-sizing: border-box;
+}
