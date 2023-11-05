@@ -19,6 +19,8 @@ import 'uno.css';
 // import { ddButton, ddIcon } from '@/lib/ddlazy-ui-plus.es';
 import ddlazyUi from '@/lib/ddlazy-ui-plus.es.js';
 import '@/lib/index.css';
+import '../style/ddlazy-ui-plus.css';
+
 export default {
 	...DefaultTheme,
 	Layout: () => {
