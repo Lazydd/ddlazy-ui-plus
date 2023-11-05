@@ -10,6 +10,7 @@ export * from './icon';
 export * from './message';
 export * from './transition';
 export * from './tooltip';
+export * from './input';
 
 export default {
 	install(app: App) {

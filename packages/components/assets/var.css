@@ -6,7 +6,12 @@
 	--dd-danger: #e95a5a;
 	--dd-white: #ffffff;
 	--dd-black: #000000;
+	--dd-color-1: rgba(0, 0, 0, 0.88);
 	--dd-background-color-1: rgba(0, 0, 0, 0.88);
+	--dd-border-color: #d9d9d9;
+	--dd-border-hover-color: #4096ff;
+	--dd-disabled-background-color: #f5f7fa;
+	--dd-disabled-color: rgba(0, 0, 0, 0.25);
 }
 
 :root {
@@ -14,6 +19,12 @@
 	--dd-size: 14px;
 	--dd-small: 12px;
 }
+:root {
+	--dd-radius-large: 8px;
+	--dd-radius-size: 6px;
+	--dd-radius-small: 4px;
+}
+
 /* popover */
 :root {
 	--arrow-x: 16px;
@@ -30,4 +41,10 @@
 :root {
 	--dd-tooltip-color: var(--dd-white);
 	--dd-tooltip-background-color: var(--dd-background-color-1);
+}
+/* input */
+:root {
+	--dd-input-background-color: var(--dd-white);
+	--dd-input-disabled-background-color: var(--dd-disabled-background-color);
+	--dd-input-disabled-color: var(--dd-disabled-color);
 }

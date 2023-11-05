@@ -91,6 +91,15 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			],
 		},
 		{
+			text: 'Form',
+			items: [
+				{
+					text: 'Input 输入框',
+					link: '/components/form/input',
+				},
+			],
+		},
+		{
 			text: 'Notice',
 			items: [
 				{

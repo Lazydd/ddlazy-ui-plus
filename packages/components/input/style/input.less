@@ -1,0 +1,119 @@
+.dd-input {
+	margin: 0;
+	line-height: 1.5;
+	list-style: none;
+	display: inline-flex;
+	width: 100%;
+	min-width: 0;
+	background-image: none;
+	padding: 0;
+	font-size: inherit;
+	border: none;
+	border-radius: 0;
+	outline: none;
+	&[disabled] {
+		color: var(--dd-input-disabled-color);
+		box-shadow: none;
+		cursor: not-allowed;
+		user-select: none;
+		opacity: 1;
+	}
+	&-affix-wrapper {
+		position: relative;
+		display: inline-flex;
+		gap: 4px;
+		width: 100%;
+		min-width: 0;
+		padding: 4px 11px;
+		color: var(--dd-color-1);
+		font-size: var(--dd-size);
+		line-height: 1.5;
+		background-color: var(--dd-input-background-color);
+		background-image: none;
+		border-width: 1px;
+		border-style: solid;
+		border-color: var(--dd-border-color);
+		border-radius: var(--dd-radius-size);
+		transition: all 0.2s;
+		&:hover {
+			border-color: var(--dd-border-hover-color);
+		}
+		&:focus-within {
+			border-color: var(--dd-primary);
+			box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
+			outline: 0;
+		}
+		&-disabled {
+			color: var(--dd-input-disabled-color);
+			background-color: var(--dd-input-disabled-background-color);
+			box-shadow: none;
+			cursor: not-allowed;
+			user-select: none;
+			opacity: 1;
+			&:hover {
+				border-color: var(--dd-border-color);
+			}
+		}
+	}
+	&-textarea-affix-wrapper {
+		padding: 0 !important;
+		textarea {
+			position: relative;
+			display: block;
+			max-width: 100%;
+			height: auto;
+			background-color: var(--dd-input-background-color);
+			padding: 4px 11px;
+			min-height: 32px;
+			transition: all 0.3s, height 0s;
+			resize: vertical;
+			border-radius: var(--dd-radius-size);
+			min-height: 32px;
+		}
+		.dd-input-data-count {
+			position: absolute;
+			bottom: -22px;
+			inset-inline-end: 0;
+			color: rgba(0, 0, 0, 0.45);
+			white-space: nowrap;
+			pointer-events: none;
+		}
+	}
+	&-suffix,
+	&-prefix {
+		display: flex;
+		flex: none;
+		align-items: center;
+	}
+	&-clear-icon {
+		margin: 0;
+		color: rgba(0, 0, 0, 0.25);
+		font-size: var(--dd-size);
+		vertical-align: -1px;
+		cursor: pointer;
+		transition: color 0.3s;
+		&:hover {
+			color: rgba(0, 0, 0, 0.45);
+		}
+	}
+	&-password-icon {
+		color: rgba(0, 0, 0, 0.45);
+		cursor: pointer;
+		transition: all 0.3s;
+	}
+	&-data-count {
+		color: rgba(0, 0, 0, 0.45);
+	}
+}
+
+.large {
+	padding: 7px 11px;
+	font-size: var(--dd-large);
+	line-height: 1.5;
+	border-radius: var(--dd-radius-large);
+}
+.small {
+	padding: 0px 7px;
+	line-height: 1.5;
+	border-radius: var(--dd-radius-small);
+}
