@@ -26,7 +26,7 @@
 	--dd-base-size: var(--dd-small);
 }
 
-* {
+*[class^='dd-'] {
 	box-sizing: border-box;
 	line-height: 1.5;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
