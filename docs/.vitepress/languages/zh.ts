@@ -100,6 +100,15 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			],
 		},
 		{
+			text: 'Data',
+			items: [
+				{
+					text: 'Empty 空状态',
+					link: '/components/data/empty',
+				},
+			],
+		},
+		{
 			text: 'Notice',
 			items: [
 				{

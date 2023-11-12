@@ -1,0 +1,27 @@
+.dd-empty {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	color: var(--dd-empty-color);
+	font-size: var(--dd-size);
+	text-align: center;
+	&-image {
+		height: 100%;
+		margin-bottom: 8px;
+		opacity: 1;
+		img {
+			height: 100%;
+		}
+	}
+	&-footer {
+		margin-top: 16px;
+	}
+	p {
+		margin: 0;
+	}
+}
+.dd-empty-normal {
+	margin-block: 32px;
+	color: var(--dd-empty-color);
+}

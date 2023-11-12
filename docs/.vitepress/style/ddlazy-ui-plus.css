@@ -5,4 +5,5 @@
 
 .dark {
 	--dd-disabled-background-color: #262727;
+	--dd-empty-color: rgba(255, 255, 255, 0.25);
 }

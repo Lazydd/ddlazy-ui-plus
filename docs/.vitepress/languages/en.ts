@@ -100,6 +100,15 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			],
 		},
 		{
+			text: 'Data',
+			items: [
+				{
+					text: 'Empty',
+					link: '/en/components/data/empty',
+				},
+			],
+		},
+		{
 			text: 'Notice',
 			items: [
 				{

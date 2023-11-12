@@ -11,6 +11,7 @@ export * from './message';
 export * from './transition';
 export * from './tooltip';
 export * from './input';
+export * from './empty';
 
 export default {
 	install(app: App) {
