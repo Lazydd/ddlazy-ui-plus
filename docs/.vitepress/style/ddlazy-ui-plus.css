@@ -1,6 +1,7 @@
 :root {
 	--dd-input-background-color: var(--vp-c-bg);
 	--dd-disabled-color: var(--vp-c-color);
+	--dd-color-1: var(--vp-c-color);
 }
 
 .dark {
