@@ -12,6 +12,9 @@
 	--dd-border-hover-color: #4096ff;
 	--dd-disabled-background-color: #f5f7fa;
 	--dd-disabled-color: rgba(0, 0, 0, 0.25);
+	--dd-placeholder-color: rgba(0, 0, 0, 0.25);
+	--dd-icon-color: rgba(0, 0, 0, 0.25);
+	--dd-icon-color-active: rgba(0, 0, 0, 0.45);
 }
 
 :root {
@@ -47,8 +50,12 @@
 	--dd-input-background-color: var(--dd-white);
 	--dd-input-disabled-background-color: var(--dd-disabled-background-color);
 	--dd-input-disabled-color: var(--dd-disabled-color);
+	--dd-input-icon-color: var(--dd-icon-color);
+	--dd-input-icon-color-active: var(--dd-icon-color-active);
 }
+/* empty */
 :root {
 	--dd-empty-fill-color: #d9d9d9;
 	--dd-empty-color: rgba(0, 0, 0, 0.25);
 }
+
