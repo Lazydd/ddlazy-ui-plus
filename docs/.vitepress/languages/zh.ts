@@ -125,5 +125,14 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 				},
 			],
 		},
+		{
+			text: 'FeedBack',
+			items: [
+				{
+					text: 'Loading 加载',
+					link: '/components/feedback/loading',
+				},
+			],
+		},
 	];
 }

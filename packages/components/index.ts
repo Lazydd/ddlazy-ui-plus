@@ -13,6 +13,7 @@ export * from './tooltip';
 export * from './input';
 export * from './empty';
 export * from './select';
+export * from './loading';
 
 export default {
 	install(app: App) {

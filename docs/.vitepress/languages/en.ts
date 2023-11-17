@@ -125,5 +125,14 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 				},
 			],
 		},
+		{
+			text: 'FeedBack',
+			items: [
+				{
+					text: 'Loading',
+					link: '/en/components/feedback/loading',
+				},
+			],
+		},
 	];
 }

@@ -72,3 +72,8 @@
 	--dd-select-selection-item-border-color: transparent;
 	--dd-select-disabled-background-color: transparent;
 }
+/* loading */
+:root {
+	--dd-loading-color: var(--dd-color-1);
+	--dd-loading-shadow-color: var(--dd-white);
+}
