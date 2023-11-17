@@ -1,0 +1,100 @@
+.dd-popover {
+	margin: 0;
+	padding: 0;
+	color: var(--dd-popover-color);
+	font-size: 14px;
+	list-style: none;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	z-index: 1030;
+	font-weight: normal;
+	white-space: normal;
+	text-align: start;
+	cursor: auto;
+	user-select: text;
+	transform-origin: var(--arrow-x, 50%) var(--arrow-y, 50%);
+	&-content {
+		position: relative;
+	}
+	&-arrow {
+		position: absolute;
+		left: 12px;
+		display: block;
+		width: 16px;
+		height: 16px;
+		pointer-events: none;
+		overflow: hidden;
+		z-index: 1;
+		&::before {
+			position: absolute;
+			bottom: 0;
+			inset-inline-start: 0;
+			width: 16px;
+			height: 8px;
+			background: var(--dd-arrow-background-color);
+			clip-path: polygon(
+				1.6568542494923806px 100%,
+				50% 1.6568542494923806px,
+				14.34314575050762px 100%,
+				1.6568542494923806px 100%
+			);
+			clip-path: path(
+				'M 0 8 A 4 4 0 0 0 2.82842712474619 6.82842712474619 L 6.585786437626905 3.0710678118654755 A 2 2 0 0 1 9.414213562373096 3.0710678118654755 L 13.17157287525381 6.82842712474619 A 4 4 0 0 0 16 8 Z'
+			);
+			content: '';
+		}
+		&::after {
+			content: '';
+			position: absolute;
+			width: 8.970562748477143px;
+			height: 8.970562748477143px;
+			bottom: 0;
+			inset-inline: 0;
+			margin: auto;
+			border-radius: 0 0 2px 0;
+			transform: translateY(50%) rotate(-135deg);
+			box-shadow: 2px 2px 5px var(--dd-arrow-shadow-color);
+			z-index: 0;
+			background: transparent;
+		}
+	}
+	.topLeft,
+	.topRight {
+		top: 1px;
+		transform: translateY(-100%);
+	}
+	.bottomLeft,
+	.bottomRight {
+		bottom: 0;
+		transform: translateY(100%) rotate(180deg);
+	}
+	.topRight,
+	.bottomRight {
+		left: unset;
+		right: 12px;
+	}
+	&-inner {
+		background-color: var(--dd-inner-background-color);
+		background-clip: padding-box;
+		border-radius: 8px;
+		box-shadow: 0 6px 16px 0 var(--dd-arrow-inner-color-2),
+			0 3px 6px -4px var(--dd-arrow-inner-color-3),
+			0 9px 28px 8px var(--dd-arrow-inner-color-1);
+		padding: 12px;
+	}
+}
+.dd-select-popover {
+	.dd-popover-inner {
+		padding: 4px;
+	}
+}
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
