@@ -97,6 +97,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'Input',
 					link: '/en/components/form/input',
 				},
+				{
+					text: 'Select',
+					link: '/en/components/form/select',
+				},
 			],
 		},
 		{

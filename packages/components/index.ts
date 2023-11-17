@@ -12,6 +12,7 @@ export * from './transition';
 export * from './tooltip';
 export * from './input';
 export * from './empty';
+export * from './select';
 
 export default {
 	install(app: App) {

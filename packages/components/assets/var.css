@@ -58,4 +58,17 @@
 	--dd-empty-fill-color: #d9d9d9;
 	--dd-empty-color: rgba(0, 0, 0, 0.25);
 }
-
+/* select */
+:root {
+	--dd-select-color: var(--dd-color-1);
+	--dd-select-close-color: rgba(0, 0, 0, 0.45);
+	--dd-select-close-hover-color: var(--dd-color-1);
+	--dd-select-active-color: var(--dd-primary);
+	--dd-select-active-background-color: #e6f4ff;
+	--dd-select-icon-color: var(--dd-icon-color);
+	--dd-select-background-color: var(--dd-white);
+	--dd-select-hover-background-color: rgba(0, 0, 0, 0.04);
+	--dd-select-selection-item-background-color: rgba(0, 0, 0, 0.06);
+	--dd-select-selection-item-border-color: transparent;
+	--dd-select-disabled-background-color: transparent;
+}
