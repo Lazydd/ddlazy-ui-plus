@@ -1,10 +1,25 @@
 :root {
 	--dd-input-background-color: var(--vp-c-bg);
-	--dd-disabled-color: var(--vp-c-color);
-	--dd-color-1: var(--vp-c-color);
+	--dd-color-1: var(--vp-c-text-1);
+	--dd-placeholder-color: var(--vp-c-text-1);
+	--dd-select-background-color: var(--vp-c-bg);
+	--dd-placeholder-color: rgba(0, 0, 0, 0.25);
+	--dd-gray-color: rgba(255, 255, 255, 0.25);
 }
 
 .dark {
 	--dd-disabled-background-color: #262727;
-	--dd-empty-color: rgba(255, 255, 255, 0.25);
+	--dd-empty-color: var(--dd-gray-color);
+	--dd-icon-color: var(--dd-gray-color);
+	--dd-select-active-background-color: #111a2c;
+	--dd-select-hover-background-color: rgba(255, 255, 255, 0.08);
+	--dd-loading-shadow-color: #000000;
+	--dd-inner-background-color: #1f1f1f;
+	--dd-disabled-color: var(--dd-gray-color);
+	--dd-placeholder-color: var(--dd-gray-color);
+	--dd-select-selection-item-background-color: rgba(255, 255, 255, 0.12);
+	--dd-select-selection-item-border-color: rgba(253, 253, 253, 0.12);
+	--dd-select-close-color: rgba(255, 255, 255, 0.45);
+	--dd-select-close-hover-color: rgba(255, 255, 255, 0.85);
+	--dd-select-disabled-background-color: rgba(255, 255, 255, 0.08);
 }
