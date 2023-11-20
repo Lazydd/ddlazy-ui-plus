@@ -67,6 +67,7 @@ You can directly embed the content into `dd-loading`
 	<dd-loading tip="loading..." v-model:value="loading">
 		<div style="width: 100%; height: 300px">content</div>
 	</dd-loading>
+	<dd-switch v-model:value="loading" />
 </template>
 
 <script lang="ts" setup>

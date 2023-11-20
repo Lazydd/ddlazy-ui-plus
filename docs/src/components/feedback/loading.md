@@ -67,6 +67,7 @@
 	<dd-loading tip="加载中..." v-model:value="loading">
 		<div style="width: 100%; height: 300px">内容</div>
 	</dd-loading>
+	<dd-switch v-model:value="loading" />
 </template>
 
 <script lang="ts" setup>
