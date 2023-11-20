@@ -9,8 +9,14 @@
 
 .dark {
 	--dd-disabled-background-color: #262727;
+}
+/* empty */
+.dark {
 	--dd-empty-color: var(--dd-gray-color);
 	--dd-icon-color: var(--dd-gray-color);
+}
+/* select */
+.dark {
 	--dd-select-active-background-color: #111a2c;
 	--dd-select-hover-background-color: rgba(255, 255, 255, 0.08);
 	--dd-loading-shadow-color: #000000;
@@ -22,4 +28,9 @@
 	--dd-select-close-color: rgba(255, 255, 255, 0.45);
 	--dd-select-close-hover-color: rgba(255, 255, 255, 0.85);
 	--dd-select-disabled-background-color: rgba(255, 255, 255, 0.08);
+}
+/* switch */
+.dark {
+	--dd-switch-background-color: rgba(255, 255, 255, 0.25);
+	--dd-switch-hover-background-2: rgba(255, 255, 255, 0.45);
 }
