@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^1.0.0-beta.7
     version: 1.0.0-rc.29(@algolia/client-search@4.20.0)(@types/node@20.9.2)(less@4.2.0)(postcss@8.4.31)(search-insights@2.11.0)(terser@5.24.0)(typescript@5.2.2)
   vitepress-theme-demoblock-fork:
-    specifier: ^3.0.3
-    version: 3.0.3(@algolia/client-search@4.20.0)(@types/node@20.9.2)(less@4.2.0)(postcss@8.4.31)(search-insights@2.11.0)(terser@5.24.0)(typescript@5.2.2)
+    specifier: ^3.0.4
+    version: 3.0.4(@algolia/client-search@4.20.0)(@types/node@20.9.2)(less@4.2.0)(postcss@8.4.31)(search-insights@2.11.0)(terser@5.24.0)(typescript@5.2.2)
   vue-tsc:
     specifier: ^1.8.22
     version: 1.8.22(typescript@5.2.2)
@@ -3247,8 +3247,8 @@ packages:
       gray-matter: 4.0.3
     dev: false
 
-  /vitepress-theme-demoblock-fork@3.0.3(@algolia/client-search@4.20.0)(@types/node@20.9.2)(less@4.2.0)(postcss@8.4.31)(search-insights@2.11.0)(terser@5.24.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-3e62UHUMghvO17q7gVVgTGki/QABZYZ77JjHfNgFNkAiIpEqMjLcoGF7uK19ugrs4fGnc4dXeK/r2oOwTkWM4A==}
+  /vitepress-theme-demoblock-fork@3.0.4(@algolia/client-search@4.20.0)(@types/node@20.9.2)(less@4.2.0)(postcss@8.4.31)(search-insights@2.11.0)(terser@5.24.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-quX5BeYADwXn9CB6bywipbriO+915/MluYs4fwtz196xVAwh60Zwpn7Vu/95lLMd27Q2xmjEZpSEGjltvvPgAA==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     requiresBuild: true

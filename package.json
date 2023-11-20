@@ -44,7 +44,7 @@
 		"unocss": "^0.57.6",
 		"vite": "^5.0.0",
 		"vitepress": "^1.0.0-beta.7",
-		"vitepress-theme-demoblock-fork": "^3.0.3",
+		"vitepress-theme-demoblock-fork": "^3.0.4",
 		"vue-tsc": "^1.8.22"
 	},
 	"dependencies": {
