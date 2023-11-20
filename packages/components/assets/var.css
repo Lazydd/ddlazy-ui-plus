@@ -77,3 +77,10 @@
 	--dd-loading-color: var(--dd-color-1);
 	--dd-loading-shadow-color: var(--dd-white);
 }
+/* switch */
+:root {
+	--dd-switch-active-background-color: var(--dd-primary);
+	--dd-switch-hover-background: var(--dd-border-hover-color);
+	--dd-switch-hover-background-2: rgba(0, 0, 0, 0.25);
+	--dd-switch-background-color: rgba(0, 0, 0, 0.25);
+}

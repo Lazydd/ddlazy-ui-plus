@@ -101,6 +101,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'Select 选择器',
 					link: '/components/form/select',
 				},
+				{
+					text: 'Switch 开关',
+					link: '/components/form/switch',
+				},
 			],
 		},
 		{
