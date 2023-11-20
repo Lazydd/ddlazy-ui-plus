@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
+import { tooltipProps } from './types';
 
 import { ref, getCurrentInstance } from 'vue';
 import { useWindowSize } from '@vueuse/core';
@@ -8,19 +9,7 @@ import { getOffset } from '@ddlazy/utils';
 defineOptions({
 	name: createName('tooltip'),
 });
-const props = withDefaults(
-	defineProps<{
-		content: string;
-		maxWidth?: number;
-		placement?: string;
-		space?: number;
-	}>(),
-	{
-		maxWidth: 500,
-		placement: 'top',
-		space: 8,
-	}
-);
+const props = defineProps(tooltipProps);
 const instance = getCurrentInstance();
 
 const isShow = ref(false);
