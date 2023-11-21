@@ -419,5 +419,3 @@ options.value = c;
 | -------------- | ----------- |
 | dropdownRender | 自定义内容  |
 | suffixIcon     | 后缀图标    |
-
-### Select Exposes

@@ -419,5 +419,3 @@ options.value = c;
 | -------------- | -------------------------- |
 | dropdownRender | Customize dropdown content |
 | suffixIcon     | The custom suffix icon     |
-
-### Select Exposes
