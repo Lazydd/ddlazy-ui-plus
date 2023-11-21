@@ -1,5 +1,6 @@
 :root {
 	--dd-input-background-color: var(--vp-c-bg);
+	--dd-input-number-background-color: var(--vp-c-bg);
 	--dd-color-1: var(--vp-c-text-1);
 	--dd-placeholder-color: var(--vp-c-text-1);
 	--dd-select-background-color: var(--vp-c-bg);
@@ -29,8 +30,18 @@
 	--dd-select-close-hover-color: rgba(255, 255, 255, 0.85);
 	--dd-select-disabled-background-color: rgba(255, 255, 255, 0.08);
 }
+/* input */
+.dark {
+	--dd-input-disabled-background-color: rgba(255, 255, 255, 0.08);
+}
 /* switch */
 .dark {
 	--dd-switch-background-color: rgba(255, 255, 255, 0.25);
 	--dd-switch-hover-background-2: rgba(255, 255, 255, 0.45);
+}
+/* input-number */
+.dark {
+	--dd-input-number-border-color: #424242;
+	--dd-input-number-icon-color: rgba(255, 255, 255, 0.45);
+	--dd-input-number-disabled-background-color: rgba(255, 255, 255, 0.08);
 }
