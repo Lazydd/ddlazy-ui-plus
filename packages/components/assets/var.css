@@ -84,3 +84,11 @@
 	--dd-switch-hover-background-2: rgba(0, 0, 0, 0.25);
 	--dd-switch-background-color: rgba(0, 0, 0, 0.25);
 }
+/* input-number */
+:root {
+	--dd-input-number-background-color: var(--dd-white);
+	--dd-input-number-disabled-color: var(--dd-disabled-color);
+	--dd-input-number-disabled-background-color: rgba(0, 0, 0, 0.04);
+	--dd-input-number-border-color: var(--dd-border-color);
+	--dd-input-number-icon-color: rgba(0, 0, 0, 0.45);
+}

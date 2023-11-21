@@ -98,6 +98,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					link: '/components/form/input',
 				},
 				{
+					text: 'Input Number 数字输入框',
+					link: '/components/form/input-number',
+				},
+				{
 					text: 'Select 选择器',
 					link: '/components/form/select',
 				},

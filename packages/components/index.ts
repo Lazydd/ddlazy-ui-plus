@@ -15,6 +15,7 @@ export * from './empty';
 export * from './select';
 export * from './loading';
 export * from './switch';
+export * from './input-number';
 
 export default {
 	install(app: App) {

@@ -98,6 +98,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					link: '/en/components/form/input',
 				},
 				{
+					text: 'Input Number',
+					link: '/en/components/form/input-number',
+				},
+				{
 					text: 'Select',
 					link: '/en/components/form/select',
 				},
