@@ -101,6 +101,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'Select',
 					link: '/en/components/form/select',
 				},
+				{
+					text: 'Switch',
+					link: '/en/components/form/switch',
+				},
 			],
 		},
 		{
