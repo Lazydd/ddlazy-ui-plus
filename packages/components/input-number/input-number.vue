@@ -40,7 +40,7 @@ const operate = (type: string) => {
 		:class="[
 			'dd-input-number',
 			size,
-			{ 'dd-input-number-disabled': disabled, 'dd-input-number-borderless': bordered },
+			{ 'dd-input-number-disabled': disabled, 'dd-input-number-borderless': !bordered },
 		]"
 	>
 		<div class="dd-input-number-handler-wrap" v-if="!disabled">

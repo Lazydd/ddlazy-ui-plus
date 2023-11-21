@@ -80,7 +80,7 @@ const value = ref(10);
 
 ```vue
 <template>
-	<dd-input-number v-model:value="value" placeholder="Please input" bordered />
+	<dd-input-number v-model:value="value" placeholder="Please input" :bordered="false" />
 </template>
 
 <script lang="ts" setup>

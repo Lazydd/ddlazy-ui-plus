@@ -33,7 +33,7 @@ export const inputNumberProps = {
 	},
 	bordered: {
 		type: Boolean,
-		default: false,
+		default: true,
 	},
 	precision: {
 		type: Number,
