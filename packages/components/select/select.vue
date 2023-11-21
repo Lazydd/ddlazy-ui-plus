@@ -187,8 +187,11 @@ const passwordIcon = computed(() =>
 		:class="[
 			'dd-select',
 			size,
-			{ 'dd-select-disabled': disabled, 'dd-select-multiple': multiple },
-			bordered ? '' : 'dd-select-borderless',
+			{
+				'dd-select-disabled': disabled,
+				'dd-select-multiple': multiple,
+				'dd-select-borderless': !bordered,
+			},
 		]"
 		ref="selectRef"
 		:showSearch="showSearch"
