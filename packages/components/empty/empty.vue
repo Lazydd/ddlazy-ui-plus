@@ -15,7 +15,7 @@
 import { createName } from '../../utils/index';
 import { emptyProps } from './types';
 
-import { computed, createElementVNode } from 'vue';
+import { computed, h } from 'vue';
 
 import EmptyIcon from './icon/empty.vue';
 
@@ -25,9 +25,7 @@ defineOptions({
 
 const props = defineProps(emptyProps);
 
-const EmptyImage = computed(() =>
-	props.image ? createElementVNode('img', { src: props.image }) : EmptyIcon
-);
+const EmptyImage = computed(() => (props.image ? h('img', { src: props.image }) : EmptyIcon));
 </script>
 
 <style scoped>
