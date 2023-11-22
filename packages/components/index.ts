@@ -16,6 +16,7 @@ export * from './select';
 export * from './loading';
 export * from './switch';
 export * from './input-number';
+export * from './carousel';
 
 export default {
 	install(app: App) {

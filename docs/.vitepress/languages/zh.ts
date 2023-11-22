@@ -115,6 +115,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			text: 'Data',
 			items: [
 				{
+					text: 'Carousel 走马灯',
+					link: '/components/data/carousel',
+				},
+				{
 					text: 'Empty 空状态',
 					link: '/components/data/empty',
 				},

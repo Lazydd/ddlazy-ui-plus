@@ -115,6 +115,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			text: 'Data',
 			items: [
 				{
+					text: 'Carousel',
+					link: '/en/components/data/carousel',
+				},
+				{
 					text: 'Empty',
 					link: '/en/components/data/empty',
 				},
