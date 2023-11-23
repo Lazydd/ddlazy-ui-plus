@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { carouselProps } from './types';
 
-import { ref, computed, Fragment, watch, onMounted, onUnmounted } from 'vue';
+import { ref, computed, Fragment, Comment, watch, onMounted, onUnmounted } from 'vue';
 import { useCycleList } from '@vueuse/core';
 
 defineOptions({
@@ -26,7 +26,7 @@ const slot = defineSlots<{
 
 const slotLength = computed(() => {
 	let len = 0;
-	const children = slot.default();
+	const children = slot.default().filter((i) => i.type !== Comment);
 	children.forEach((vnode, i) => {
 		if (vnode.type === Fragment) {
 			len += vnode.children.length;
@@ -38,7 +38,7 @@ const slotLength = computed(() => {
 });
 const slots = computed(() => {
 	let arr = [];
-	const children = slot.default();
+	const children = slot.default().filter((i) => i.type !== Comment);
 	children.forEach((vnode) => {
 		if (vnode.type === Fragment) {
 			arr.push(...vnode.children);
