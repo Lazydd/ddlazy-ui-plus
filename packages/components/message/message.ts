@@ -36,7 +36,7 @@ function getMessageInstance() {
 	return messageInstance;
 }
 
-function message(content: any, options: any) {
+function message(content: any, options?: any) {
 	const { duration, type } = { duration: 3, type: 'info', ...options } as {
 		duration: number;
 		type: string;
@@ -51,4 +51,4 @@ function message(content: any, options: any) {
 	};
 });
 
-export default message;
+export default <any>message;
