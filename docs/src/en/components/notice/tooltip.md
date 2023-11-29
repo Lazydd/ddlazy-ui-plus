@@ -68,9 +68,9 @@ Use attribute `maxWidth` to set the automatic line wrap width of the `Tooltip` .
 
 ### Options
 
-| Name      | Description                                                           | Type                                                                                                 | Default | Version |
-| --------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------- | ------- |
-| content   | display content, can be overridden by `slot`                          | `string`                                                                                             | ''      |
-| placement | position of `Tooltip`                                                 | `'top-left' \|'top' \| 'top-right' \| 'left' \| 'right'\| 'bottom-left'\| 'bottom'\| 'bottom-right'` | 'top'   |
-| maxWidth  | Maximum width, if content exceeds, wrap                               | `number`                                                                                             | 500     |
-| space     | `Tooltip` The distance between the component and the starting content | `number`                                                                                             | 8       |
+| Name      | Description                                                           | Type                                                                                     | Default | Version |
+| --------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------- | ------- |
+| content   | display content, can be overridden by `slot`                          | `string`                                                                                 | ''      |
+| placement | position of `Tooltip`                                                 | `top-left \| top \| top-right \| left \| right \| bottom-left \| bottom \| bottom-right` | top     |
+| maxWidth  | Maximum width, if content exceeds, wrap                               | `number`                                                                                 | 500     |
+| space     | `Tooltip` The distance between the component and the starting content | `number`                                                                                 | 8       |

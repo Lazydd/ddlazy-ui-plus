@@ -184,14 +184,14 @@
 
 ### Button Attributes
 
-| Name     | Description | Type                                                    | Default | Version |
-| -------- | ----------- | ------------------------------------------------------- | ------- | ------- |
-| size     | 尺寸        | `'large'\| 'small'`                                     | —       |
-| type     | 类型        | `'primary'\| 'success'\| 'warning'\| 'danger'\| 'info'` | —       |
-| plain    | 朴素按钮    | `boolean`                                               | false   |
-| link     | 链接按钮    | `boolean`                                               | false   |         |
-| round    | 圆角按钮    | `boolean`                                               | false   |
-| circle   | 圆形按钮    | `boolean`                                               | false   |
-| loading  | 加载中      | `boolean`                                               | false   |
-| disabled | 禁用        | `boolean`                                               | false   |
-| icon     | 图标组件    | `string` / `Component`                                  | —       |
+| Name     | Description | Type                                              | Default | Version |
+| -------- | ----------- | ------------------------------------------------- | ------- | ------- |
+| size     | 尺寸        | `large \| small`                                  | —       |
+| type     | 类型        | `primary \| success \| warning \| danger \| info` | —       |
+| plain    | 朴素按钮    | `boolean`                                         | false   |
+| link     | 链接按钮    | `boolean`                                         | false   |         |
+| round    | 圆角按钮    | `boolean`                                         | false   |
+| circle   | 圆形按钮    | `boolean`                                         | false   |
+| loading  | 加载中      | `boolean`                                         | false   |
+| disabled | 禁用        | `boolean`                                         | false   |
+| icon     | 图标组件    | `string` / `Component`                            | —       |

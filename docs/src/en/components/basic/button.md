@@ -184,14 +184,14 @@ Set `loading` attribute to `true` to display loading state.
 
 ### Button Attributes
 
-| Name     | Description | Type                                                    | Default | version |
-| -------- | ----------- | ------------------------------------------------------- | ------- | ------- |
-| size     | size        | `'large'\| 'default'\| 'small'`                         | —       |
-| type     | type        | `'primary'\| 'success'\| 'warning'\| 'danger'\| 'info'` | —       |
-| plain    | plain       | `boolean`                                               | false   |
-| link     | link        | `boolean`                                               | false   |         |
-| round    | round       | `boolean`                                               | false   |
-| circle   | circle      | `boolean`                                               | false   |
-| loading  | loading     | `boolean`                                               | false   |
-| disabled | disabled    | `boolean`                                               | false   |
-| icon     | icon        | `string` / `Component`                                  | —       |
+| Name     | Description | Type                                              | Default | version |
+| -------- | ----------- | ------------------------------------------------- | ------- | ------- |
+| size     | size        | `large \| default \| small`                       | —       |
+| type     | type        | `primary \| success \| warning \| danger \| info` | —       |
+| plain    | plain       | `boolean`                                         | false   |
+| link     | link        | `boolean`                                         | false   |         |
+| round    | round       | `boolean`                                         | false   |
+| circle   | circle      | `boolean`                                         | false   |
+| loading  | loading     | `boolean`                                         | false   |
+| disabled | disabled    | `boolean`                                         | false   |
+| icon     | icon        | `string` / `Component`                            | —       |

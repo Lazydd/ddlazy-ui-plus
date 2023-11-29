@@ -138,17 +138,17 @@ const value = ref(10);
 
 ### Input Number Attributes
 
-| Name           | Description                 | Type                           | Default   | Version |
-| -------------- | --------------------------- | ------------------------------ | --------- | ------- |
-| value(v-model) | binding value               | `string`                       | —         |
-| max            | the maximum allowed value   | `number`                       | Infinity  |         |
-| min            | the minimum allowed value   | `number`                       | -Infinity |
-| step           | incremental step            | `number`                       | 1         |
-| placeholder    | placeholder of Input Number | `string`                       | —         |
-| disabled       | whether Input is disabled   | `boolean`                      | false     |
-| size           | size of Input Number        | `'large'\|'default'\| 'small'` | —         |
-| precision      | precision of input value    | `'number'`                     | —         |
-| bordered       | No border                   | `'boolean'`                    | false     |
+| Name           | Description                 | Type                        | Default   | Version |
+| -------------- | --------------------------- | --------------------------- | --------- | ------- |
+| value(v-model) | binding value               | `string`                    | —         |
+| max            | the maximum allowed value   | `number`                    | Infinity  |         |
+| min            | the minimum allowed value   | `number`                    | -Infinity |
+| step           | incremental step            | `number`                    | 1         |
+| placeholder    | placeholder of Input Number | `string`                    | —         |
+| disabled       | whether Input is disabled   | `boolean`                   | false     |
+| size           | size of Input Number        | `large \| default \| small` | —         |
+| precision      | precision of input value    | `number`                    | —         |
+| bordered       | No border                   | `boolean`                   | false     |
 
 ### Input Number Events
 

@@ -193,20 +193,20 @@ const input = ref('');
 
 ### Input Attributes
 
-| Name           | Description                                                      | Type                                             | Default | Version |
-| -------------- | ---------------------------------------------------------------- | ------------------------------------------------ | ------- | ------- |
-| type           | type of input                                                    | `string`                                         | text    |
-| value(v-model) | binding value                                                    | `string`                                         | —       |
-| maxlength      | the max length                                                   | `number`                                         | —       |         |
-| showCount      | whether show word count                                          | `boolean`                                        | false   |
-| placeholder    | placeholder of Input                                             | `string`                                         | —       |
-| disabled       | whether Input is disabled                                        | `boolean`                                        | false   |
-| size           | size of Input, works when `type` is not `textarea`               | `'large'\|'default'\| 'small'`                   | —       |
-| prefix         | prefix icon component                                            | `Component`                                      | —       |
-| suffix         | suffix icon component                                            | `Component`                                      | —       |
-| rows           | number of rows of textarea, only works when `type` is `textarea` | `number`                                         | —       |
-| readonly       | same as `readonly` in native input                               | `boolean`                                        | false   |
-| resize         | control the resizability                                         | `'none' \| 'both' \| 'horizontal' \| 'vertical'` | —       |
+| Name           | Description                                                      | Type                                     | Default | Version |
+| -------------- | ---------------------------------------------------------------- | ---------------------------------------- | ------- | ------- |
+| type           | type of input                                                    | `string`                                 | text    |
+| value(v-model) | binding value                                                    | `string`                                 | —       |
+| maxlength      | the max length                                                   | `number`                                 | —       |         |
+| showCount      | whether show word count                                          | `boolean`                                | false   |
+| placeholder    | placeholder of Input                                             | `string`                                 | —       |
+| disabled       | whether Input is disabled                                        | `boolean`                                | false   |
+| size           | size of Input, works when `type` is not `textarea`               | `large \| default \| small`              | —       |
+| prefix         | prefix icon component                                            | `Component`                              | —       |
+| suffix         | suffix icon component                                            | `Component`                              | —       |
+| rows           | number of rows of textarea, only works when `type` is `textarea` | `number`                                 | —       |
+| readonly       | same as `readonly` in native input                               | `boolean`                                | false   |
+| resize         | control the resizability                                         | `none \| both \| horizontal \| vertical` | —       |
 
 ### Input Events
 

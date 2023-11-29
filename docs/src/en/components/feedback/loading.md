@@ -82,12 +82,12 @@ const loading = ref(true);
 
 ### Input Attributes
 
-| Name           | Description      | Type                           | Default | Version |
-| -------------- | ---------------- | ------------------------------ | ------- | ------- |
-| value(v-model) | binding value    | `boolean`                      | —       |
-| size           | size of Loading  | `'large'\|'default'\| 'small'` | —       |
-| tip            | color of Tip     | `string`                       | —       |
-| color          | color of Loading | `string`                       | —       |
+| Name           | Description      | Type                        | Default | Version |
+| -------------- | ---------------- | --------------------------- | ------- | ------- |
+| value(v-model) | binding value    | `boolean`                   | —       |
+| size           | size of Loading  | `large \| default \| small` | —       |
+| tip            | color of Tip     | `string`                    | —       |
+| color          | color of Loading | `string`                    | —       |
 
 ### Input Events
 

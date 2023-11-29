@@ -138,17 +138,17 @@ const value = ref(10);
 
 ### Input Number Attributes
 
-| Name           | Description            | Type                           | Default   | Version |
-| -------------- | ---------------------- | ------------------------------ | --------- | ------- |
-| value(v-model) | 绑定值                 | `string`                       | —         |
-| max            | 设置计数器允许的最大值 | `number`                       | Infinity  |         |
-| min            | 设置计数器允许的最小值 | `number`                       | -Infinity |
-| step           | 计数器步长             | `number`                       | 1         |
-| placeholder    | 输入框占位文本         | `string`                       | —         |
-| disabled       | 禁用                   | `boolean`                      | false     |
-| size           | 输入框尺寸             | `'large'\|'default'\| 'small'` | —         |
-| precision      | 数值精度               | `'number'`                     | —         |
-| bordered       | 无边框样式             | `'boolean'`                    | false     |
+| Name           | Description            | Type                        | Default   | Version |
+| -------------- | ---------------------- | --------------------------- | --------- | ------- |
+| value(v-model) | 绑定值                 | `string`                    | —         |
+| max            | 设置计数器允许的最大值 | `number`                    | Infinity  |         |
+| min            | 设置计数器允许的最小值 | `number`                    | -Infinity |
+| step           | 计数器步长             | `number`                    | 1         |
+| placeholder    | 输入框占位文本         | `string`                    | —         |
+| disabled       | 禁用                   | `boolean`                   | false     |
+| size           | 输入框尺寸             | `large \| default \| small` | —         |
+| precision      | 数值精度               | `'number'`                  | —         |
+| bordered       | 无边框样式             | `'boolean'`                 | false     |
 
 ### Input Number Events
 

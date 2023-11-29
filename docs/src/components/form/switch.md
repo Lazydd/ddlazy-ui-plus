@@ -103,14 +103,14 @@ const checked2 = ref(false);
 
 ### Select Attributes
 
-| Name              | Description    | Type                  | Default   | Version |
-| ----------------- | -------------- | --------------------- | --------- | ------- |
-| value(v-model)    | 绑定值         | `'boolean'`           | —         |
-| disabled          | 禁用           | `boolean`             | false     |
-| loading           | 禁用           | `boolean`             | false     |
-| size              | 输入框尺寸     | `'default'\| 'small'` | 'default' |
-| checkedChildren   | 选中时的内容   | `'string'`            | —         |
-| unCheckedChildren | 非选中时的内容 | `'string'`            | —         |
+| Name              | Description    | Type               | Default   | Version |
+| ----------------- | -------------- | ------------------ | --------- | ------- |
+| value(v-model)    | 绑定值         | `boolean`          | —         |
+| disabled          | 禁用           | `boolean`          | false     |
+| loading           | 禁用           | `boolean`          | false     |
+| size              | 输入框尺寸     | `default \| small` | 'default' |
+| checkedChildren   | 选中时的内容   | `string`           | —         |
+| unCheckedChildren | 非选中时的内容 | `string`           | —         |
 
 ### Select Events
 

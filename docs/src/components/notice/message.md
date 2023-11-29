@@ -45,8 +45,8 @@ const open4 = () => {
 
 ### Options
 
-| Name     | Description                                  | Type                                          | Default | Version |
-| -------- | -------------------------------------------- | --------------------------------------------- | ------- | ------- |
-| message  | 消息文字                                     | `string`                                      | ''      |
-| type     | 消息类型                                     | `'success' \| 'warning' \| 'info' \| 'error'` | info    |
-| duration | 显示时间，单位为毫秒。 设为 0 则不会自动关闭 | `number`                                      | 3000    |
+| Name     | Description                                  | Type                                  | Default | Version |
+| -------- | -------------------------------------------- | ------------------------------------- | ------- | ------- |
+| message  | 消息文字                                     | `string`                              | ''      |
+| type     | 消息类型                                     | `success \| warning \| info \| error` | info    |
+| duration | 显示时间，单位为毫秒。 设为 0 则不会自动关闭 | `number`                              | 3000    |

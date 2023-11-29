@@ -386,12 +386,12 @@ options.value = c;
 
 | Name           | Description                | Type                                                             | Default | Version |
 | -------------- | -------------------------- | ---------------------------------------------------------------- | ------- | ------- |
-| value(v-model) | 绑定值                     | `'string' \| 'number' \| 'string[]' \| 'number[]'`               | —       |
+| value(v-model) | 绑定值                     | `string \| number \| string[] \| number[]`                       | —       |
 | options        | 通过 `option` ，自定义节点 | `{ value: any; label?: any; disabled?: boolean; title?: any }[]` | —       |         |
 | showSearch     | 配置是否可搜索             | `boolean`                                                        | false   |
 | placeholder    | 输入框占位文本             | `string`                                                         | —       |
 | disabled       | 禁用                       | `boolean`                                                        | false   |
-| size           | 输入框尺寸                 | `'large'\|'default'\| 'small'`                                   | —       |
+| size           | 输入框尺寸                 | `large \| default \| small`                                      | —       |
 | filterOption   | 是否根据输入项进行筛选。   | `Function(inputValue, option)`                                   | true    |
 | multiple       | 多选模式                   | `boolean`                                                        | false   |
 | clearable      | 是否可以清空选项           | `boolean`                                                        | false   |

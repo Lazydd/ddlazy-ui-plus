@@ -82,12 +82,12 @@ const loading = ref(true);
 
 ### Input Attributes
 
-| Name           | Description | Type                           | Default | Version |
-| -------------- | ----------- | ------------------------------ | ------- | ------- |
-| value(v-model) | 绑定值      | `boolean`                      | —       |
-| size           | 尺寸        | `'large'\|'default'\| 'small'` | —       |
-| tip            | 提示文案    | `string`                       | —       |
-| color          | 颜色        | `string`                       | —       |
+| Name           | Description | Type                        | Default | Version |
+| -------------- | ----------- | --------------------------- | ------- | ------- |
+| value(v-model) | 绑定值      | `boolean`                   | —       |
+| size           | 尺寸        | `large \| default \| small` | —       |
+| tip            | 提示文案    | `string`                    | —       |
+| color          | 颜色        | `string`                    | —       |
 
 ### Input Events
 
