@@ -45,3 +45,14 @@
 	--dd-input-number-icon-color: rgba(255, 255, 255, 0.45);
 	--dd-input-number-disabled-background-color: rgba(255, 255, 255, 0.08);
 }
+/* radio */
+.dark {
+	--dd-radio-border-color: #424242;
+	--dd-radio-button-border-color: #424242;
+	--dd-radio-border-inner-background-color: #141414;
+	--dd-radio-button-border-inner-background-color: #141414;
+	--dd--radio-button-background-color: #141414;
+	--dd--radio-button-checked-background-color: #141414;
+	--dd-radio-button-disabled-background-color: rgba(255, 255, 255, 0.08);
+	--dd-radio-button-disabled-active-background-color: rgba(255, 255, 255, 0.18);
+}
