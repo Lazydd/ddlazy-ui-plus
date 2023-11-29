@@ -102,6 +102,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					link: '/en/components/form/input-number',
 				},
 				{
+					text: 'Radio',
+					link: '/en/components/form/radio',
+				},
+				{
 					text: 'Select',
 					link: '/en/components/form/select',
 				},

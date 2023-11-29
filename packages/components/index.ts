@@ -17,6 +17,9 @@ export * from './loading';
 export * from './switch';
 export * from './input-number';
 export * from './carousel';
+export * from './radio';
+export * from './radio-button';
+export * from './radio-group';
 
 export default {
 	install(app: App) {

@@ -1,0 +1,145 @@
+.dd-radio-button-wrapper {
+	position: relative;
+	display: inline-block;
+	height: 32px;
+	margin: 0;
+	padding-inline: 15px;
+	padding-block: 0;
+	color: var(--dd-radio-color);
+	font-size: var(--dd-size);
+	line-height: 30px;
+	background: var(--dd--radio-button-background-color);
+	border: 1px solid var(--dd-radio-button-border-color);
+	border-block-start-width: 1.02px;
+	border-inline-start-width: 0;
+	border-inline-end-width: 1px;
+	cursor: pointer;
+	transition: color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+	input {
+		width: 0;
+		height: 0;
+		opacity: 0;
+		pointer-events: none;
+	}
+	&:first-child {
+		border-inline-start: 1px solid var(--dd-radio-button-border-color);
+		border-start-start-radius: var(--dd-radius-size);
+		border-end-start-radius: var(--dd-radius-size);
+	}
+	&:last-child {
+		border-start-end-radius: var(--dd-radius-size);
+		border-end-end-radius: var(--dd-radius-size);
+	}
+	&:not(&:first-child)::before {
+		position: absolute;
+		inset-block-start: -1px;
+		inset-inline-start: -1px;
+		display: block;
+		box-sizing: content-box;
+		width: 1px;
+		height: 100%;
+		padding-block: 1px;
+		padding-inline: 0;
+		background-color: var(--dd-radio-button-border-color);
+		transition: background-color 0.3s;
+		content: '';
+	}
+	&:hover:not(.dd-radio-button-wrapper-disabled) {
+		color: var(--dd-radio-button-active-color);
+	}
+	&-disabled {
+		cursor: not-allowed;
+		color: var(--dd-radio-button-disabled-active-color);
+		background-color: var(--dd-radio-button-disabled-background-color);
+		border-color: var(--dd-radio-button-border-color);
+		&.dd-radio-button-wrapper-checked {
+			background-color: var(--dd-radio-button-disabled-active-background-color);
+			box-shadow: none;
+		}
+	}
+	&-checked {
+		&:not(.dd-radio-button-wrapper-disabled) {
+			z-index: 1;
+			color: var(--dd-radio-button-active-color);
+			background: var(--dd--radio-button-checked-background-color);
+			border-color: var(--dd-radio-button-active-border-color);
+			&:hover {
+				color: var(--dd-radio-button-hover-background-color);
+				border-color: var(--dd-radio-button-hover-background-color);
+			}
+			&::before {
+				background-color: var(--dd-radio-button-active-background-color) !important;
+			}
+		}
+	}
+	.dd-radio-button-checked {
+		.dd-radio-button-inner {
+			color: var(--dd-radio-button-active-color);
+		}
+	}
+	.dd-radio-button {
+		position: absolute;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+	}
+}
+.dd-radio-group-solid {
+	.dd-radio-button-wrapper {
+		&-disabled {
+			&.dd-radio-button-wrapper-checked {
+				color: var(--dd-radio-button-disabled-active-color);
+				background-color: var(--dd-radio-button-disabled-active-background-color);
+				border-color: var(--dd-radio-button-border-color);
+				box-shadow: none;
+			}
+		}
+		&-checked:not(.dd-radio-button-wrapper-disabled) {
+			color: #fff;
+			background: var(--dd-radio-button-active-background-color);
+			border-color: var(--dd-radio-button-active-border-color);
+		}
+		&:hover:where(.dd-radio-button-wrapper-checked):not(.dd-radio-button-wrapper-disabled) {
+			color: #fff;
+			background: var(--dd-radio-button-hover-background-color);
+			border-color: var(--dd-radio-button-hover-background-color);
+			&::before {
+				background-color: var(--dd-radio-button-hover-background-color) !important;
+			}
+		}
+	}
+}
+
+.large {
+	.dd-radio-button-wrapper {
+		height: 40px;
+		font-size: var(--dd-large);
+		line-height: 38px;
+		&:first-child {
+			border-start-start-radius: var(--dd-radius-large);
+			border-end-start-radius: var(--dd-radius-large);
+		}
+		&:last-child {
+			border-start-end-radius: var(--dd-radius-large);
+			border-end-end-radius: var(--dd-radius-large);
+		}
+	}
+}
+.small {
+	.dd-radio-button-wrapper {
+		height: 24px;
+		padding-inline: 7px;
+		padding-block: 0;
+		line-height: 22px;
+		&:first-child {
+			border-start-start-radius: var(--dd-radius-small);
+			border-end-start-radius: var(--dd-radius-small);
+		}
+		&:last-child {
+			border-start-end-radius: var(--dd-radius-small);
+			border-end-end-radius: var(--dd-radius-small);
+		}
+	}
+}
