@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { createName } from '../../utils/index';
 import { radioGroupProps } from './types';
-import { h, Comment, Fragment, type VNode } from 'vue';
+import { h, Comment, Fragment, type VNode, computed } from 'vue';
 import DdRadio from '../radio';
 import DdRadioButton from '../radio-button';
 
@@ -9,16 +9,19 @@ export default {
 	name: createName('radio-group'),
 	props: radioGroupProps,
 	setup(props, { slots, emit }) {
-		let arr = [];
-		const children = slots.default().filter((i) => i.type !== Comment);
-		children.forEach((vnode) => {
-			if (vnode.type === Fragment || vnode.type === 'template') {
-				arr.push(...(vnode.children as VNode[]));
-			} else {
-				arr.push(vnode);
-			}
+		const slot = computed(() => {
+			let arr = [];
+			const children = slots.default().filter((i) => i.type !== Comment);
+			children.forEach((vnode) => {
+				if (vnode.type === Fragment || vnode.type === 'template') {
+					arr.push(...(vnode.children as VNode[]));
+				} else {
+					arr.push(vnode);
+				}
+			});
+			return arr.filter((v) => v.type.name === 'DdRadio' || v.type.name === 'DdRadioButton');
 		});
-		arr = arr.filter((v) => v.type.name === 'DdRadio' || v.type.name === 'DdRadioButton');
+
 		return () =>
 			h(
 				'div',
@@ -29,7 +32,7 @@ export default {
 						{ 'dd-radio-group-solid': props.buttonStyle === 'solid' },
 					],
 				},
-				arr.map((item) => {
+				slot.value.map((item) => {
 					return h(
 						item.type.name == 'DdRadio' ? DdRadio : DdRadioButton,
 						{
