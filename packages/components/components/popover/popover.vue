@@ -7,7 +7,6 @@ import {
 	useEventListener,
 	useThrottleFn,
 	useElementSize,
-	useElementBounding,
 } from '@vueuse/core';
 import { getOffset } from '@ddlazy/utils';
 
@@ -83,15 +82,11 @@ const setInset = async () => {
 	}
 };
 const instanceAttribute = useElementSize(props.instance);
-const aaaa = useElementBounding(props.instance);
 
 watch([() => instanceAttribute.width.value, () => instanceAttribute.height.value], () => {
 	setInset();
 });
-watch([() => aaaa.x], () => {
-	console.log(aaaa.x.value);
-	setInset();
-});
+
 watch(
 	() => props.visible,
 	() => {

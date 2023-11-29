@@ -15,7 +15,6 @@ const radioClick = () => {
 	if (props.disabled || props.checked) return;
 	emit('update:checked', true);
 };
-console.log(props.disabled);
 
 defineExpose({});
 </script>
