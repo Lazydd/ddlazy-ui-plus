@@ -291,6 +291,7 @@ const passwordIcon = computed(() =>
 				:instance="selectRef"
 				:arrow="false"
 				:autoWidth="false"
+				:padding="4"
 				class="dd-select-popover"
 			>
 				<template v-if="!$slots.dropdownRender">
