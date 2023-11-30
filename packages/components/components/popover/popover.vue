@@ -20,10 +20,12 @@ const props = withDefaults(
 		instance?: HTMLElement | null;
 		arrow?: boolean;
 		autoWidth?: boolean;
+		padding?: number;
 	}>(),
 	{
 		arrow: true,
 		autoWidth: true,
+		padding: 12,
 	}
 );
 const emit = defineEmits(['update:visible']);
@@ -136,7 +138,7 @@ const created = ref(false);
 					class="dd-popover-content"
 					:style="{ width: !autoWidth ? instanceWidth + 'px' : '' }"
 				>
-					<div class="dd-popover-inner">
+					<div class="dd-popover-inner" :style="{ padding: padding + 'px' }">
 						<div class="dd-popover-inner-content">
 							<slot />
 						</div>
