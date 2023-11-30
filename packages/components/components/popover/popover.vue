@@ -49,6 +49,21 @@ useEventListener(
 	}, 150)
 );
 
+const instanceAttributes = computed(() => {
+	const instance = props.instance.getBoundingClientRect();
+	return {
+		offsetTop: instance.top,
+		offsetLeft: instance.left,
+	};
+});
+const nodeAttributes = computed(() => {
+	const instance = popoverRef.value.getBoundingClientRect();
+	return {
+		nodeHeight: instance.height,
+		nodeWidth: instance.width,
+	};
+});
+
 const setInset = async () => {
 	if (!props.instance || !props.visible) return;
 	const { top, left, width, height } = getOffset(props.instance);
@@ -57,20 +72,27 @@ const setInset = async () => {
 	let insetLeft = left;
 	insetStyle.value = `${insetTop}px auto auto ${insetLeft}px`;
 	popoverPlacement.value = 'topLeft';
-	let offsetTop = (props.instance.getBoundingClientRect() as DOMRect).top;
-	let offsetLeft = (props.instance.getBoundingClientRect() as DOMRect).left;
 	await nextTick();
-	let nodeHeight = (popoverRef.value.getBoundingClientRect() as DOMRect).height;
-	let nodeWidth = (popoverRef.value.getBoundingClientRect() as DOMRect).width;
-
 	let insetBottom = 0;
-	if (offsetTop + height + nodeHeight + threshold.value > windoHeight.value) {
+	if (
+		instanceAttributes.value.offsetTop +
+			height +
+			nodeAttributes.value.nodeHeight +
+			threshold.value >
+		windoHeight.value
+	) {
 		insetBottom = windoHeight.value - top + arrowGap.value;
 		popoverPlacement.value = 'bottomLeft';
 		insetStyle.value = `auto auto ${insetBottom}px ${insetLeft}px`;
 	}
 	let insetRight = 0;
-	if (offsetLeft + width + nodeWidth + threshold.value > windoWidth.value) {
+	if (
+		instanceAttributes.value.offsetLeft +
+			width +
+			nodeAttributes.value.nodeWidth +
+			threshold.value >
+		windoWidth.value
+	) {
 		insetRight = windoWidth.value - left - width;
 		if (popoverPlacement.value.includes('bottom')) {
 			insetStyle.value = `auto ${insetRight}px ${insetBottom}px auto`;
@@ -92,7 +114,6 @@ watch(
 	() => {
 		if (props.visible) {
 			created.value = true;
-			instanceWidth.value = props.instance.getBoundingClientRect().width;
 		}
 		setInset();
 	}
