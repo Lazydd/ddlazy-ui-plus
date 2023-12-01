@@ -2,7 +2,7 @@ import type { ExtractPropTypes, PropType } from 'vue';
 
 export const switchProps = {
 	value: {
-		type: Boolean,
+		type: [Boolean, String, Number] as PropType<boolean | string | number>,
 	},
 	disabled: {
 		type: Boolean,
@@ -21,6 +21,14 @@ export const switchProps = {
 	},
 	unCheckedChildren: {
 		type: String,
+	},
+	checkedValue: {
+		type: [Boolean, String, Number] as PropType<boolean | string | number>,
+		default: true,
+	},
+	unCheckedValue: {
+		type: [Boolean, String, Number] as PropType<boolean | string | number>,
+		default: false,
 	},
 } as const;
 

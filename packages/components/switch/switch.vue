@@ -2,15 +2,21 @@
 import { createName } from '../../utils/index';
 import { switchProps } from './types';
 
+import { computed } from 'vue';
+
 defineOptions({
 	name: createName('switch'),
 });
 const props = defineProps(switchProps);
 const emit = defineEmits(['update:value', 'change']);
 
+const reversValue = computed(() =>
+	props.value === props.checkedValue ? props.unCheckedValue : props.checkedValue
+);
+
 const switchClick = (e) => {
 	if (props.disabled || props.loading) return;
-	emit('update:value', !props.value);
+	emit('update:value', reversValue.value);
 	emit('change', props.value, e);
 };
 </script>
@@ -21,13 +27,13 @@ const switchClick = (e) => {
 			'dd-switch',
 			size,
 			{
-				'dd-switch-checked': value,
+				'dd-switch-checked': value === checkedValue,
 				'dd-switch-disabled': disabled,
 				'dd-switch-loading': loading,
 			},
 		]"
 		role="switch"
-		:checked="value"
+		:checked="value === checkedValue"
 		@click="(e) => switchClick(e)"
 	>
 		<div class="dd-switch-handle">
