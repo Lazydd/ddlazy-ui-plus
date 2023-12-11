@@ -22,36 +22,37 @@ export default {
 			return arr.filter((v) => v.type.name === 'DdRadio' || v.type.name === 'DdRadioButton');
 		});
 
-		return () =>
-			h(
-				'div',
-				{
-					class: [
-						'dd-radio-group',
-						props.size,
-						{ 'dd-radio-group-solid': props.buttonStyle === 'solid' },
-					],
-				},
-				slot.value.map((item) => {
-					return h(
-						item.type.name == 'DdRadio' ? DdRadio : DdRadioButton,
-						{
-							value: item.props?.value,
-							checked: props.value === item.props?.value,
-							disabled: !!(props.disabled ? props.disabled : item.props?.disabled),
-							buttonStyle: props.buttonStyle,
-							onClick() {
-								if (item.props.disabled || props.disabled) return;
-								if (props.value !== item.props?.value) {
-									emit('change', item.props?.value, props.value);
+		return () => (
+			<div
+				class={[
+					'dd-radio-group',
+					props.size,
+					{ 'dd-radio-group-solid': props.buttonStyle === 'solid' },
+				]}
+			>
+				{slot.value.map((v) => {
+					const component = v.type.name == 'DdRadio' ? DdRadio : DdRadioButton;
+					return (
+						<component
+							is={component}
+							value={v.props.value}
+							checked={props.value === v.props?.value}
+							disabled={!!(props.disabled ? props.disabled : v.props?.disabled)}
+							buttonStyle={props.buttonStyle}
+							onClick={() => {
+								if (v.props.disabled || props.disabled) return;
+								if (props.value !== v.props?.value) {
+									emit('change', v.props?.value, props.value);
 								}
-								emit('update:value', item.props?.value);
-							},
-						},
-						() => item.children?.default() ?? item.props?.value
+								emit('update:value', v.props?.value);
+							}}
+						>
+							{v.children?.default() ?? v.props.value}
+						</component>
 					);
-				})
-			);
+				})}
+			</div>
+		);
 	},
 };
 </script>
