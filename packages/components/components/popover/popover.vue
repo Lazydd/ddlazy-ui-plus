@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, nextTick, computed } from 'vue';
+import { watch, ref, nextTick, computed, watchEffect } from 'vue';
 import { vOnClickOutside } from '@vueuse/components';
 import {
 	useResizeObserver,
@@ -110,16 +110,12 @@ const instanceAttribute = useElementSize(props.instance);
 watch([() => instanceAttribute.width.value, () => instanceAttribute.height.value], () => {
 	setInset();
 });
-
-watch(
-	() => props.visible,
-	() => {
-		if (props.visible) {
-			created.value = true;
-		}
-		setInset();
+watchEffect(() => {
+	if (props.visible) {
+		created.value = true;
 	}
-);
+	setInset();
+});
 const created = ref(false);
 </script>
 
