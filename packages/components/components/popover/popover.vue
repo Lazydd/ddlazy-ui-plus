@@ -28,7 +28,10 @@ const props = withDefaults(
 		padding: 12,
 	}
 );
-const emit = defineEmits(['update:visible']);
+const emit = defineEmits<{
+	'update:visible': [value: boolean];
+	outSideClick: [value: boolean];
+}>();
 
 const insetStyle = ref('');
 const popoverRef = ref<HTMLElement | null>(null);
@@ -110,13 +113,19 @@ const instanceAttribute = useElementSize(props.instance);
 watch([() => instanceAttribute.width.value, () => instanceAttribute.height.value], () => {
 	setInset();
 });
+const created = ref(false);
+
 watchEffect(() => {
 	if (props.visible) {
 		created.value = true;
 	}
 	setInset();
 });
-const created = ref(false);
+
+const outSideClick = () => {
+	emit('update:visible', false);
+	emit('outSideClick', props.visible);
+};
 </script>
 
 <template>
@@ -127,7 +136,7 @@ const created = ref(false);
 				:style="{ inset: insetStyle }"
 				ref="popoverRef"
 				v-show="visible"
-				v-on-click-outside="[() => emit('update:visible', false), { ignore: [instance] }]"
+				v-on-click-outside="[outSideClick, { ignore: [instance] }]"
 			>
 				<div :class="['dd-popover-arrow', popoverPlacement]" v-if="arrow" />
 				<div
