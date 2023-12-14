@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { createName } from '../../utils/index';
 import { radioGroupProps } from './types';
-import { h, Comment, Fragment, type VNode, computed } from 'vue';
+import { Comment, Fragment, type VNode, computed } from 'vue';
 import DdRadio from '../radio';
 import DdRadioButton from '../radio-button';
 
