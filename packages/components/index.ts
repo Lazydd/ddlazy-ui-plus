@@ -24,6 +24,12 @@ export * from './radio-group';
 export default {
 	install(app: App) {
 		for (const path in modulesFiles) {
+			if (Array.isArray(modulesFiles[path])) {
+				(modulesFiles[path] as Component[]).forEach((v) => {
+					const mode: Component = v;
+					app.component(mode.name!, mode);
+				});
+			}
 			const mode: Component = modulesFiles[path]!;
 			app.component(mode.name!, mode);
 		}
