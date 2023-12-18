@@ -38,7 +38,7 @@ const popoverRef = ref<HTMLElement | null>(null);
 
 const threshold = ref(30);
 const popoverPlacement = ref('topLeft');
-const { width: windoWidth, height: windoHeight } = useWindowSize();
+const { width: winWidth, height: winHeight } = useWindowSize();
 
 const arrowGap = computed(() => (props.arrow ? 13 : 6));
 const instanceWidth = ref(props.instance.getBoundingClientRect().width);
@@ -84,9 +84,9 @@ const setInset = async () => {
 			height +
 			nodeAttributes.value.nodeHeight +
 			threshold.value >
-		windoHeight.value
+		winHeight.value
 	) {
-		insetBottom = windoHeight.value - top + arrowGap.value;
+		insetBottom = winHeight.value - top + arrowGap.value;
 		popoverPlacement.value = 'bottomLeft';
 		insetStyle.value = `auto auto ${insetBottom}px ${insetLeft}px`;
 	}
@@ -96,9 +96,9 @@ const setInset = async () => {
 			width +
 			nodeAttributes.value.nodeWidth +
 			threshold.value >
-		windoWidth.value
+		winWidth.value
 	) {
-		insetRight = windoWidth.value - left - width;
+		insetRight = winWidth.value - left - width;
 		if (popoverPlacement.value.includes('bottom')) {
 			insetStyle.value = `auto ${insetRight}px ${insetBottom}px auto`;
 			popoverPlacement.value = 'bottomRight';
