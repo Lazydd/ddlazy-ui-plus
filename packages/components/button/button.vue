@@ -1,5 +1,5 @@
 <template>
-	<button :class="['dd-button', type, size, { plain, round, circle, disabled, loading, link }]">
+	<button :class="['dd-button', type, size, { plain, round, circle, disabled, loading, link }]" :disabled="disabled">
 		<dd-icon v-if="loading" icon="loading" class="loading" />
 		<dd-icon v-if="icon" :icon="icon" />
 		<span :class="{ ml5: icon || loading }" v-if="$slots.default">
