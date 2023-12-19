@@ -21,6 +21,7 @@ const props = withDefaults(
 		arrow?: boolean;
 		autoWidth?: boolean;
 		padding?: number;
+		popupArrowClassName?: string | Object;
 	}>(),
 	{
 		arrow: true,
@@ -138,7 +139,10 @@ const outSideClick = () => {
 				v-show="visible"
 				v-on-click-outside="[outSideClick, { ignore: [instance] }]"
 			>
-				<div :class="['dd-popover-arrow', popoverPlacement]" v-if="arrow" />
+				<div
+					:class="['dd-popover-arrow', popoverPlacement, popupArrowClassName]"
+					v-if="arrow"
+				/>
 				<div
 					class="dd-popover-content"
 					:style="{ width: !autoWidth ? instanceWidth + 'px' : '' }"

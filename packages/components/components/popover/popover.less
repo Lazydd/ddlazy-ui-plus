@@ -19,13 +19,15 @@
 	}
 	&-arrow {
 		position: absolute;
-		left: 12px;
+		left: 0;
 		display: block;
 		width: 16px;
 		height: 16px;
 		pointer-events: none;
 		overflow: hidden;
 		z-index: 1;
+		transition: left 0.3s ease-out;
+		margin-inline-start: 12px;
 		&::before {
 			position: absolute;
 			bottom: 0;
