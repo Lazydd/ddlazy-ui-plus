@@ -70,7 +70,7 @@
 
 | Name      | Description                    | Type                                                                                    | Default | Version |
 | --------- | ------------------------------ | --------------------------------------------------------------------------------------- | ------- | ------- |
-| content   | 显示的内容，也可被 `slot` 覆盖 | `string`                                                                                | ''      |
-| placement | `Tooltip` 组件出现的位置       | `top-left \|top \| top-right \| left \| right \| bottom-left \| bottom \| bottom-right` | top     |
-| maxWidth  | 最大宽度，内容超出则换行       | `number`                                                                                | 500     |
-| space     | `Tooltip` 组件与出发内容的距离 | `number`                                                                                | 8       |
+| content   | 显示的内容，也可被 `slot` 覆盖 | `string`                                                                                |         |
+| placement | `Tooltip` 组件出现的位置       | `top-left \|top \| top-right \| left \| right \| bottom-left \| bottom \| bottom-right` | `top`   |
+| maxWidth  | 最大宽度，内容超出则换行       | `number`                                                                                | `500`   |
+| space     | `Tooltip` 组件与出发内容的距离 | `number`                                                                                | `8`     |

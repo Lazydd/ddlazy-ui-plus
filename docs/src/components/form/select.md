@@ -388,15 +388,15 @@ options.value = c;
 | -------------- | -------------------------- | ---------------------------------------------------------------- | ------- | ------- |
 | value(v-model) | 绑定值                     | `string \| number \| string[] \| number[]`                       | —       |
 | options        | 通过 `option` ，自定义节点 | `{ value: any; label?: any; disabled?: boolean; title?: any }[]` | —       |         |
-| showSearch     | 配置是否可搜索             | `boolean`                                                        | false   |
+| showSearch     | 配置是否可搜索             | `boolean`                                                        | `false` |
 | placeholder    | 输入框占位文本             | `string`                                                         | —       |
-| disabled       | 禁用                       | `boolean`                                                        | false   |
+| disabled       | 禁用                       | `boolean`                                                        | `false` |
 | size           | 输入框尺寸                 | `large \| default \| small`                                      | —       |
-| filterOption   | 是否根据输入项进行筛选。   | `Function(inputValue, option)`                                   | true    |
-| multiple       | 多选模式                   | `boolean`                                                        | false   |
-| clearable      | 是否可以清空选项           | `boolean`                                                        | false   |
+| filterOption   | 是否根据输入项进行筛选。   | `Function(inputValue, option)`                                   | `true`  |
+| multiple       | 多选模式                   | `boolean`                                                        | `false` |
+| clearable      | 是否可以清空选项           | `boolean`                                                        | `false` |
 | maxTagCount    | 最多显示多少个 `tag`       | `number`                                                         | —       |
-| bordered       | 无边框样式                 | `boolean`                                                        | false   |
+| bordered       | 无边框样式                 | `boolean`                                                        | `false` |
 
 ### Select Events
 

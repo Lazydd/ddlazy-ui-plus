@@ -17,7 +17,7 @@ const checked = ref(true);
 
 :::
 
-## 禁用状态
+## Disabled
 
 Adding the disabled attribute disables Switch.
 
@@ -103,16 +103,16 @@ const checked2 = ref(false);
 
 ### Select Attributes
 
-| Name              | Description    | Type                          | Default | Version |
-| ----------------- | -------------- | ----------------------------- | ------- | ------- |
-| value(v-model)    | 绑定值         | `boolean`                     | —       |
-| disabled          | 禁用           | `boolean`                     | false   |
-| loading           | 禁用           | `boolean`                     | false   |
-| size              | 输入框尺寸     | `default \| small`            | default |
-| checkedChildren   | 选中时的内容   | `string`                      | —       |
-| unCheckedChildren | 非选中时的内容 | `string`                      | —       |
-| checkedValue      | checkedValue   | `boolean \| string \| number` | true    |
-| unCheckedValue    | unCheckedValue | `boolean \| string \| number` | false   |
+| Name              | Description                                     | Type                          | Default   | Version |
+| ----------------- | ----------------------------------------------- | ----------------------------- | --------- | ------- |
+| value(v-model)    | binding value                                   | `boolean`                     | —         |
+| disabled          | disabled                                        | `boolean`                     | `false`   |
+| loading           | loading                                         | `boolean`                     | `false`   |
+| size              | size                                            | `default \| small`            | `default` |
+| checkedChildren   | content to be shown when the state is checked   | `string`                      | —         |
+| unCheckedChildren | content to be shown when the state is unchecked | `string`                      | —         |
+| checkedValue      | value for checked state                         | `boolean \| string \| number` | `true`    |
+| unCheckedValue    | value for unchecked state                       | `boolean \| string \| number` | `false`   |
 
 ### Select Events
 

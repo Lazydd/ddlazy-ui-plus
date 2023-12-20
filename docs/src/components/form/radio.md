@@ -149,7 +149,7 @@ const radio = ref(1);
 | ---------------- | ----------- | ----------------------------- | ------- | ------- |
 | checked(v-model) | 绑定值      | `boolean`                     | —       |
 | value            | 值          | `string \| number \| boolean` | —       |
-| disabled         | 禁用        | `boolean`                     | false   |
+| disabled         | 禁用        | `boolean`                     | `false` |
 | size             | 输入框尺寸  | `large \| default \| small`   | —       |
 
 ### Radio Events
@@ -168,12 +168,12 @@ const radio = ref(1);
 
 ### RadioGroup Attributes
 
-| Name           | Description | Type                          | Default | Version |
-| -------------- | ----------- | ----------------------------- | ------- | ------- |
-| value(v-model) | 绑定值      | `string \| number \| boolean` | —       |
-| disabled       | 禁用        | `boolean`                     | false   |
-| size           | 输入框尺寸  | `large \| default \| small`   | —       |
-| buttonStyle    | 风格样式    | `outline \| solid`            | outline |
+| Name           | Description | Type                          | Default   | Version |
+| -------------- | ----------- | ----------------------------- | --------- | ------- |
+| value(v-model) | 绑定值      | `string \| number \| boolean` | —         |
+| disabled       | 禁用        | `boolean`                     | `false`   |
+| size           | 输入框尺寸  | `large \| default \| small`   | —         |
+| buttonStyle    | 风格样式    | `outline \| solid`            | `outline` |
 
 ### RadioGroup Events
 

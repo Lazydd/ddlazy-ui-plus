@@ -388,15 +388,15 @@ options.value = c;
 | -------------- | ------------------------------------ | ---------------------------------------------------------------- | ------- | ------- |
 | value(v-model) | binding value                        | `string \| number \| string[] \| number[]`                       | —       |
 | options        | custom render option                 | `{ value: any; label?: any; disabled?: boolean; title?: any }[]` | —       |         |
-| showSearch     | Whether select is searchable         | `boolean`                                                        | false   |
+| showSearch     | Whether select is searchable         | `boolean`                                                        | `false` |
 | placeholder    | placeholder of Input                 | `string`                                                         | —       |
-| disabled       | whether Input is disabled            | `boolean`                                                        | false   |
+| disabled       | whether Input is disabled            | `boolean`                                                        | `false` |
 | size           | size of Select                       | `large \| default \| small`                                      | —       |
-| filterOption   | Filter based on input items          | `Function(inputValue, option)`                                   | true    |
-| multiple       | whether multiple-select is activated | `boolean`                                                        | false   |
-| clearable      | whether select can be cleared        | `boolean`                                                        | false   |
+| filterOption   | Filter based on input items          | `Function(inputValue, option)`                                   | `true`  |
+| multiple       | whether multiple-select is activated | `boolean`                                                        | `false` |
+| clearable      | whether select can be cleared        | `boolean`                                                        | `false` |
 | maxTagCount    | Max tag count to show                | `number`                                                         | —       |
-| bordered       | Bordered-less                        | `boolean`                                                        | false   |
+| bordered       | Bordered-less                        | `boolean`                                                        | `false` |
 
 ### Select Events
 

@@ -63,7 +63,7 @@
 | ----------- | -------------------------------------------- | --------------- | ---------- | ------- |
 | description | 自定义描述内容                               | `string`        | `暂无数据` |
 | image       | 设置显示图片，为 string 时表示自定义图片地址 | `string`        | —          |
-| imageStyle  | 图片样式                                     | `CSSProperties` | 3000       |
+| imageStyle  | 图片样式                                     | `CSSProperties` | `3000`     |
 
 ### Empty Slots
 

@@ -149,7 +149,7 @@ const radio = ref(1);
 | ---------------- | ------------- | ----------------------------- | ------- | ------- |
 | checked(v-model) | binding value | `boolean`                     | —       |
 | value            | value         | `string \| number \| boolean` | —       |
-| disabled         | disabled      | `boolean`                     | false   |
+| disabled         | disabled      | `boolean`                     | `false` |
 | size             | size          | `large \| default \| small`   | —       |
 
 ### Radio Events
@@ -168,12 +168,12 @@ const radio = ref(1);
 
 ### RadioGroup Attributes
 
-| Name           | Description   | Type                          | Default | Version |
-| -------------- | ------------- | ----------------------------- | ------- | ------- |
-| value(v-model) | binding value | `string \| number \| boolean` | —       |
-| disabled       | disabled      | `boolean`                     | false   |
-| size           | size          | `large \| default \| small`   | —       |
-| buttonStyle    | buttonStyle   | `outline \| solid`            | outline |
+| Name           | Description   | Type                          | Default   | Version |
+| -------------- | ------------- | ----------------------------- | --------- | ------- |
+| value(v-model) | binding value | `string \| number \| boolean` | —         |
+| disabled       | disabled      | `boolean`                     | `false`   |
+| size           | size          | `large \| default \| small`   | —         |
+| buttonStyle    | buttonStyle   | `outline \| solid`            | `outline` |
 
 ### RadioGroup Events
 

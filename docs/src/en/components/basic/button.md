@@ -188,10 +188,10 @@ Set `loading` attribute to `true` to display loading state.
 | -------- | ----------- | ------------------------------------------------- | ------- | ------- |
 | size     | size        | `large \| default \| small`                       | —       |
 | type     | type        | `primary \| success \| warning \| danger \| info` | —       |
-| plain    | plain       | `boolean`                                         | false   |
-| link     | link        | `boolean`                                         | false   |         |
-| round    | round       | `boolean`                                         | false   |
-| circle   | circle      | `boolean`                                         | false   |
-| loading  | loading     | `boolean`                                         | false   |
-| disabled | disabled    | `boolean`                                         | false   |
+| plain    | plain       | `boolean`                                         | `false` |
+| link     | link        | `boolean`                                         | `false` |         |
+| round    | round       | `boolean`                                         | `false` |
+| circle   | circle      | `boolean`                                         | `false` |
+| loading  | loading     | `boolean`                                         | `false` |
+| disabled | disabled    | `boolean`                                         | `false` |
 | icon     | icon        | `string` / `Component`                            | —       |

@@ -63,7 +63,7 @@ Simplest Usage with no description.
 | ----------- | ------------------------------------------------------------- | --------------- | ---------- | ------- |
 | description | customize description                                         | `string`        | `暂无数据` |
 | image       | customize image. Will tread as image url when string provided | `string`        | —          |
-| imageStyle  | style of image                                                | `CSSProperties` | 3000       |
+| imageStyle  | style of image                                                | `CSSProperties` | `3000`     |
 
 ### Empty Slots
 

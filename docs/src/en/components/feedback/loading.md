@@ -78,9 +78,9 @@ const loading = ref(true);
 
 :::
 
-## Input API
+## Loading API
 
-### Input Attributes
+### Loading Attributes
 
 | Name           | Description      | Type                        | Default | Version |
 | -------------- | ---------------- | --------------------------- | ------- | ------- |
@@ -89,12 +89,10 @@ const loading = ref(true);
 | tip            | color of Tip     | `string`                    | —       |
 | color          | color of Loading | `string`                    | —       |
 
-### Input Events
+### Loading Events
 
-### Input Slots
+### Loading Slots
 
 | Name    | Description                         |
 | ------- | ----------------------------------- |
 | default | embed the content into `dd-loading` |
-
-### Input Exposes

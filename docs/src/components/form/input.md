@@ -195,17 +195,17 @@ const input = ref('');
 
 | Name           | Description                              | Type                                     | Default | Version |
 | -------------- | ---------------------------------------- | ---------------------------------------- | ------- | ------- |
-| type           | 类型                                     | `string`                                 | text    |
+| type           | 类型                                     | `string`                                 | `text`  |
 | value(v-model) | 绑定值                                   | `string`                                 | —       |
 | maxlength      | 最大输入长度                             | `number`                                 | —       |         |
-| showCount      | 是否显示统计字数                         | `boolean`                                | false   |
+| showCount      | 是否显示统计字数                         | `boolean`                                | `false` |
 | placeholder    | 输入框占位文本                           | `string`                                 | —       |
-| disabled       | 禁用                                     | `boolean`                                | false   |
+| disabled       | 禁用                                     | `boolean`                                | `false` |
 | size           | 输入框尺寸                               | `large \| default \| small`              | —       |
 | prefix         | 前缀图标                                 | `Component`                              | —       |
 | suffix         | 后缀图标                                 | `Component`                              | —       |
 | rows           | 输入框行数，仅 type 为 `textarea` 时有效 | `number`                                 | —       |
-| readonly       | 原生 `readonly` 属性，是否只读           | `boolean`                                | false   |
+| readonly       | 原生 `readonly` 属性，是否只读           | `boolean`                                | `false` |
 | resize         | 控制是否能被用户缩放                     | `none \| both \| horizontal \| vertical` | —       |
 
 ### Input Events
