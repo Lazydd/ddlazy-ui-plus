@@ -113,6 +113,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'Switch 开关',
 					link: '/components/form/switch',
 				},
+				{
+					text: 'TimePicker 时间选择器',
+					link: '/components/form/time-picker',
+				},
 			],
 		},
 		{

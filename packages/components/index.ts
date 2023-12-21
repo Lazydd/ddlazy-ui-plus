@@ -20,6 +20,7 @@ export * from './carousel';
 export * from './radio';
 export * from './radio-button';
 export * from './radio-group';
+export * from './time-picker';
 
 export default {
 	install(app: App) {

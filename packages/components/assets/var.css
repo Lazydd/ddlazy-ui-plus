@@ -10,6 +10,7 @@
 	--dd-background-color-1: rgba(0, 0, 0, 0.88);
 	--dd-border-color: #d9d9d9;
 	--dd-border-hover-color: #4096ff;
+	--dd-hover-background-color: rgba(0, 0, 0, 0.04);
 	--dd-disabled-background-color: #f5f7fa;
 	--dd-disabled-background-color-2: rgba(0, 0, 0, 0.04);
 	--dd-disabled-background-color-3: rgba(0, 0, 0, 0.15);
@@ -119,4 +120,16 @@
 	--dd-radio-button-border-inner-background-color: var(--dd-white);
 	--dd--radio-button-background-color: var(--dd-white);
 	--dd--radio-button-checked-background-color: var(--dd-white);
+}
+/* time-picker */
+:root {
+	--dd-time-picker-color: var(--dd-color-1);
+	--dd-time-picker-hover-background-color: var(--dd-hover-background-color);
+	--dd-time-picker-disabled-background-color: var(--dd-disabled-background-color-2);
+	--dd-time-picker-disabled-color: var(--dd-disabled-color);
+	--dd-time-picker-icon-color: var(--dd-icon-color);
+	--dd-time-picker-active-background-color: #e6f4ff;
+	--dd-time-picker-button-hover-color: #69b1ff;
+	--dd-time-picker-border-color: rgba(5, 5, 5, 0.06);
+	--dd-time-picker-clear-background-color: var(--dd-white);
 }

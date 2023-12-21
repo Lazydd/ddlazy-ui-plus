@@ -113,6 +113,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'Switch',
 					link: '/en/components/form/switch',
 				},
+				{
+					text: 'TimePicker',
+					link: '/en/components/form/time-picker',
+				},
 			],
 		},
 		{
