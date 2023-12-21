@@ -90,17 +90,25 @@ export const useCalendar = ({
 	};
 };
 
-export const useTime = ({ type, step = 1 }): ComputedRef<string[]> => {
+export const useTime = ({
+	type,
+	step = 1,
+	disabledArr = <number[]>[],
+}): ComputedRef<{ time: string; disabled: boolean }[]> => {
 	return computed(() => {
 		const length = Math.ceil((type === 'hour' ? 24 : 60) / step);
 		return Array.from({ length }, (_, i) => {
-			return type === 'hour'
-				? dayjs()
-						.hour(i * step)
-						.format('HH')
-				: dayjs()
-						.minute(i * step)
-						.format('mm');
+			return {
+				time:
+					type === 'hour'
+						? dayjs()
+								.hour(i * step)
+								.format('HH')
+						: dayjs()
+								.minute(i * step)
+								.format('mm'),
+				disabled: disabledArr.includes(i),
+			};
 		});
 	});
 };
