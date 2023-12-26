@@ -146,3 +146,63 @@ defineExpose({
 		</li>
 	</ul>
 </template>
+
+<style lang="less" scoped>
+.dd-picker-time-panel-column {
+	flex: 1 0 auto;
+	width: 56px;
+	margin: 4px 0;
+	padding: 0;
+	overflow-y: hidden;
+	text-align: start;
+	list-style: none;
+	transition: background 0.2s;
+	overflow-x: hidden;
+	&:hover {
+		overflow-y: overlay;
+	}
+	.dd-picker-time-panel-cell {
+		margin-inline: 4px;
+		.dd-picker-time-panel-cell-inner {
+			display: block;
+			width: 48px;
+			height: 28px;
+			margin: 0;
+			padding-block: 0;
+			padding-inline-end: 0;
+			padding-inline-start: 14px;
+			color: var(--dd-time-picker-color);
+			line-height: 28px;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: background 0.2s;
+			&:hover {
+				background: var(--dd-time-picker-hover-background-color);
+			}
+		}
+		&.dd-picker-time-panel-cell-selected {
+			.dd-picker-time-panel-cell-inner {
+				background-color: var(--dd-time-picker-active-background-color);
+			}
+		}
+		&.dd-picker-time-pannel-cell-disabled {
+			.dd-picker-time-panel-cell-inner {
+				color: var(--dd-time-picker-disabled-color);
+				background: transparent;
+				cursor: not-allowed;
+				&:hover {
+					background: var(--dd-time-picker-hover-background-color);
+				}
+			}
+		}
+	}
+	&::after {
+		content: '';
+		display: block;
+		height: 188px;
+	}
+	&:not(:first-child) {
+		border-inline-start: 1px solid var(--dd-time-picker-border-color);
+	}
+}
+</style>
