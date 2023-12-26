@@ -282,7 +282,7 @@ const passwordIcon = computed(() =>
 		</div>
 		<div class="dd-select-arrow">
 			<component class="dd-select-icon" :is="passwordIcon" />
-			<Close2 class="dd-select-clear" @click.stop="clear" v-if="clearable" />
+			<Close2 class="dd-select-clear" @click.stop="clear" v-if="clearable && value" />
 		</div>
 		<Teleport to="body">
 			<Popover
