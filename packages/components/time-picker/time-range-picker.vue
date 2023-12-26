@@ -102,17 +102,6 @@ const timeValue = computed({
 		];
 	},
 	set(value) {
-		if (!props.value) {
-			if (
-				disabledHours().includes(value[activeInput.value].hour()) ||
-				disabledMinutes(timeInfo.value.hour).includes(value[activeInput.value].minute()) ||
-				disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(
-					value[activeInput.value].second()
-				)
-			) {
-				return;
-			}
-		}
 		tempValue.value = value;
 	},
 });

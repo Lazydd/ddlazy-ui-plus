@@ -10,10 +10,12 @@ const props = withDefaults(
 		step?: number;
 		activeInput?: number;
 		disabledTime?: number[];
+		hideDisabledOptions?: boolean;
 	}>(),
 	{
 		step: 1,
 		disabledTime: () => [],
+		hideDisabledOptions: false,
 	}
 );
 const emit = defineEmits<{
@@ -43,7 +45,11 @@ const showTime = computed(() => {
 });
 const formatShowTime = computed(() => dayjs(showTime.value, formatTimeType.value.formatType));
 const dateInfo = computed(() => {
-	return useTime({ type: props.type, step: props.step, disabledArr: props.disabledTime }).value;
+	return useTime({
+		type: props.type,
+		step: props.step,
+		disabledArr: props.disabledTime,
+	}).value.filter((v) => (props.hideDisabledOptions ? !v.disabled : true));
 });
 
 const formatTimeType = computed(() => {
@@ -100,7 +106,7 @@ onMounted(() => {
 });
 const init = (type: ScrollBehavior = 'auto') => {
 	if (!showTime.value) return;
-	const index = dateInfo.value.findIndex((v) => v === showTime.value);
+	const index = dateInfo.value.findIndex((v) => v.time === showTime.value);
 	scrollTo(index, type);
 };
 const scrollTo = (index: number, behavior: ScrollBehavior = 'smooth') => {
@@ -134,7 +140,9 @@ defineExpose({
 			ref="timeRef"
 			@click="timeClick(time, i, disabled)"
 		>
-			<div class="dd-picker-time-panel-cell-inner">{{ time }}</div>
+			<div class="dd-picker-time-panel-cell-inner">
+				{{ time }}
+			</div>
 		</li>
 	</ul>
 </template>

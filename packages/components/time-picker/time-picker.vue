@@ -71,15 +71,6 @@ const timeValue = computed({
 		return tempValue.value ?? formatValue.value;
 	},
 	set(value) {
-		if (!props.value) {
-			if (
-				disabledHours().includes(value.hour()) ||
-				disabledMinutes(timeInfo.value.hour).includes(value.minute()) ||
-				disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(value.second())
-			) {
-				return;
-			}
-		}
 		tempValue.value = value;
 	},
 });
@@ -195,6 +186,7 @@ watch(
 								:step="hourStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledHours()"
+								:hide-disabled-options="hideDisabledOptions"
 								@click="changeFormat"
 							/>
 							<Time
@@ -203,6 +195,7 @@ watch(
 								:step="minuteStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledMinutes(timeInfo.hour)"
+								:hide-disabled-options="hideDisabledOptions"
 								@click="changeFormat"
 							/>
 							<Time
@@ -211,6 +204,7 @@ watch(
 								:step="secondStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
+								:hide-disabled-options="hideDisabledOptions"
 								@click="changeFormat"
 							/>
 						</div>

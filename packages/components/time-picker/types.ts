@@ -64,6 +64,10 @@ export const timePickerProps = {
 			disabledSeconds: (selectedHour: number, selectedMinute: number) => <number[]>[],
 		}),
 	},
+	hideDisabledOptions: {
+		type: Boolean,
+		default: true,
+	},
 	hourStep: {
 		type: Number,
 		defualt: 1,
@@ -125,6 +129,10 @@ export const timeRangePickerProps = {
 			disabledMinutes: (selectedHour: number) => <number[]>[],
 			disabledSeconds: (selectedHour: number, selectedMinute: number) => <number[]>[],
 		}),
+	},
+	hideDisabledOptions: {
+		type: Boolean,
+		default: true,
 	},
 	hourStep: {
 		type: Number,
