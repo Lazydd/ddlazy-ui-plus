@@ -146,22 +146,23 @@ const time2 = ref();
 
 ### TimePicker Attributes
 
-| Name           | Description            | Type                                                                | Default      | Version |
-| -------------- | ---------------------- | ------------------------------------------------------------------- | ------------ | ------- |
-| value(v-model) | 绑定值                 | [`dayjs`](https://day.js.org/)                                      | —            |
-| open(v-model)  | 面板是否打开           | boolean                                                             | `false`      |
-| placeholder    | 没有值的时候显示的内容 | `string \| [string, string]`                                        | `请选择时间` |
-| disabled       | 禁用                   | `boolean`                                                           | `false`      |
-| disabledTime   | 不可选择的时间         | [`DisabledTime`](#disabledtime)                                     | —            |
-| size           | 输入框尺寸             | `large \| default \| small`                                         | —            |
-| clearable      | 是否可以清空选项       | `boolean`                                                           | `false`      |
-| bordered       | 无边框样式             | `boolean`                                                           | `false`      |
-| showNow        | 面板是否显示“此刻”按钮 | `boolean`                                                           | `true`       |
-| format         | 展示的时间格式         | `string`                                                            | `HH:mm:ss`   |
-| valueFormat    | 绑定值的格式           | `string` [`具体格式`](https://day.js.org/docs/zh-CN/display/format) | `HH:mm:ss`   |
-| hourStep       | 小时选项间隔           | `number`                                                            | `1`          |
-| minuteStep     | 分钟选项间隔           | `number`                                                            | `1`          |
-| secondStep     | 秒选项间隔             | `number`                                                            | `1`          |
+| Name                | Description            | Type                                                                | Default      | Version |
+| ------------------- | ---------------------- | ------------------------------------------------------------------- | ------------ | ------- |
+| value(v-model)      | 绑定值                 | [`dayjs`](https://day.js.org/)                                      | —            |
+| open(v-model)       | 面板是否打开           | boolean                                                             | `false`      |
+| placeholder         | 没有值的时候显示的内容 | `string \| [string, string]`                                        | `请选择时间` |
+| disabled            | 禁用                   | `boolean`                                                           | `false`      |
+| disabledTime        | 不可选择的时间         | [`DisabledTime`](#disabledtime)                                     | —            |
+| hideDisabledOptions | 隐藏禁止选择的选项     | `boolean`                                                           | `false`      |
+| size                | 输入框尺寸             | `large \| default \| small`                                         | —            |
+| clearable           | 是否可以清空选项       | `boolean`                                                           | `false`      |
+| bordered            | 无边框样式             | `boolean`                                                           | `false`      |
+| showNow             | 面板是否显示“此刻”按钮 | `boolean`                                                           | `true`       |
+| format              | 展示的时间格式         | `string`                                                            | `HH:mm:ss`   |
+| valueFormat         | 绑定值的格式           | `string` [`具体格式`](https://day.js.org/docs/zh-CN/display/format) | `HH:mm:ss`   |
+| hourStep            | 小时选项间隔           | `number`                                                            | `1`          |
+| minuteStep          | 分钟选项间隔           | `number`                                                            | `1`          |
+| secondStep          | 秒选项间隔             | `number`                                                            | `1`          |
 
 #### DisabledTime
 

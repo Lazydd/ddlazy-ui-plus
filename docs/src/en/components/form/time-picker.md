@@ -144,22 +144,23 @@ const time2 = ref();
 
 ### TimePicker Attributes
 
-| Name           | Description                           | Type                                                                    | Default         | Version |
-| -------------- | ------------------------------------- | ----------------------------------------------------------------------- | --------------- | ------- |
-| value(v-model) | binding value                         | [`dayjs`](https://day.js.org/)                                          | —               |
-| open(v-model)  | Whether to popup panel                | boolean                                                                 | `false`         |
-| placeholder    | placeholder                           | `string \| [string, string]`                                            | `Select a time` |
-| disabled       | disabled                              | `boolean`                                                               | `false`         |
-| disabledTime   | disabledTime                          | [`DisabledTime`](#disabledtime)                                         | —               |
-| size           | size                                  | `large \| default \| small`                                             | —               |
-| clearable      | can be cleared                        | `boolean`                                                               | `false`         |
-| bordered       | Bordered-less                         | `boolean`                                                               | `false`         |
-| showNow        | Whether to show `Now` button on panel | `boolean`                                                               | `true`          |
-| format         | To set the time format                | `string`                                                                | `HH:mm:ss`      |
-| valueFormat    | format of binding value               | `string` [`date formats`](https://day.js.org/docs/zh-CN/display/format) | `HH:mm:ss`      |
-| hourStep       | Interval between hours in picker      | `number`                                                                | `1`             |
-| minuteStep     | Interval between minutes in picker    | `number`                                                                | `1`             |
-| secondStep     | Interval between seconds in picker    | `number`                                                                | `1`             |
+| Name                | Description                                       | Type                                                                    | Default         | Version |
+| ------------------- | ------------------------------------------------- | ----------------------------------------------------------------------- | --------------- | ------- |
+| value(v-model)      | binding value                                     | [`dayjs`](https://day.js.org/)                                          | —               |
+| open(v-model)       | Whether to popup panel                            | boolean                                                                 | `false`         |
+| placeholder         | placeholder                                       | `string \| [string, string]`                                            | `Select a time` |
+| disabled            | disabled                                          | `boolean`                                                               | `false`         |
+| disabledTime        | disabledTime                                      | [`DisabledTime`](#disabledtime)                                         | —               |
+| hideDisabledOptions | Whether hide the options that can not be selected | `boolean`                                                               | `false`         |
+| size                | size                                              | `large \| default \| small`                                             | —               |
+| clearable           | can be cleared                                    | `boolean`                                                               | `false`         |
+| bordered            | Bordered-less                                     | `boolean`                                                               | `false`         |
+| showNow             | Whether to show `Now` button on panel             | `boolean`                                                               | `true`          |
+| format              | To set the time format                            | `string`                                                                | `HH:mm:ss`      |
+| valueFormat         | format of binding value                           | `string` [`date formats`](https://day.js.org/docs/zh-CN/display/format) | `HH:mm:ss`      |
+| hourStep            | Interval between hours in picker                  | `number`                                                                | `1`             |
+| minuteStep          | Interval between minutes in picker                | `number`                                                                | `1`             |
+| secondStep          | Interval between seconds in picker                | `number`                                                                | `1`             |
 
 #### DisabledTime
 
