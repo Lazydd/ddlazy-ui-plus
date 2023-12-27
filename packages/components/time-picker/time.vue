@@ -204,5 +204,12 @@ defineExpose({
 	&:not(:first-child) {
 		border-inline-start: 1px solid var(--dd-time-picker-border-color);
 	}
+	&::-webkit-scrollbar {
+		width: 6px;
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
 }
 </style>
