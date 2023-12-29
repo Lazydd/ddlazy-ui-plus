@@ -25,14 +25,14 @@ export * from './time-picker';
 export default {
 	install(app: App) {
 		for (const path in modulesFiles) {
-			if (Array.isArray(modulesFiles[path])) {
-				(modulesFiles[path] as Component[]).forEach((v) => {
-					const mode: Component = v;
-					app.component(mode.name!, mode);
+			const mode: Component | Component[] = modulesFiles[path]!;
+			if (Array.isArray(mode)) {
+				mode.forEach((v: Component) => {
+					app.component(v.name!, v);
 				});
+			} else {
+				app.component(mode.name!, mode);
 			}
-			const mode: Component = modulesFiles[path]!;
-			app.component(mode.name!, mode);
 		}
 	},
 };
