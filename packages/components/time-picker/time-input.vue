@@ -11,10 +11,12 @@ const props = withDefaults(
 		allowClear: boolean;
 		suffix?: boolean;
 		showIcon?: boolean;
+		readonly?: boolean;
 	}>(),
 	{
 		suffix: true,
 		showIcon: true,
+		readonly: false,
 	}
 );
 const emit = defineEmits<{
@@ -45,6 +47,7 @@ defineExpose({
 			:placeholder="placeholder ?? '请选择时间'"
 			:value="formatShow"
 			:disabled="disabled"
+			:readonly="readonly"
 			size="10"
 		/>
 		<span class="dd-picker-suffix" v-if="suffix">

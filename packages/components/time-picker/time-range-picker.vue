@@ -249,6 +249,7 @@ watch(
 			:suffix="false"
 			:showIcon="false"
 			:allow-clear="false"
+			:readonly="readonly"
 			@click.stop="startClick"
 		/>
 		<div class="dd-picker-range-separator">
@@ -276,6 +277,7 @@ watch(
 			:placeholder="placeholder[1]"
 			:allow-clear="false"
 			:show-icon="false"
+			:readonly="readonly"
 			@click.stop="endClick"
 		/>
 		<span class="dd-picker-suffix">

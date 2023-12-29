@@ -164,6 +164,7 @@ watch(
 			:disabled="disabled"
 			:placeholder="placeholder"
 			:allowClear="allowClear"
+			:readonly="readonly"
 			@clearClick="clearClick"
 		>
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />

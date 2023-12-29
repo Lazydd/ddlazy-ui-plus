@@ -48,6 +48,10 @@ export const timePickerProps = {
 		type: Boolean,
 		default: true,
 	},
+	readonly: {
+		type: Boolean,
+		default: false,
+	},
 	format: {
 		type: String as PropType<TimePickerFormatType>,
 		default: 'HH:mm:ss',
@@ -113,6 +117,10 @@ export const timeRangePickerProps = {
 	bordered: {
 		type: Boolean,
 		default: true,
+	},
+	readonly: {
+		type: Boolean,
+		default: false,
 	},
 	format: {
 		type: [String, Array] as PropType<TimePickerFormatType | TimePickerFormatType[]>,

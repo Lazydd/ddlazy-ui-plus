@@ -153,6 +153,7 @@ const time2 = ref();
 | disabledTime        | disabledTime                                      | [`DisabledTime`](#disabledtime)                                         | —               |
 | hideDisabledOptions | Whether hide the options that can not be selected | `boolean`                                                               | `false`         |
 | size                | size                                              | `large \| default \| small`                                             | —               |
+| readonly            | readonly                                          | `boolean`                                                               | `false`         |
 | clearable           | can be cleared                                    | `boolean`                                                               | `false`         |
 | bordered            | Bordered-less                                     | `boolean`                                                               | `false`         |
 | showNow             | Whether to show `Now` button on panel             | `boolean`                                                               | `true`          |

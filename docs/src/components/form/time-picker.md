@@ -155,6 +155,7 @@ const time2 = ref();
 | disabledTime        | 不可选择的时间         | [`DisabledTime`](#disabledtime)                                     | —            |
 | hideDisabledOptions | 隐藏禁止选择的选项     | `boolean`                                                           | `false`      |
 | size                | 输入框尺寸             | `large \| default \| small`                                         | —            |
+| readonly            | 设置输入框为只读       | `boolean`                                                           | `false`      |
 | clearable           | 是否可以清空选项       | `boolean`                                                           | `false`      |
 | bordered            | 无边框样式             | `boolean`                                                           | `false`      |
 | showNow             | 面板是否显示“此刻”按钮 | `boolean`                                                           | `true`       |
