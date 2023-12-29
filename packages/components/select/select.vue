@@ -294,7 +294,7 @@ const passwordIcon = computed(() =>
 				:padding="4"
 				class="dd-select-popover"
 			>
-				<template v-if="!$slots.dropdownRender">
+				<slot name="dropdownRender">
 					<SelectDropdown
 						v-if="filterOption.length"
 						:options="filterOption"
@@ -304,8 +304,7 @@ const passwordIcon = computed(() =>
 						ref="selectDropdownRef"
 					/>
 					<dd-empty v-else />
-				</template>
-				<slot name="dropdownRender" v-else />
+				</slot>
 			</Popover>
 		</Teleport>
 	</div>

@@ -2,10 +2,9 @@
 	<div class="dd-empty dd-empty-normal">
 		<div class="dd-empty-image"><component :is="EmptyImage" :style="imageStyle" /></div>
 		<p class="dd-empty-description" v-if="$slots.description || description">
-			<slot name="description" v-if="$slots.description" />
-			<template v-if="!$slots.description && description">
+			<slot name="description">
 				{{ description }}
-			</template>
+			</slot>
 		</p>
 		<div class="dd-empty-footer" v-if="$slots.default"><slot /></div>
 	</div>

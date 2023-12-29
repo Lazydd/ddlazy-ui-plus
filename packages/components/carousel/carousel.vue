@@ -125,8 +125,7 @@ defineExpose({
 			<slot name="nextArrow" />
 		</div>
 		<div class="slick-dots" v-if="dots">
-			<slot name="customPaging" :index="index" v-if="$slots.customPaging" />
-			<template v-else>
+			<slot name="customPaging" :index="index">
 				<li
 					v-for="(_, i) in slots"
 					:ke="i"
@@ -135,7 +134,7 @@ defineExpose({
 				>
 					<button>{{ i + 1 }}</button>
 				</li>
-			</template>
+			</slot>
 		</div>
 	</div>
 </template>

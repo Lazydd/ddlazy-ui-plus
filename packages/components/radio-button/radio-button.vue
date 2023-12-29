@@ -46,8 +46,7 @@ defineExpose({});
 			<span class="dd-radio-button-inner" />
 		</span>
 		<span class="dd-radio-label" v-if="!($slots.defualt && value)">
-			<slot v-if="$slots.default" />
-			<template v-else>{{ value }}</template>
+			<slot>{{ value }}</slot>
 		</span>
 	</label>
 </template>
