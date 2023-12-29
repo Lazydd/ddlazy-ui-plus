@@ -50,7 +50,7 @@
 	"dependencies": {
 		"dayjs": "^1.11.10",
 		"vitepress-plugin-rss": "^0.2.0",
-		"vue": "^3.3.12"
+		"vue": "^3.3.13"
 	},
 	"browserslist": [
 		"> 1%",

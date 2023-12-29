@@ -12,7 +12,7 @@ dependencies:
     specifier: ^0.2.0
     version: 0.2.0
   vue:
-    specifier: ^3.3.12
+    specifier: ^3.3.13
     version: 3.3.13(typescript@5.3.3)
 
 devDependencies:
@@ -106,9 +106,6 @@ packages:
     peerDependencies:
       '@algolia/client-search': '>= 4.9.1 < 6'
       algoliasearch: '>= 4.9.1 < 6'
-    peerDependenciesMeta:
-      '@algolia/client-search':
-        optional: true
     dependencies:
       '@algolia/client-search': 4.22.0
       algoliasearch: 4.22.0
