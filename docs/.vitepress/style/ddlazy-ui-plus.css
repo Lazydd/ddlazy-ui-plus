@@ -12,6 +12,7 @@
 	--dd-disabled-background-color: #262727;
 	--dd-active-background-color: #111a2c;
 	--dd-arrow-background-color: #1f1f1f;
+	--dd-icon-color-active: rgba(255, 255, 255, 0.45);
 }
 /* empty */
 .dark {
@@ -58,10 +59,19 @@
 	--dd-radio-button-disabled-background-color: rgba(255, 255, 255, 0.08);
 	--dd-radio-button-disabled-active-background-color: rgba(255, 255, 255, 0.18);
 }
+/* time-picker */
 .dark {
 	--dd-time-picker-active-background-color: var(--dd-active-background-color);
 	--dd-time-picker-hover-background-color: rgba(255, 255, 255, 0.08);
 	--dd-time-picker-border-color: rgba(253, 253, 253, 0.12);
 	--dd-time-picker-clear-background-color: #141414;
 	--dd-time-picker-disabled-background-color: rgba(255, 255, 255, 0.08);
+}
+/* date-picker */
+.dark {
+	--dd-date-picker-hover-background-color: rgba(255, 255, 255, 0.08);
+	--dd-cell-color: rgba(255, 255, 255, 0.25);
+	--dd-date-picker-border-color: rgba(253, 253, 253, 0.12);
+	--dd-date-picker-clear-background-color: #141414;
+	--dd-date-picker-control-button-color: rgba(255, 255, 255, 0.45);
 }

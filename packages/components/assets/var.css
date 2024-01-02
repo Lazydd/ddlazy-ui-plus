@@ -14,6 +14,7 @@
 	--dd-disabled-background-color: #f5f7fa;
 	--dd-disabled-background-color-2: rgba(0, 0, 0, 0.04);
 	--dd-disabled-background-color-3: rgba(0, 0, 0, 0.15);
+	--dd-cell-color: rgba(0, 0, 0, 0.25);
 	--dd-disabled-color: rgba(0, 0, 0, 0.25);
 	--dd-placeholder-color: rgba(0, 0, 0, 0.25);
 	--dd-icon-color: rgba(0, 0, 0, 0.25);
@@ -132,4 +133,16 @@
 	--dd-time-picker-button-hover-color: #69b1ff;
 	--dd-time-picker-border-color: rgba(5, 5, 5, 0.06);
 	--dd-time-picker-clear-background-color: var(--dd-white);
+}
+/* date-picker */
+:root {
+	--dd-date-picker-color: var(--dd-color-1);
+	--dd-date-picker-border-color: rgba(5, 5, 5, 0.06);
+	--dd-date-picker-hover-background-color: var(--dd-disabled-background-color-2);
+	--dd-date-picker-cell-color: var(--dd-cell-color);
+	--dd-date-picker-border-color: rgba(5, 5, 5, 0.06);
+	--dd-date-picker-control-button-color: rgba(0, 0, 0, 0.45);
+	--dd-date-picker-icon-color: var(--dd-icon-color);
+	--dd-date-picker-clear-background-color: var(--dd-white);
+	--dd-date-picker-icon-active-color: var(--dd-icon-color-active);
 }

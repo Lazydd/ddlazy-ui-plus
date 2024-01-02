@@ -94,6 +94,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			text: 'Form',
 			items: [
 				{
+					text: 'DatePicker 日期选择器',
+					link: '/components/form/date-picker',
+				},
+				{
 					text: 'Input 输入框',
 					link: '/components/form/input',
 				},
