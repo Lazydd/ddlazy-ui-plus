@@ -84,13 +84,13 @@ const timeClick = (v: any, index: number, disabled: boolean) => {
 	const value = Array.isArray(props.value) ? props.value[props.activeInput] : props.value;
 	switch (props.type) {
 		case 'hour':
-			time = dayjs(value).hour(v);
+			time = dayjs(value ?? undefined).hour(v);
 			break;
 		case 'minute':
-			time = dayjs(value).minute(v);
+			time = dayjs(value ?? undefined).minute(v);
 			break;
 		case 'second':
-			time = dayjs(value).second(v);
+			time = dayjs(value ?? undefined).second(v);
 			break;
 	}
 	if (Array.isArray(props.value)) {
