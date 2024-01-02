@@ -138,7 +138,34 @@ defineExpose({
 			text-overflow: ellipsis;
 		}
 	}
+	.dd-picker-suffix {
+		display: flex;
+		flex: none;
+		align-self: center;
+		margin-inline-start: 4px;
+		color: var(--dd-time-picker-icon-color);
+		line-height: 1;
+		pointer-events: none;
+		height: 14px;
+	}
+	.dd-picker-clear {
+		position: absolute;
+		top: 50%;
+		inset-inline-end: 0;
+		color: var(--dd-time-picker-icon-color);
+		line-height: 1;
+		background: var(--dd-time-picker-clear-background-color);
+		transform: translateY(-50%);
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.2s, color 0.2s;
+		height: 14px;
+		&:hover {
+			color: var(--dd-time-picker-icon-active-color);
+		}
+	}
 }
+
 .large input {
 	font-size: var(--dd-large);
 	line-height: 1.5;

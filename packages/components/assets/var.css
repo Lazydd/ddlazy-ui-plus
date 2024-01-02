@@ -133,6 +133,7 @@
 	--dd-time-picker-button-hover-color: #69b1ff;
 	--dd-time-picker-border-color: rgba(5, 5, 5, 0.06);
 	--dd-time-picker-clear-background-color: var(--dd-white);
+	--dd-time-picker-icon-active-color: var(--dd-icon-color-active);
 }
 /* date-picker */
 :root {
