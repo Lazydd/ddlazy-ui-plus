@@ -292,6 +292,7 @@ const passwordIcon = computed(() =>
 				:arrow="false"
 				:autoWidth="false"
 				:padding="4"
+				:generate="generate"
 				class="dd-select-popover"
 			>
 				<slot name="dropdownRender">

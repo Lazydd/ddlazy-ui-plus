@@ -397,6 +397,7 @@ options.value = c;
 | clearable      | 是否可以清空选项           | `boolean`                                                        | `false` |
 | maxTagCount    | 最多显示多少个 `tag`       | `number`                                                         | —       |
 | bordered       | 无边框样式                 | `boolean`                                                        | `false` |
+| generate       | 是否立即生成组件示例       | `boolean`                                                        | `false` |
 
 ### Select Events
 

@@ -55,6 +55,10 @@ export const selectProps = {
 		type: Boolean,
 		default: true,
 	},
+	generate: {
+		type: Boolean,
+		default: false,
+	},
 } as const;
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;
