@@ -22,11 +22,14 @@ const props = withDefaults(
 		autoWidth?: boolean;
 		padding?: number;
 		popupArrowClassName?: string | Object;
+		ignore?: HTMLElement[] | null;
+		generate?: boolean;
 	}>(),
 	{
 		arrow: true,
 		autoWidth: true,
 		padding: 12,
+		generate: false,
 	}
 );
 const emit = defineEmits<{
@@ -130,7 +133,7 @@ const outSideClick = () => {
 </script>
 
 <template>
-	<div v-if="created">
+	<div v-if="created || generate">
 		<transition name="fade">
 			<div
 				class="dd-popover"
