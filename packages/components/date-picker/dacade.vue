@@ -80,8 +80,8 @@ const mouseenter = (date: Dayjs) => {
 					@mouseenter="mouseenter(date)"
 				>
 					<div class="dd-picker-cell-inner">
-						{{ dayjs(date).format('YYYY') }}-{{
-							dayjs(date).add(9, 'y').format('YYYY')
+						{{ dayjs(date).format('YYYY').replace(/^0+/, '') || 0 }}-{{
+							dayjs(date).add(9, 'y').format('YYYY').replace(/^0+/, '') || 0
 						}}
 					</div>
 				</td>

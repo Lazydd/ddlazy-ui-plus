@@ -28,10 +28,13 @@ const dateInfo = computed(() => {
 	const base = Math.floor(props.year / 10) * 10;
 	const startYear = base - 1;
 	const endYear = base + 10;
-	return Array.from({ length: endYear - startYear + 1 }, (_, i) => ({
-		date: dayjs({ year: startYear + i }),
-		isCurrYear: i !== 0 && i !== endYear - startYear,
-	})).reduce((arr, item, index) => {
+	return Array.from({ length: endYear - startYear + 1 }, (_, i) => {
+		return {
+			date: dayjs({ year: (startYear + i).toString().padStart(2, '0') }),
+			isCurrYear: i !== 0 && i !== endYear - startYear,
+			format: (startYear + i).toString().length <= 2 ? 'YY' : 'YYYY',
+		};
+	}).reduce((arr, item, index) => {
 		if (index % 3 === 0) arr.push([item]);
 		else arr[arr.length - 1].push(item);
 		return arr;
@@ -76,13 +79,16 @@ const mouseenter = (date: Dayjs) => {
 							'dd-picker-cell-disabled': disabledDate(date),
 						},
 					]"
-					v-for="{ date, isCurrYear } in year"
+					v-for="{ date, isCurrYear, format } in year"
 					:key="date"
-					:title="dayjs(date).format('YYYY')"
+					:title="dayjs(date).format(format)"
 					@click="dateClick(date, isCurrYear)"
 					@mouseenter="mouseenter(date)"
 				>
-					<div class="dd-picker-cell-inner">{{ dayjs(date).format('YYYY') }}</div>
+					<div class="dd-picker-cell-inner">
+						{{ dayjs(date).format(format)?.replace(/^0+/, '') || 0 }}
+						<!-- 此处需要去除开头的0 -->
+					</div>
 				</td>
 			</tr>
 		</tbody>
