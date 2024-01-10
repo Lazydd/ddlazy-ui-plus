@@ -198,7 +198,7 @@ const passwordIcon = computed(() =>
 		:clearable="clearable"
 		@click="selectClick"
 	>
-		<div class="dd-select-selector" :title="label ?? value">
+		<div :class="['dd-select-selector', { pl11: !select.length }]" :title="label ?? value">
 			<span
 				class="dd-select-selection-placeholder"
 				v-if="showPlaceholder2"
