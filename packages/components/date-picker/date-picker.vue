@@ -349,7 +349,7 @@ const ok = () => {
 
 const changeFormat = () => {
 	if (!datePickerContainerShow.value) return;
-	if (!props.value) {
+	if (!props.value && !dataTemp.value) {
 		formatValue.value = dayjs();
 		hourRef.value?.scrollTo(info.value.hour);
 		minuteRef.value?.scrollTo(info.value.minute);
