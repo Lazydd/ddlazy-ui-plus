@@ -63,13 +63,13 @@ export default {
 				src: 'https://at.alicdn.com/t/font_3116237_st7bhqgkyyc.js',
 			},
 		],
-		[
-			'link',
-			{
-				href: 'https://cdn.ddlazy.cn/map/main.css',
-				rel: 'stylesheet',
-			},
-		],
+		// [
+		// 	'link',
+		// 	{
+		// 		href: 'https://cdn.ddlazy.cn/map/main.css',
+		// 		rel: 'stylesheet',
+		// 	},
+		// ],
 		...extraHead,
 	],
 	outDir: '../dist/ddlazy-ui-plus',
@@ -80,9 +80,9 @@ export default {
 	ignoreDeadLinks: true,
 	sitemap: {
 		hostname: githubLink,
-		transformItems(items) {
-			return items.filter((item) => !item.url.includes('migration'));
-		},
+		// transformItems(items) {
+		// 	return items.filter((item) => !item.url.includes('migration'));
+		// },
 	},
 	markdown: {
 		// lineNumbers: true,//行号
@@ -92,6 +92,9 @@ export default {
 			md.use(demoblockPlugin, {
 				customClass: 'demoblock-custom',
 			});
+		},
+		image: {
+			lazyLoading: true,
 		},
 	},
 	vue: {
