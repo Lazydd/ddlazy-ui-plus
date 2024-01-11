@@ -4,22 +4,12 @@ import { ChangeLog } from './plugin/changelog';
 import { getChangeLog } from '../../scripts/changelog';
 import UnoCSS from 'unocss/vite';
 import { demoblockPlugin, demoblockVitePlugin } from 'vitepress-theme-demoblock-fork';
-import { RssPlugin, RSSOptions } from 'vitepress-plugin-rss';
+import { createRssFile } from './plugin/rss';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import algoliaSearchOptions from './search/algolia';
 import { en, root, zhDemoBlock, enDemoBlock } from './languages';
 import { siteName, githubRepoLink, githubLink } from './meta';
-
-const RSS: RSSOptions = {
-	title: siteName,
-	baseUrl: githubLink,
-	id: githubLink,
-	link: githubLink,
-	description: 'A Component Library for Vue3.',
-	language: 'zh-cn',
-	copyright: 'Copyright © 2023-present ddlazy',
-	url: `${githubLink}/feed.rss`,
-};
+import type { SiteConfig } from 'vitepress';
 
 const extraHead =
 	process.env.NODE_ENV === 'production'
@@ -115,7 +105,6 @@ export default {
 	vite: {
 		plugins: [
 			demoblockVitePlugin(),
-			RssPlugin(RSS),
 			vueJsx(),
 			MarkdownTransform(),
 			ChangeLog(changeLog),
@@ -128,6 +117,7 @@ export default {
 		},
 		server: {
 			host: true,
+			port: 9999,
 		},
 		build: {
 			minify: 'terser',
@@ -141,10 +131,21 @@ export default {
 		...root,
 		...en,
 	},
+	buildEnd: (config: SiteConfig) => {
+		createRssFile(config);
+	},
 	themeConfig: {
 		i18nRouting: true,
 		logo: '/logo.svg',
-		socialLinks: [{ icon: 'github', link: githubRepoLink }],
+		socialLinks: [
+			{ icon: 'github', link: githubRepoLink },
+			{
+				icon: {
+					svg: '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>RSS订阅</title><path d="M108.56,342.78a60.34,60.34,0,1,0,60.56,60.44A60.63,60.63,0,0,0,108.56,342.78Z"/><path d="M48,186.67v86.55c52,0,101.94,15.39,138.67,52.11s52,86.56,52,138.67h86.66C325.33,312.44,199.67,186.67,48,186.67Z"/><path d="M48,48v86.56c185.25,0,329.22,144.08,329.22,329.44H464C464,234.66,277.67,48,48,48Z"/></svg>',
+				},
+				link: '/ddlazy-ui-plus/feed.xml',
+			},
+		],
 		search: {
 			provider: 'algolia',
 			options: algoliaSearchOptions,
