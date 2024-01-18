@@ -59,17 +59,17 @@ useEventListener(
 );
 
 const instanceAttributes = computed(() => {
-	const instance = props.instance.getBoundingClientRect();
+	const { top: offsetTop, left: offsetLeft } = props.instance.getBoundingClientRect();
 	return {
-		offsetTop: instance.top,
-		offsetLeft: instance.left,
+		offsetTop,
+		offsetLeft,
 	};
 });
 const nodeAttributes = computed(() => {
-	const instance = popoverRef.value.getBoundingClientRect();
+	const { height: nodeHeight, width: nodeWidth } = popoverRef.value.getBoundingClientRect();
 	return {
-		nodeHeight: instance.height,
-		nodeWidth: instance.width,
+		nodeHeight,
+		nodeWidth,
 	};
 });
 
