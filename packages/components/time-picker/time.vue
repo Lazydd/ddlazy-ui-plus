@@ -147,7 +147,7 @@ defineExpose({
 	</ul>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-picker-time-panel-column {
 	flex: 1 0 auto;
 	width: 56px;

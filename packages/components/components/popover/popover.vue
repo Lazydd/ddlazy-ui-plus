@@ -162,5 +162,5 @@ const outSideClick = () => {
 </template>
 
 <style scoped>
-@import './popover.less';
+@import './popover.scss';
 </style>

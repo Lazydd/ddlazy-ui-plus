@@ -116,5 +116,5 @@ defineExpose({
 </template>
 
 <style scoped>
-@import './style/input.less';
+@import './style/input.scss';
 </style>

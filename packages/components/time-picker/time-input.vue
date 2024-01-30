@@ -93,7 +93,7 @@ defineExpose({
 		</span>
 	</div>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-picker-input {
 	position: relative;
 	display: inline-flex;

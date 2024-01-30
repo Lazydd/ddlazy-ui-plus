@@ -28,5 +28,5 @@ const EmptyImage = computed(() => (props.image ? h('img', { src: props.image }) 
 </script>
 
 <style scoped>
-@import './style/empty.less';
+@import './style/empty.scss';
 </style>

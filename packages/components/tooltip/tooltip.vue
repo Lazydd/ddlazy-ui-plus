@@ -84,5 +84,5 @@ const initNode = () => {
 </template>
 
 <style>
-@import './style/tooltip.less';
+@import './style/tooltip.scss';
 </style>

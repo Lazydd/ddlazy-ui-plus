@@ -25,7 +25,7 @@ import { ref } from 'vue';
 const show = ref(true);
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .transition-box {
 	margin-bottom: 10px;
 	width: 200px;
@@ -83,7 +83,7 @@ import { ref } from 'vue';
 const show = ref(true);
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .transition-box {
 	margin-bottom: 10px;
 	width: 200px;
@@ -133,7 +133,7 @@ import { ref } from 'vue';
 const show = ref(true);
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .transition-box {
 	margin-bottom: 10px;
 	width: 200px;

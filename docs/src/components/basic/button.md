@@ -44,7 +44,7 @@
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -74,7 +74,7 @@
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -104,7 +104,7 @@
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -128,7 +128,7 @@
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -155,7 +155,7 @@
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }

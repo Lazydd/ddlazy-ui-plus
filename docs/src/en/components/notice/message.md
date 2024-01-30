@@ -32,7 +32,7 @@ const open4 = () => {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }

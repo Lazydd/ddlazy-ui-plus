@@ -68,7 +68,7 @@ defineExpose({
 	</div>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .dd-select-dropdown {
 	.dd-select-item {
 		display: flex;

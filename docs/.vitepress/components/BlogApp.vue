@@ -90,7 +90,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 		<template #aside-ads-after><slot name="aside-ads-after" /></template>
 	</Layout>
 </template>
-<style lang="less">
+<style lang="scss">
 .home {
 	margin: 0 auto;
 	padding: 20px;

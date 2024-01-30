@@ -81,7 +81,7 @@ watch(lang, () => {
 	</div>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .comment {
 	width: 100%;
 	text-align: center;

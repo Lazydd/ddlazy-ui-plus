@@ -245,5 +245,5 @@ watch(
 </template>
 
 <style scoped>
-@import './style/time-picker.less';
+@import './style/time-picker.scss';
 </style>

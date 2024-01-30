@@ -44,7 +44,7 @@ Use `type`, `plain`, `round` and `circle` to define Button's style.
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -74,7 +74,7 @@ The `disabled` attribute determines if the button is disabled.
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -104,7 +104,7 @@ Use the `icon` attribute to add icon.
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -128,7 +128,7 @@ Use attribute `size` to set additional sizes with `large`, `small`.
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }
@@ -155,7 +155,7 @@ Set `link` attribute to `true` to display link state.
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .dd-button + .dd-button {
 	margin-left: 12px;
 }

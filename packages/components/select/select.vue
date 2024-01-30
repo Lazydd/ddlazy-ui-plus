@@ -312,5 +312,5 @@ const passwordIcon = computed(() =>
 </template>
 
 <style scoped>
-@import './style/select.less';
+@import './style/select.scss';
 </style>

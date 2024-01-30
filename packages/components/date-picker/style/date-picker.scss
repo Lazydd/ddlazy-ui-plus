@@ -182,7 +182,7 @@
 	:deep(th) {
 		color: var(--dd-date-picker-color);
 	}
-	:deep(.dd-picker-cell) {
+	:deep().dd-picker-cell {
 		position: relative;
 		min-width: 24px;
 		font-weight: normal;

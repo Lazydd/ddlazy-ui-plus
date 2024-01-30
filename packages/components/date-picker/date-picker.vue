@@ -562,5 +562,5 @@ defineExpose({
 </template>
 
 <style scoped>
-@import './style/date-picker.less';
+@import './style/date-picker.scss';
 </style>

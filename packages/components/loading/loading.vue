@@ -33,5 +33,5 @@ defineProps(loadingProps);
 </script>
 
 <style scoped>
-@import './style/loading.less';
+@import './style/loading.scss';
 </style>

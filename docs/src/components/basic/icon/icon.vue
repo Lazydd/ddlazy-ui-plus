@@ -22,7 +22,7 @@ const copyClick = async (code: string) => {
 	</div>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .icon-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));

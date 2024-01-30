@@ -109,7 +109,7 @@ const initNode = () => {
 	</div>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 @keyframes tooltip {
 	0% {
 		opacity: 0;

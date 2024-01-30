@@ -140,5 +140,5 @@ defineExpose({
 </template>
 
 <style scoped>
-@import './style/carousel.less';
+@import './style/carousel.scss';
 </style>

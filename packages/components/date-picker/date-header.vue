@@ -100,7 +100,7 @@ const activeModeChange = (value: string) => emit('active-mode-change', value);
 	</div>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .dd-picker-header {
 	display: flex;
 	padding: 0 8px;

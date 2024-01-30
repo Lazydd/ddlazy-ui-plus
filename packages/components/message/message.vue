@@ -74,5 +74,5 @@ defineExpose({
 </script>
 
 <style scoped>
-@import './style/message.less';
+@import './style/message.scss';
 </style>

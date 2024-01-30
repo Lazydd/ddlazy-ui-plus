@@ -16,5 +16,5 @@ defineProps(iconProps);
 </script>
 
 <style scoped>
-@import './style/icon.less';
+@import './style/icon.scss';
 </style>

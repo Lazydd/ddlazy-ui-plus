@@ -19,5 +19,5 @@ defineProps(buttonProps);
 </script>
 
 <style scoped>
-@import './style/button.less';
+@import './style/button.scss';
 </style>

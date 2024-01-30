@@ -58,5 +58,5 @@ export default {
 </script>
 
 <style scoped>
-@import './style/radio-group.less';
+@import './style/radio-group.scss';
 </style>

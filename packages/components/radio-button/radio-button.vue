@@ -52,5 +52,5 @@ defineExpose({});
 </template>
 
 <style scoped>
-@import './style/radio-button.less';
+@import './style/radio-button.scss';
 </style>

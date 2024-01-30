@@ -107,5 +107,5 @@ const operate = (type: string) => {
 </template>
 
 <style scoped>
-@import './style/input-number.less';
+@import './style/input-number.scss';
 </style>

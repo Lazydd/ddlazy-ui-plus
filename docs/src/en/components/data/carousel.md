@@ -13,7 +13,7 @@
 		<div>4</div>
 	</dd-carousel>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 :deep(.slick-slide) {
 	text-align: center;
 	height: 160px;
@@ -39,7 +39,7 @@
 		<div>4</div>
 	</dd-carousel>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 :deep(.slick-slide) {
 	text-align: center;
 	height: 160px;
@@ -68,7 +68,7 @@
 		</template>
 	</dd-carousel>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 :deep(.slick-slide) {
 	text-align: center;
 	height: 160px;
@@ -134,7 +134,7 @@
 		</template>
 	</dd-carousel>
 </template>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 :deep(.slick-slide) {
 	text-align: center;
 	height: 160px;

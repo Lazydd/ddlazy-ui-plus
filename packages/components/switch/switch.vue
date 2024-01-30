@@ -70,5 +70,5 @@ const switchClick = (e) => {
 </template>
 
 <style>
-@import './style/switch.less';
+@import './style/switch.scss';
 </style>
