@@ -49,7 +49,7 @@ const slots = computed(() => {
 	return arr;
 });
 
-const { state, index, next, prev } = useCycleList(slots.value);
+const { state, index, next, prev, go } = useCycleList(slots.value);
 
 const nextClick = () => {
 	if (slotLength.value <= 1) return;
@@ -62,6 +62,7 @@ const prevClick = () => {
 	emit('prev', index.value);
 };
 const dotClick = (index: number) => {
+	go(index);
 	emit('dot-click', index);
 };
 
