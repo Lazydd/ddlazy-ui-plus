@@ -34,26 +34,13 @@ const showTimeConfig = {
 	secondStep: 1,
 };
 const emit = defineEmits<{
-	'update:value': [value: string | number | Date | Dayjs];
-	'update:open': [open: boolean];
 	openChange: [open: boolean];
 	change: [time: string | number | Date | Dayjs];
 }>();
 const showTimeInfo = { ...showTimeConfig, ...props.showTime };
 
-const tempShow = ref();
-const datePickerContainerShow = computed({
-	get() {
-		return tempShow.value;
-	},
-	set(value) {
-		tempShow.value = value;
-		emit('update:open', value);
-	},
-});
-watchEffect(() => {
-	tempShow.value = props.open;
-});
+const datePickerContainerShow = defineModel<boolean>('open');
+
 const datePickerRef = ref<HTMLElement | null>();
 const datePickerInputRef = ref<HTMLInputElement | null>();
 
@@ -105,15 +92,15 @@ const format = (value) => {
 const timeformatType = computed(() => props.showTime.format ?? 'HH:mm:ss');
 
 const dataTemp = ref<Dayjs | null>();
-const dataValue = computed({
-	get() {
-		return props.value ? dayjs(props.value) : null;
+const dataValue = defineModel<any>('value', {
+	get(value) {
+		return value ? dayjs(value) : null;
 	},
 	set(value: any) {
-		emit('update:value', value);
 		if (!dayjs(value)?.isSame(dayjs(dataValue.value), 'd')) {
 			emit('change', dayjs(value));
 		}
+		return value;
 	},
 });
 const formatValue = computed({
@@ -163,7 +150,7 @@ const formatValue = computed({
 			}
 		}
 		if (!props.showTime) {
-			emit('update:value', newValue);
+			dataValue.value = newValue;
 			if (!formatValue.value?.isSame(dayjs(dataValue.value), 'd')) {
 				emit('change', formatValue.value);
 			}

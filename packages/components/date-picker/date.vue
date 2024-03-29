@@ -19,18 +19,19 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-	'update:value': [value: Dayjs];
 	click: [value: Dayjs];
 	'month-change': [value: number];
 	mouseenter: [value: Dayjs];
 }>();
+
+const dateValue = defineModel<Dayjs>('value');
 
 const dateInfo = computed(() => {
 	return useCalendar({ year: props.year, month: props.month });
 });
 
 const dateClick = (date: Dayjs, isCurrMonth: boolean) => {
-	emit('update:value', date);
+	dateValue.value = date;
 	emit('click', date);
 	if (!isCurrMonth) {
 		const time = dayjs({ year: props.year, month: props.month });
@@ -69,8 +70,8 @@ const mouseenter = (date: Dayjs) => {
 						{
 							'dd-picker-cell-in-view': isCurrMonth,
 							'dd-picker-cell-today': dayjs().isSame(date, 'D'),
-							'dd-picker-cell-selected': value
-								? dayjs(value).isSame(date, 'D')
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSame(date, 'D')
 								: false,
 							'dd-picker-cell-disabled': disabledDate(date),
 						},

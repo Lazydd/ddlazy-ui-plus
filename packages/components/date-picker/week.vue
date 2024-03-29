@@ -18,10 +18,11 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-	'update:value': [value: Dayjs];
 	'month-change': [value: number];
 	mouseenter: [value: Dayjs];
 }>();
+
+const dateValue = defineModel<Dayjs>('value');
 
 const dateInfo = computed(() => {
 	return useCalendar({ year: props.year, month: props.month });
@@ -29,7 +30,7 @@ const dateInfo = computed(() => {
 
 const dateClick = (date: Dayjs, isCurrMonth: boolean) => {
 	if (props.disabledDate(date)) return;
-	emit('update:value', date);
+	dateValue.value = date;
 	if (!isCurrMonth) {
 		const time = dayjs({ year: props.year, month: props.month });
 		if (dayjs(date).isBefore(time, 'M')) {
@@ -66,8 +67,8 @@ const mouseenter = (date: Dayjs) => {
 				:class="[
 					'dd-picker-week-panel-row',
 					{
-						'dd-picker-week-panel-row-selected': value
-							? dayjs(value).isSame(week[0].date, 'w')
+						'dd-picker-week-panel-row-selected': dateValue
+							? dayjs(dateValue).isSame(week[0].date, 'w')
 							: false,
 					},
 				]"

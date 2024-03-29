@@ -14,8 +14,6 @@ defineOptions({
 });
 const props = defineProps(timeRangePickerProps);
 const emit = defineEmits<{
-	'update:value': [time: (Dayjs | string)[]];
-	'update:open': [open: boolean];
 	change: [time: Dayjs[] | string[]];
 	openChange: [value: boolean];
 }>();
@@ -27,19 +25,8 @@ const hourRef = ref<InstanceType<typeof Time> | null>();
 const minuteRef = ref<InstanceType<typeof Time> | null>();
 const secondRef = ref<InstanceType<typeof Time> | null>();
 
-const tempShow = ref();
-const timeRangePickerContainerShow = computed({
-	get() {
-		return tempShow.value;
-	},
-	set(value) {
-		tempShow.value = value;
-		emit('update:open', value);
-	},
-});
-watchEffect(() => {
-	tempShow.value = props.open;
-});
+const timeRangePickerContainerShow = defineModel<boolean>('open');
+
 const width = computed(() => {
 	return [timePickerInputRef1.value?.width, timePickerInputRef2.value?.width];
 });
@@ -54,10 +41,10 @@ const formatShow = computed(() => {
 	}
 	return value ?? Array.from({ length: 2 });
 });
-const formatValue = computed<Dayjs[]>({
-	get() {
+const formatValue = defineModel<Dayjs[]>('value', {
+	get(value) {
 		return (
-			props.value?.map((v) => (v ? dayjs(v, props.valueFormat as string) : undefined)) ??
+			value?.map((v) => (v ? dayjs(v, props.valueFormat as string) : undefined)) ??
 			Array.from({ length: 2 })
 		);
 	},
@@ -83,8 +70,7 @@ const formatValue = computed<Dayjs[]>({
 					? newValue.reverse()
 					: newValue;
 		}
-
-		emit('update:value', newValue);
+		return newValue;
 	},
 });
 const clearClick = () => {
@@ -92,13 +78,13 @@ const clearClick = () => {
 	timeValue.value = [];
 };
 
-const activeInput = ref();
+const activeInput = ref(0);
 const tempValue = ref<(Dayjs | undefined)[]>();
 const timeValue = computed({
 	get() {
 		return [
-			tempValue.value[0] ?? formatValue.value[0],
-			tempValue.value[1] ?? formatValue.value[1],
+			tempValue.value?.[0] ?? formatValue.value?.[0],
+			tempValue.value?.[1] ?? formatValue.value?.[1],
 		];
 	},
 	set(value) {
@@ -156,7 +142,7 @@ const setNow = () => {
 	formatValue.value = temp;
 	setShow();
 };
-const sOpen = ref(false);
+const sOpen = ref(props.open);
 const eOpen = ref(false);
 const ok = () => {
 	const [t1, t2] = formatValue.value;

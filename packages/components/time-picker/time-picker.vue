@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { timePickerProps, TimePickerFormatType } from './types';
 
-import { ref, computed, nextTick, watch, watchEffect } from 'vue';
+import { ref, computed, nextTick, watch } from 'vue';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 
@@ -15,8 +15,6 @@ defineOptions({
 });
 const props = defineProps(timePickerProps);
 const emit = defineEmits<{
-	'update:value': [time: string | number | Date | Dayjs | undefined];
-	'update:open': [open: boolean];
 	change: [time: Dayjs | string];
 	openChange: [boolean];
 }>();
@@ -28,22 +26,11 @@ const hourRef = ref<InstanceType<typeof Time> | null>();
 const minuteRef = ref<InstanceType<typeof Time> | null>();
 const secondRef = ref<InstanceType<typeof Time> | null>();
 
-const tempShow = ref();
-const timePickerContainerShow = computed({
-	get() {
-		return tempShow.value;
-	},
-	set(value) {
-		tempShow.value = value;
-		emit('update:open', value);
-	},
-});
-watchEffect(() => {
-	tempShow.value = props.open;
-});
-const formatValue = computed({
-	get() {
-		return props.value ? dayjs(props.value, props.valueFormat as string) : undefined;
+const timePickerContainerShow = defineModel<boolean>('open');
+
+const formatValue = defineModel<Dayjs | undefined>('value', {
+	get(value) {
+		return value ? dayjs(value, props.valueFormat as string) : undefined;
 	},
 	set(value) {
 		let newValue = undefined;
@@ -52,7 +39,7 @@ const formatValue = computed({
 			formatType = props.valueFormat;
 			newValue = dayjs(value).format(formatType as string);
 		}
-		emit('update:value', newValue);
+		return newValue;
 	},
 });
 const formatShow = computed<string>(() => {

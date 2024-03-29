@@ -17,11 +17,12 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-	'update:value': [value: Dayjs];
 	'year-change': [value: number];
 	'set-year': [value: number];
 	mouseenter: [value: Dayjs];
 }>();
+
+const dateValue = defineModel<Dayjs>('value');
 
 const dateInfo = computed(() => {
 	const base = Math.floor(props.year / 100) * 100;
@@ -49,7 +50,7 @@ const dateClick = (date: Dayjs, isCurrYear: boolean) => {
 				emit('year-change', 100);
 			}
 		}
-		emit('update:value', date);
+		dateValue.value = date;
 	}
 };
 
@@ -68,9 +69,9 @@ const mouseenter = (date: Dayjs) => {
 
 						{
 							'dd-picker-cell-in-view': isCurrYear,
-							'dd-picker-cell-selected': value
-								? dayjs(value).isSameOrAfter(dayjs(date), 'y') &&
-								  dayjs(value).isSameOrBefore(dayjs(date).add(9, 'y'), 'y')
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSameOrAfter(dayjs(date), 'y') &&
+								  dayjs(dateValue).isSameOrBefore(dayjs(date).add(9, 'y'), 'y')
 								: false,
 						},
 					]"

@@ -17,9 +17,10 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-	'update:value': [value: Dayjs];
 	mouseenter: [value: Dayjs];
 }>();
+
+const dateValue = defineModel<Dayjs>('value');
 
 const dateInfo = computed(() => {
 	return [
@@ -30,7 +31,7 @@ const dateInfo = computed(() => {
 });
 
 const dateClick = (date: Dayjs) => {
-	emit('update:value', date);
+	dateValue.value = date;
 	props.conditionHideDatePickerContainerShow();
 };
 
@@ -48,8 +49,8 @@ const mouseenter = (date: Dayjs) => {
 						'dd-picker-cell',
 						'dd-picker-cell-in-view',
 						{
-							'dd-picker-cell-selected': value
-								? dayjs(value).isSame(dayjs(date), 'Q')
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSame(dayjs(date), 'Q')
 								: false,
 							'dd-picker-cell-disabled': disabledDate(date),
 						},
