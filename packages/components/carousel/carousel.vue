@@ -113,7 +113,7 @@ defineExpose({
 			class="slick-arrow slick-prev"
 			v-if="$slots.prevArrow"
 			style="left: 10px"
-			@click="prevClick()"
+			@click="prevClick"
 		>
 			<slot name="prevArrow" />
 		</div>
@@ -121,12 +121,12 @@ defineExpose({
 			class="slick-arrow slick-next"
 			v-if="$slots.nextArrow"
 			style="right: 10px"
-			@click="nextClick()"
+			@click="nextClick"
 		>
 			<slot name="nextArrow" />
 		</div>
 		<div class="slick-dots" v-if="dots">
-			<slot name="customPaging" :index="index">
+			<slot name="customPaging" :index>
 				<li
 					v-for="(_, i) in slots"
 					:ke="i"

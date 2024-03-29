@@ -159,12 +159,12 @@ watch(
 	>
 		<TimeInput
 			ref="timePickerInputRef"
-			:formatShow="formatShow"
-			:formatValue="formatValue"
-			:disabled="disabled"
-			:placeholder="placeholder"
-			:allowClear="allowClear"
-			:readonly="readonly"
+			:formatShow
+			:formatValue
+			:disabled
+			:placeholder
+			:allowClear
+			:readonly
 			@clearClick="clearClick"
 		>
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />
@@ -187,7 +187,7 @@ watch(
 								:step="hourStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledHours()"
-								:hide-disabled-options="hideDisabledOptions"
+								:hide-disabled-options
 								@click="changeFormat"
 							/>
 							<Time
@@ -196,7 +196,7 @@ watch(
 								:step="minuteStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledMinutes(timeInfo.hour)"
-								:hide-disabled-options="hideDisabledOptions"
+								:hide-disabled-options
 								@click="changeFormat"
 							/>
 							<Time
@@ -205,7 +205,7 @@ watch(
 								:step="secondStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
-								:hide-disabled-options="hideDisabledOptions"
+								:hide-disabled-options
 								@click="changeFormat"
 							/>
 						</div>

@@ -40,14 +40,14 @@ defineExpose({
 </script>
 
 <template>
-	<div class="dd-picker-input" :disabled="disabled">
+	<div class="dd-picker-input" :disabled>
 		<input
 			ref="timePickerInputRef"
 			autocomplete="off"
 			:placeholder="placeholder ?? '请选择时间'"
 			:value="formatShow"
-			:disabled="disabled"
-			:readonly="readonly"
+			:disabled
+			:readonly
 			size="10"
 		/>
 		<span class="dd-picker-suffix" v-if="suffix">

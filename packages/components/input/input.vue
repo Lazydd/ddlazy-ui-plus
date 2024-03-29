@@ -78,10 +78,10 @@ defineExpose({
 				ref="ddInputRef"
 				class="dd-input"
 				v-bind="$attrs"
-				:value="value"
-				:readonly="readonly"
+				:value
+				:readonly
 				:type="type == 'password' ? (passwordVisible ? 'text' : 'password') : type"
-				:disabled="disabled"
+				:disabled
 				@input="handleInput"
 			/>
 			<span class="dd-input-suffix">
@@ -102,10 +102,10 @@ defineExpose({
 			<textarea
 				ref="ddInputTextAreaRef"
 				class="dd-input"
-				:value="value"
-				:readonly="readonly"
+				:value
+				:readonly
 				v-bind="$attrs"
-				:maxlength="maxlength"
+				:maxlength
 				@input="handleInput"
 			/>
 			<span class="dd-input-data-count" v-if="showCount">

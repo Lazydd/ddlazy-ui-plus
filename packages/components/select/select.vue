@@ -194,8 +194,8 @@ const passwordIcon = computed(() =>
 			},
 		]"
 		ref="selectRef"
-		:showSearch="showSearch"
-		:clearable="clearable"
+		:showSearch
+		:clearable
 		@click="selectClick"
 	>
 		<div :class="['dd-select-selector', { pl11: !select.length }]" :title="label ?? value">
@@ -292,7 +292,7 @@ const passwordIcon = computed(() =>
 				:arrow="false"
 				:autoWidth="false"
 				:padding="4"
-				:generate="generate"
+				:generate
 				class="dd-select-popover"
 			>
 				<slot name="dropdownRender">
@@ -300,7 +300,7 @@ const passwordIcon = computed(() =>
 						v-if="filterOption.length"
 						:options="filterOption"
 						:value="multiple ? select : value"
-						:multiple="multiple"
+						:multiple
 						@selectItemClick="selectItemClick"
 						ref="selectDropdownRef"
 					/>

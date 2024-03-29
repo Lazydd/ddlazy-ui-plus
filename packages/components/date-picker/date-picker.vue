@@ -440,11 +440,11 @@ defineExpose({
 			ref="datePickerInputRef"
 			:format-show="isOutSide ? formatShow2 : inputValue"
 			:format-value="formatShow"
-			:disabled="disabled"
-			:allow-clear="allowClear"
+			:disabled
+			:allow-clear
 			:placeholder="showPlaceholder"
-			:readonly="readonly"
-			:show-time="showTime"
+			:readonly
+			:show-time
 			@clearClick="clearClick"
 		>
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />
@@ -479,8 +479,8 @@ defineExpose({
 					>
 						<DateHeader
 							:active-mode="activeMode"
-							:year="year"
-							:month="month"
+							:year
+							:month
 							@active-mode-change="activeModeChange"
 							@year-change="yearChange"
 							@month-change="monthChange"
@@ -489,19 +489,17 @@ defineExpose({
 							<Component
 								:is="dateMode"
 								v-model:value="formatValue"
-								:disabledDate="disabledDate"
-								:month="month"
-								:year="year"
-								:mode-arr="modeArr"
+								:disabledDate
+								:month
+								:year
+								:mode-arr
 								@month-change="monthChange"
 								@set-month="setMonth"
 								@set-year="setYear"
 								@year-change="yearChange"
 								@mouseenter="mouseenter"
 								@mouseleave="mouseleave"
-								:condition-hide-date-picker-container-show="
-									conditionHideDatePickerContainerShow
-								"
+								:condition-hide-date-picker-container-show
 							/>
 						</div>
 					</div>

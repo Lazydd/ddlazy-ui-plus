@@ -95,7 +95,7 @@ const operate = (type: string) => {
 			<input
 				class="dd-input-number-input"
 				type="number"
-				:value="value"
+				:value
 				:aria-valuenow="value"
 				:aria-valuemax="max"
 				:aria-valuemin="min"

@@ -39,9 +39,9 @@ defineExpose({});
 			<input
 				type="radio"
 				class="dd-radio-input"
-				:disabled="disabled"
-				:value="value"
-				:checked="checked"
+				:disabled
+				:value
+				:checked
 			/>
 			<span class="dd-radio-button-inner" />
 		</span>

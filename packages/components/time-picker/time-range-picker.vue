@@ -244,12 +244,12 @@ watch(
 			ref="timePickerInputRef1"
 			:format-show="formatShow[0]"
 			:format-value="formatValue[0]"
-			:disabled="disabled"
+			:disabled
 			:placeholder="placeholder[0]"
 			:suffix="false"
 			:showIcon="false"
 			:allow-clear="false"
-			:readonly="readonly"
+			:readonly
 			@click.stop="startClick"
 		/>
 		<div class="dd-picker-range-separator">
@@ -273,11 +273,11 @@ watch(
 			ref="timePickerInputRef2"
 			:format-show="formatShow[1]"
 			:format-value="formatValue[1]"
-			:disabled="disabled"
+			:disabled
 			:placeholder="placeholder[1]"
 			:allow-clear="false"
 			:show-icon="false"
-			:readonly="readonly"
+			:readonly
 			@click.stop="endClick"
 		/>
 		<span class="dd-picker-suffix">
@@ -348,7 +348,7 @@ watch(
 								:step="hourStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledHours()"
-								:active-input="activeInput"
+								:active-input
 								@click="changeFormat"
 							/>
 							<Time
@@ -357,7 +357,7 @@ watch(
 								:step="minuteStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledMinutes(timeInfo.hour)"
-								:active-input="activeInput"
+								:active-input
 								@click="changeFormat"
 							/>
 							<Time
@@ -366,7 +366,7 @@ watch(
 								:step="secondStep"
 								v-model:value="timeValue"
 								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
-								:active-input="activeInput"
+								:active-input
 								@click="changeFormat"
 							/>
 						</div>

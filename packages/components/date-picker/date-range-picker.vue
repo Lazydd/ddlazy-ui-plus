@@ -498,12 +498,12 @@ defineExpose({
 			ref="datePickerInputRef1"
 			:format-show="isOutSide ? formatShow2[0] : inputValue[0]"
 			:format-value="formatShow[0]"
-			:disabled="disabled"
+			:disabled
 			:placeholder="showPlaceholder[0]"
 			:suffix="false"
 			:showIcon="false"
 			:allow-clear="false"
-			:readonly="readonly"
+			:readonly
 			@click.stop="startClick"
 		/>
 		<div class="dd-picker-range-separator">
@@ -527,11 +527,11 @@ defineExpose({
 			ref="datePickerInputRef2"
 			:format-show="isOutSide ? formatShow2[1] : inputValue[1]"
 			:format-value="formatShow[1]"
-			:disabled="disabled"
+			:disabled
 			:placeholder="showPlaceholder[1]"
 			:allow-clear="false"
 			:show-icon="false"
-			:readonly="readonly"
+			:readonly
 			@click.stop="endClick"
 		/>
 		<span class="dd-picker-suffix">
@@ -615,15 +615,15 @@ defineExpose({
 						<div class="dd-picker-headers">
 							<DateHeader
 								:active-mode="activeMode"
-								:year="year"
-								:month="month"
+								:year
+								:month
 								@active-mode-change="activeModeChange"
 								@year-change="yearChange"
 								@month-change="monthChange"
 								:hidden-next="true"
 							/>
 							<DateHeader
-								:active-mode="activeMode"
+								:active-mode
 								:year="dayjs({ year, month }).add(1, 'M').year()"
 								:month="dayjs({ year, month }).add(1, 'M').month()"
 								@active-mode-change="activeModeChange"
@@ -637,11 +637,11 @@ defineExpose({
 								<Component
 									:is="dateMode"
 									v-model:value="startDate"
-									:disabledDate="disabledDate"
+									:disabledDate
 									multiple
-									:month="month"
-									:year="year"
-									:mode-arr="modeArr"
+									:month
+									:year
+									:mode-arr
 									@month-change="monthChange"
 									@set-month="setMonth"
 									@set-year="setYear"
@@ -649,20 +649,18 @@ defineExpose({
 									@mouseenter="mouseenter"
 									@mouseleave="mouseleave"
 									@click="dateClick"
-									:condition-hide-date-picker-container-show="
-										conditionHideDatePickerContainerShow
-									"
+									:condition-hide-date-picker-container-show
 								/>
 							</div>
 							<div class="dd-picker-body">
 								<Component
 									:is="dateMode"
 									v-model:value="endDate"
-									:disabledDate="disabledDate"
+									:disabledDate
 									multiple
 									:month="month + 1"
-									:year="year"
-									:mode-arr="modeArr"
+									:year
+									:mode-arr
 									@month-change="monthChange"
 									@set-month="setMonth"
 									@set-year="setYear"
@@ -670,9 +668,7 @@ defineExpose({
 									@mouseenter="mouseenter"
 									@mouseleave="mouseleave"
 									@click="dateClick"
-									:condition-hide-date-picker-container-show="
-										conditionHideDatePickerContainerShow
-									"
+									:condition-hide-date-picker-container-show
 								/>
 							</div>
 						</div>
