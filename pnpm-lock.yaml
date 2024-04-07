@@ -54,16 +54,16 @@ devDependencies:
     version: 5.30.0
   unocss:
     specifier: ^0.58.8
-    version: 0.58.8(postcss@8.4.35)(vite@5.2.6)
+    version: 0.58.8(postcss@8.4.38)(vite@5.2.6)
   vite:
     specifier: ^5.2.6
     version: 5.2.6(@types/node@20.11.30)(sass@1.72.0)(terser@5.30.0)
   vitepress:
-    specifier: ^1.0.1
-    version: 1.0.1(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3)
+    specifier: ^1.0.2
+    version: 1.0.2(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.38)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3)
   vitepress-theme-demoblock-fork:
     specifier: ^3.0.4
-    version: 3.0.4(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3)
+    version: 3.0.4(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.38)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3)
   vue-tsc:
     specifier: ^2.0.7
     version: 2.0.7(typescript@5.3.3)
@@ -1402,7 +1402,7 @@ packages:
       sirv: 2.0.4
     dev: true
 
-  /@unocss/postcss@0.58.8(postcss@8.4.35):
+  /@unocss/postcss@0.58.8(postcss@8.4.38):
     resolution: {integrity: sha512-nI8Cbvc7/IFMGVeFXAHEom5X76gb0dSylBGvlVtWakq27nBwlxG4c3+58dVWg7Nyqvn1mC/sOMGpqjfk8FdJcQ==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -1414,7 +1414,7 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.3.2
       magic-string: 0.30.8
-      postcss: 8.4.35
+      postcss: 8.4.38
     dev: true
 
   /@unocss/preset-attributify@0.58.8:
@@ -3376,7 +3376,7 @@ packages:
       unist-util-visit-parents: 5.1.3
     dev: true
 
-  /unocss@0.58.8(postcss@8.4.35)(vite@5.2.6):
+  /unocss@0.58.8(postcss@8.4.38)(vite@5.2.6):
     resolution: {integrity: sha512-oMWCEgwvxJcF1BZxxkbTyTd83xtArsza3DModUrJrPndnpOVVz9fZ5g6wcrDbVpv6+cvRrgMCeKMlWKt9WIIsA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -3392,7 +3392,7 @@ packages:
       '@unocss/cli': 0.58.8
       '@unocss/core': 0.58.8
       '@unocss/extractor-arbitrary-variants': 0.58.8
-      '@unocss/postcss': 0.58.8(postcss@8.4.35)
+      '@unocss/postcss': 0.58.8(postcss@8.4.38)
       '@unocss/preset-attributify': 0.58.8
       '@unocss/preset-icons': 0.58.8
       '@unocss/preset-mini': 0.58.8
@@ -3491,7 +3491,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress-theme-demoblock-fork@3.0.4(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3):
+  /vitepress-theme-demoblock-fork@3.0.4(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.38)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3):
     resolution: {integrity: sha512-quX5BeYADwXn9CB6bywipbriO+915/MluYs4fwtz196xVAwh60Zwpn7Vu/95lLMd27Q2xmjEZpSEGjltvvPgAA==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -3517,7 +3517,7 @@ packages:
       shiki: 0.14.7
       unified: 10.1.2
       unist-util-visit: 4.1.2
-      vitepress: 1.0.1(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3)
+      vitepress: 1.0.2(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.38)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3)
       vue: 3.4.21(typescript@5.3.3)
       yaml: 2.4.0
     transitivePeerDependencies:
@@ -3551,8 +3551,8 @@ packages:
       - universal-cookie
     dev: true
 
-  /vitepress@1.0.1(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.35)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-eNr5pOBppYUUjEhv8S0S2t9Tv95LQ6mMeHj6ivaGwfHxpov70Vduuwl/QQMDRznKDSaP0WKV7a82Pb4JVOaqEw==}
+  /vitepress@1.0.2(@algolia/client-search@4.22.1)(@types/node@20.11.30)(postcss@8.4.38)(sass@1.72.0)(search-insights@2.13.0)(terser@5.30.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-bEj9yTEdWyewJFOhEREZF+mXuAgOq27etuJZT6DZSp+J3XpQstXMJc5piSVwhZBtuj8OfA0iXy+jdP1c71KMYQ==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4
@@ -3575,7 +3575,7 @@ packages:
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0
-      postcss: 8.4.35
+      postcss: 8.4.38
       shiki: 1.2.1
       vite: 5.2.6(@types/node@20.11.30)(sass@1.72.0)(terser@5.30.0)
       vue: 3.4.21(typescript@5.3.3)

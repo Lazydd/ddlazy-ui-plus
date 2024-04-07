@@ -44,7 +44,7 @@
 		"terser": "^5.30.0",
 		"unocss": "^0.58.8",
 		"vite": "^5.2.6",
-		"vitepress": "^1.0.1",
+		"vitepress": "^1.0.2",
 		"vitepress-theme-demoblock-fork": "^3.0.4",
 		"vue-tsc": "^2.0.7"
 	},
