@@ -4,7 +4,7 @@
 	<div class="page"></div>
 </template>
 
-<style lang="less">
+<style lang="scss">
 body {
 	overflow: auto;
 }
