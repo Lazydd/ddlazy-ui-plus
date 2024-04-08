@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
 	plugins: [vue(), vueJsx()],
 	define: {
-		'__VUE_OPTIONS_API__ ': false,
+		'__VUE_OPTIONS_API__': false,
 	},
 	resolve: {
 		dedupe: ['vue'],
@@ -30,7 +30,7 @@ export default defineConfig({
 			entry: 'packages/components/index.ts', //库打包入口
 			name: 'ddlazy-ui-plus',
 			fileName: (format) => `ddlazy-ui-plus.${format}.js`,
-			formats: ['es', 'umd'],
+			formats: ['es'],
 		},
 		rollupOptions: {
 			external: ['vue'],
