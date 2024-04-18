@@ -32,6 +32,14 @@ export const inputProps = {
 	maxlength: {
 		type: Number,
 	},
+	search: {
+		type: Boolean,
+		default: false,
+	},
+	loading: {
+		type: Boolean,
+		default: false,
+	},
 } as const;
 
 export type InputProps = ExtractPropTypes<typeof inputProps>;
