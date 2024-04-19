@@ -22,6 +22,7 @@ export * from './radio-button';
 export * from './radio-group';
 export * from './time-picker';
 export * from './date-picker';
+export * from './tree';
 
 export default {
 	install(app: App) {

@@ -75,3 +75,10 @@
 	--dd-date-picker-clear-background-color: #141414;
 	--dd-date-picker-control-button-color: rgba(255, 255, 255, 0.45);
 }
+/* tree */
+.dark {
+	--dd-tree-border-color: #424242;
+	--dd-hover-background-color: rgba(255, 255, 255, 0.08);
+	--dd-tree-selected-background-color: #111a2c;
+	--dd-tree-inner-background-color: #141414;
+}

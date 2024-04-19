@@ -147,3 +147,12 @@
 	--dd-date-picker-clear-background-color: var(--dd-white);
 	--dd-date-picker-icon-active-color: var(--dd-icon-color-active);
 }
+/* tree */
+:root {
+	--dd-tree-color: var(--dd-color-1);
+	--dd-tree-border-color: var(--dd-border-color);
+	--dd-tree-inner-background-color: var(--dd-white);
+	--dd-tree-disabled-color: var(--dd-disabled-color);
+	--dd-tree-switcher-hover-background-color: rgba(0, 0, 0, 0.06);
+	--dd-tree-selected-background-color: #e6f4ff;
+}

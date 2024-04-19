@@ -150,6 +150,15 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			],
 		},
 		{
+			text: 'Data Display',
+			items: [
+				{
+					text: 'Tree 树形控件',
+					link: '/components/data display/tree',
+				},
+			],
+		},
+		{
 			text: 'FeedBack',
 			items: [
 				{
