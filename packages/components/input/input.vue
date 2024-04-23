@@ -37,10 +37,10 @@ const clear = () => {
 };
 
 const showClear = computed(
-	() => props.allowClear && !props.disabled && !props.readonly && props.value
+	() => props.allowClear && !props.disabled && !props.readonly && props.value,
 );
 const showPwdVisible = computed(
-	() => props.type == 'password' && !props.disabled && !props.readonly && props.value
+	() => props.type == 'password' && !props.disabled && !props.readonly && props.value,
 );
 const passwordVisible = ref(false);
 const passwordIcon = computed(() => (passwordVisible.value ? EyeOutlined : EyeInvisibleOutlined));
@@ -52,7 +52,7 @@ const handlePasswordVisible = () => {
 
 const inputCount = computed(() => props.value?.toString().length || 0);
 
-const search = () => {
+const searchChange = () => {
 	if (props.loading) return;
 	emit('search', ddInputRef.value.value);
 };
@@ -69,11 +69,10 @@ defineExpose({
 		:class="[
 			size,
 			'dd-input-base',
+			search ? 'dd-input-search' : 'dd-input-affix-wrapper',
 			{
-				'dd-input-affix-wrapper': !search,
 				'dd-input-textarea-affix-wrapper': type === 'textarea',
 				'dd-input-affix-wrapper-disabled': disabled,
-				'dd-input-search': search,
 			},
 		]"
 	>
@@ -90,13 +89,13 @@ defineExpose({
 				:type="type == 'password' ? (passwordVisible ? 'text' : 'password') : type"
 				:disabled
 				@input="handleInput"
-				@keyup.enter.native="search"
+				@keyup.enter.native="searchChange"
 			/>
 			<span
 				:class="['dd-input-group-addon', { 'dd-input-group-addon-disabled': disabled }]"
 				v-if="search"
 				type="submit"
-				@click="search"
+				@click="searchChange"
 			>
 				<svg
 					v-if="!loading"
