@@ -1,7 +1,6 @@
 <template>
 	<svg
 		focusable="false"
-		class=""
 		data-icon="caret-down"
 		width="1em"
 		height="1em"
