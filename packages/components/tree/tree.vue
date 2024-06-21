@@ -179,7 +179,7 @@ const virtualListOptions = ref({
 						>
 							<template #="{ data }">
 								<TreeNode
-									:data="data"
+									:data
 									:tree-map
 									:multiple
 									:checkable
@@ -213,7 +213,7 @@ const virtualListOptions = ref({
 					</template>
 					<template v-else v-for="data in flattenTree">
 						<TreeNode
-							:data="data"
+							:data
 							:tree-map
 							:disabled
 							:multiple
