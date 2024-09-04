@@ -9,7 +9,7 @@ defineOptions({
 	name: createName('carousel'),
 });
 
-const props = defineProps(carouselProps);
+const { autoplay, dots, interval } = defineProps(carouselProps);
 const emit = defineEmits<{
 	change: [index: number];
 	next: [index: number];
@@ -68,7 +68,7 @@ const dotClick = (index: number) => {
 
 watch(
 	() => index.value,
-	() => emit('change', index.value)
+	() => emit('change', index.value),
 );
 
 const time = ref(null);
@@ -76,10 +76,10 @@ const initTime = () => {
 	time.value = setInterval(() => {
 		if (slotLength.value <= 1) return;
 		next();
-	}, props.interval);
+	}, interval);
 };
 onMounted(() => {
-	if (props.autoplay) {
+	if (autoplay) {
 		initTime();
 	}
 });
@@ -88,13 +88,13 @@ onUnmounted(() => {
 });
 
 watch(
-	() => props.autoplay,
+	() => autoplay,
 	() => {
 		if (time.value) clearInterval(time.value);
-		if (props.autoplay) {
+		if (autoplay) {
 			initTime();
 		}
-	}
+	},
 );
 defineExpose({
 	next,

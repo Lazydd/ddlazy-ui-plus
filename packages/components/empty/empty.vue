@@ -22,9 +22,9 @@ defineOptions({
 	name: createName('empty'),
 });
 
-const props = defineProps(emptyProps);
+const { description, image, imageStyle } = defineProps(emptyProps);
 
-const EmptyImage = computed(() => (props.image ? h('img', { src: props.image }) : EmptyIcon));
+const EmptyImage = computed(() => (image ? h('img', { src: image }) : EmptyIcon));
 </script>
 
 <style scoped>

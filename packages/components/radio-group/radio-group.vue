@@ -8,7 +8,7 @@ import DdRadioButton from '../radio-button';
 export default {
 	name: createName('radio-group'),
 	props: radioGroupProps,
-	setup(props, { slots, emit }) {
+	setup({ size, buttonStyle, value, disabled }, { slots, emit }) {
 		const slot = computed(() => {
 			let arr = [];
 			const children = slots.default().filter((i) => i.type !== Comment);
@@ -26,8 +26,8 @@ export default {
 			<div
 				class={[
 					'dd-radio-group',
-					props.size,
-					{ 'dd-radio-group-solid': props.buttonStyle === 'solid' },
+					size,
+					{ 'dd-radio-group-solid': buttonStyle === 'solid' },
 				]}
 			>
 				{slot.value.map((v) => {
@@ -36,13 +36,13 @@ export default {
 						<component
 							is={component}
 							value={v.props.value}
-							checked={props.value === v.props?.value}
-							disabled={!!(props.disabled ? props.disabled : v.props?.disabled)}
-							buttonStyle={props.buttonStyle}
+							checked={value === v.props?.value}
+							disabled={!!(disabled ? disabled : v.props?.disabled)}
+							buttonStyle={buttonStyle}
 							onClick={() => {
-								if (v.props.disabled || props.disabled) return;
-								if (props.value !== v.props?.value) {
-									emit('change', v.props?.value, props.value);
+								if (v.props.disabled || disabled) return;
+								if (value !== v.props?.value) {
+									emit('change', v.props?.value, value);
 								}
 								emit('update:value', v.props?.value);
 							}}

@@ -3,19 +3,17 @@ import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 import { useCalendar } from '../../utils/hook';
 
-const props = withDefaults(
-	defineProps<{
-		value: any;
-		month?: number;
-		year?: number;
-		disabledDate: Function;
-		conditionHideDatePickerContainerShow: Function;
-	}>(),
-	{
-		month: dayjs().month(),
-		year: dayjs().year(),
-	}
-);
+const {
+	month = dayjs().month(),
+	year = dayjs().year(),
+	disabledDate,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
+	month?: number;
+	year?: number;
+	disabledDate: Function;
+	conditionHideDatePickerContainerShow: Function;
+}>();
 
 const emit = defineEmits<{
 	'month-change': [value: number];
@@ -25,21 +23,21 @@ const emit = defineEmits<{
 const dateValue = defineModel<Dayjs>('value');
 
 const dateInfo = computed(() => {
-	return useCalendar({ year: props.year, month: props.month });
+	return useCalendar({ year, month });
 });
 
 const dateClick = (date: Dayjs, isCurrMonth: boolean) => {
-	if (props.disabledDate(date)) return;
+	if (disabledDate(date)) return;
 	dateValue.value = date;
 	if (!isCurrMonth) {
-		const time = dayjs({ year: props.year, month: props.month });
+		const time = dayjs({ year, month });
 		if (dayjs(date).isBefore(time, 'M')) {
 			emit('month-change', -1);
 		} else if (dayjs(date).isAfter(time, 'M')) {
 			emit('month-change', 1);
 		}
 	}
-	props.conditionHideDatePickerContainerShow();
+	conditionHideDatePickerContainerShow();
 };
 
 const mouseenter = (date: Dayjs) => {
@@ -89,7 +87,7 @@ const mouseenter = (date: Dayjs) => {
 						},
 					]"
 					v-for="{ date, isCurrMonth } in week"
-					:key="(date as any)"
+					:key="date as any"
 					:title="dayjs(date).format('YYYY-MM-DD')"
 					@click="dateClick(date, isCurrMonth)"
 					@mouseenter="mouseenter(date)"

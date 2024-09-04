@@ -6,13 +6,13 @@ defineOptions({
 	name: createName('radio-button'),
 });
 
-const props = defineProps(radioButtonProps);
+const { disabled, checked } = defineProps(radioButtonProps);
 const emit = defineEmits<{
 	'update:checked': [value: boolean];
 }>();
 
 const radioClick = () => {
-	if (props.disabled || props.checked) return;
+	if (disabled || checked) return;
 	emit('update:checked', true);
 };
 
@@ -36,13 +36,7 @@ defineExpose({});
 				{ 'dd-radio-button-checked': checked, 'dd-radio-disabled': disabled },
 			]"
 		>
-			<input
-				type="radio"
-				class="dd-radio-input"
-				:disabled
-				:value
-				:checked
-			/>
+			<input type="radio" class="dd-radio-input" :disabled :value :checked />
 			<span class="dd-radio-button-inner" />
 		</span>
 		<span class="dd-radio-label" v-if="!($slots.defualt && value)">
