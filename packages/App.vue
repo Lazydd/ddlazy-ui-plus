@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div class="page"></div>
+	<div class="page">
+		<dd-color-picker></dd-color-picker>
+	</div>
 </template>
 
 <style lang="scss">
