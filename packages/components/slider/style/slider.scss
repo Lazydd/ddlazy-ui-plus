@@ -1,0 +1,64 @@
+.dd-slider {
+	margin: 11px 5px;
+	padding: 0;
+	color: rgba(0, 0, 0, 0.88);
+	font-size: 14px;
+	list-style: none;
+	position: relative;
+	height: 10px;
+	cursor: pointer;
+	touch-action: none;
+	width: 100%;
+	&-horizontal {
+		padding-block: 4px;
+		height: 12px;
+		.dd-slider-handle {
+			inset-block-start: 1px;
+		}
+	}
+	&-rail {
+		position: absolute;
+		background-color: rgba(0, 0, 0, 0.04);
+		border-radius: 2px;
+		transition: background-color 0.2s;
+		width: 100%;
+		height: 4px;
+	}
+	&-track {
+		position: absolute;
+		background-color: #91caff;
+		border-radius: 2px;
+		transition: background-color 0.2s;
+		height: 4px;
+	}
+	&-handle {
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		outline: none;
+		transform: translateX(-50%);
+		&::before {
+			content: '';
+			position: absolute;
+			inset-inline-start: -2px;
+			inset-block-start: -2px;
+			width: 14px;
+			height: 14px;
+			background-color: transparent;
+		}
+		&::after {
+			content: '';
+			position: absolute;
+			inset-block-start: 0;
+			inset-inline-start: 0;
+			width: 10px;
+			height: 10px;
+			background-color: #ffffff;
+			box-shadow: 0 0 0 2px #91caff;
+			border-radius: 50%;
+			cursor: pointer;
+			transition: inset-inline-start 0.2s, inset-block-start 0.2s, width 0.2s, height 0.2s,
+				box-shadow 0.2s;
+		}
+	}
+}
