@@ -66,6 +66,10 @@ export const treeProps = {
 	height: {
 		type: Number,
 	},
+	autoExpandParent: {
+		type: Boolean,
+		defualt: false,
+	},
 	defaultExpandAll: {
 		type: Boolean,
 		defualt: false,
