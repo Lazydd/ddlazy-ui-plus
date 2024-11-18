@@ -283,7 +283,7 @@ const dateMode = computed({
 });
 const modeArr = ref<string[]>([]);
 const activeModeChange = (value: string) => {
-	if (dateMode.value === 'dacade') return;
+	if (activeMode.value === 'dacade') return;
 	modeArr.value.push(activeMode.value);
 	dateMode.value = value;
 };
