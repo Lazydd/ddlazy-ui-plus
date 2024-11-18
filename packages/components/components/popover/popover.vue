@@ -14,24 +14,23 @@ defineOptions({
 	name: 'popover',
 });
 
-const props = withDefaults(
-	defineProps<{
-		visible: boolean;
-		instance?: HTMLElement | null;
-		arrow?: boolean;
-		autoWidth?: boolean;
-		padding?: number;
-		popupArrowClassName?: string | Object;
-		ignore?: HTMLElement[] | null;
-		generate?: boolean;
-	}>(),
-	{
-		arrow: true,
-		autoWidth: true,
-		padding: 12,
-		generate: false,
-	}
-);
+const {
+	visible,
+	instance,
+	arrow = true,
+	autoWidth = true,
+	padding = 12,
+	popupArrowClassName,
+	generate = false,
+} = defineProps<{
+	visible: boolean;
+	instance?: HTMLElement | null;
+	arrow?: boolean;
+	autoWidth?: boolean;
+	padding?: number;
+	popupArrowClassName?: string | Object;
+	generate?: boolean;
+}>();
 const emit = defineEmits<{
 	'update:visible': [value: boolean];
 	outSideClick: [value: boolean];
@@ -44,8 +43,8 @@ const threshold = ref(30);
 const popoverPlacement = ref('topLeft');
 const { width: winWidth, height: winHeight } = useWindowSize();
 
-const arrowGap = computed(() => (props.arrow ? 13 : 6));
-const instanceWidth = ref(props.instance.getBoundingClientRect().width);
+const arrowGap = computed(() => (arrow ? 13 : 6));
+const instanceWidth = ref(instance.getBoundingClientRect().width);
 
 useResizeObserver(document.body, () => {
 	setInset();
@@ -55,11 +54,11 @@ useEventListener(
 	'scroll',
 	useThrottleFn(() => {
 		setInset();
-	}, 150)
+	}, 150),
 );
 
 const instanceAttributes = computed(() => {
-	const { top: offsetTop, left: offsetLeft } = props.instance.getBoundingClientRect();
+	const { top: offsetTop, left: offsetLeft } = instance.getBoundingClientRect();
 	return {
 		offsetTop,
 		offsetLeft,
@@ -74,8 +73,8 @@ const nodeAttributes = computed(() => {
 });
 
 const setInset = async () => {
-	if (!props.instance || !props.visible) return;
-	const { top, left, width, height } = getOffset(props.instance);
+	if (!instance || !visible) return;
+	const { top, left, width, height } = getOffset(instance);
 	instanceWidth.value = width;
 	let insetTop = top + height + arrowGap.value;
 	let insetLeft = left;
@@ -112,7 +111,7 @@ const setInset = async () => {
 		}
 	}
 };
-const instanceAttribute = useElementSize(props.instance);
+const instanceAttribute = useElementSize(instance);
 
 watch([() => instanceAttribute.width.value, () => instanceAttribute.height.value], () => {
 	setInset();
@@ -120,7 +119,7 @@ watch([() => instanceAttribute.width.value, () => instanceAttribute.height.value
 const created = ref(false);
 
 watchEffect(() => {
-	if (props.visible) {
+	if (visible) {
 		created.value = true;
 	}
 	setInset();
@@ -128,7 +127,7 @@ watchEffect(() => {
 
 const outSideClick = () => {
 	emit('update:visible', false);
-	emit('outSideClick', props.visible);
+	emit('outSideClick', visible);
 };
 </script>
 

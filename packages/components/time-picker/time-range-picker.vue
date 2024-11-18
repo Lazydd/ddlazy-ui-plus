@@ -12,7 +12,8 @@ import dayjs, { type Dayjs } from 'dayjs';
 defineOptions({
 	name: createName('time-range-picker'),
 });
-const props = defineProps(timeRangePickerProps);
+const { disabled, open, valueFormat, format, order, allowClear, disabledTime } =
+	defineProps(timeRangePickerProps);
 const emit = defineEmits<{
 	change: [time: Dayjs[] | string[]];
 	openChange: [value: boolean];
@@ -34,9 +35,9 @@ const formatShow = computed(() => {
 	let value = undefined;
 	let formatType: TimePickerFormatType | TimePickerFormatType[];
 	if (tempValue.value ?? formatValue.value) {
-		formatType = Array.isArray(props.format)
-			? props.format
-			: (Array.from({ length: 2 }, () => props.format) as TimePickerFormatType[]);
+		formatType = Array.isArray(format)
+			? format
+			: (Array.from({ length: 2 }, () => format) as TimePickerFormatType[]);
 		value = formatValue.value?.map((v, i) => v?.format(formatType[i] as string));
 	}
 	return value ?? Array.from({ length: 2 });
@@ -44,7 +45,7 @@ const formatShow = computed(() => {
 const formatValue = defineModel<Dayjs[]>('value', {
 	get(value) {
 		return (
-			value?.map((v) => (v ? dayjs(v, props.valueFormat as string) : undefined)) ??
+			value?.map((v) => (v ? dayjs(v, valueFormat as string) : undefined)) ??
 			Array.from({ length: 2 })
 		);
 	},
@@ -52,21 +53,19 @@ const formatValue = defineModel<Dayjs[]>('value', {
 		let newValue: (string | undefined)[] = undefined;
 		let formatType: TimePickerFormatType | TimePickerFormatType[];
 		if (value) {
-			formatType = Array.isArray(props.valueFormat)
-				? props.valueFormat
-				: (Array.from({ length: 2 }, () => props.valueFormat) as TimePickerFormatType[]);
+			formatType = Array.isArray(valueFormat)
+				? valueFormat
+				: (Array.from({ length: 2 }, () => valueFormat) as TimePickerFormatType[]);
 			newValue = value.map((v, i) =>
-				v ? dayjs(v).format(formatType[i] as string) : undefined
+				v ? dayjs(v).format(formatType[i] as string) : undefined,
 			);
 		}
-		if (props.order) {
+		if (order) {
 			const [t1, t2] = newValue;
 			newValue =
 				t1 &&
 				t2 &&
-				dayjs(t2, props.valueFormat as string).isBefore(
-					dayjs(t1, props.valueFormat as string)
-				)
+				dayjs(t2, valueFormat as string).isBefore(dayjs(t1, valueFormat as string))
 					? newValue.reverse()
 					: newValue;
 		}
@@ -92,7 +91,7 @@ const timeValue = computed({
 	},
 });
 const timeRangePickerClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	timeRangePickerContainerShow.value = true;
 	timePickerInputRef1.value.focus();
 	activeInput.value = 0;
@@ -105,7 +104,7 @@ const {
 	disabledHours = () => [],
 	disabledMinutes = () => [],
 	disabledSeconds = () => [],
-} = computed(() => props.disabledTime(formatValue.value[activeInput.value])).value;
+} = computed(() => disabledTime(formatValue.value[activeInput.value])).value;
 const outSideClick = (visible: boolean) => {
 	if (!visible) return;
 	tempValue.value = [];
@@ -131,7 +130,7 @@ const setNowDisabled = computed(
 	() =>
 		disabledHours().includes(dayjs().hour()) ||
 		disabledMinutes(timeInfo.value.hour).includes(dayjs().minute()) ||
-		disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(dayjs().second())
+		disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(dayjs().second()),
 );
 const setNow = () => {
 	if (setNowDisabled.value) {
@@ -142,7 +141,7 @@ const setNow = () => {
 	formatValue.value = temp;
 	setShow();
 };
-const sOpen = ref(props.open);
+const sOpen = ref(open);
 const eOpen = ref(false);
 const ok = () => {
 	const [t1, t2] = formatValue.value;
@@ -177,7 +176,7 @@ const setShow = async () => {
 };
 
 const startClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	timeRangePickerContainerShow.value = true;
 	timePickerInputRef1.value.focus();
 	activeInput.value = 0;
@@ -186,7 +185,7 @@ const startClick = async () => {
 	timeScrollInit();
 };
 const endClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	timeRangePickerContainerShow.value = true;
 	timePickerInputRef2.value.focus();
 	activeInput.value = 1;
@@ -208,7 +207,7 @@ watch(
 	() => timeRangePickerContainerShow.value,
 	() => {
 		emit('openChange', timeRangePickerContainerShow.value);
-	}
+	},
 );
 </script>
 

@@ -2,20 +2,17 @@
 import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
-const props = withDefaults(
-	defineProps<{
-		value: any;
-		month?: number;
-		year?: number;
-		modeArr: string[];
-		disabledDate: Function;
-		conditionHideDatePickerContainerShow: Function;
-	}>(),
-	{
-		month: dayjs().month(),
-		year: dayjs().year(),
-	}
-);
+const {
+	year = dayjs().year(),
+	modeArr,
+	disabledDate,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
+	year?: number;
+	modeArr: string[];
+	disabledDate: Function;
+	conditionHideDatePickerContainerShow: Function;
+}>();
 
 const emit = defineEmits<{
 	'set-month': [value: number];
@@ -26,7 +23,7 @@ const dateValue = defineModel<Dayjs>('value');
 
 const dateInfo = computed(() => {
 	return Array.from({ length: 12 }, (_, i) => ({
-		date: dayjs({ year: props.year, month: i }),
+		date: dayjs({ year, month: i }),
 	})).reduce((arr, item, index) => {
 		if (index % 3 === 0) arr.push([item]);
 		else arr[arr.length - 1].push(item);
@@ -35,8 +32,8 @@ const dateInfo = computed(() => {
 });
 
 const dateClick = (date: Dayjs) => {
-	props.conditionHideDatePickerContainerShow();
-	if (props.modeArr.length) {
+	conditionHideDatePickerContainerShow();
+	if (modeArr.length) {
 		emit('set-month', date.month());
 	} else dateValue.value = date;
 };

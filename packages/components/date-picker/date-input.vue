@@ -2,32 +2,28 @@
 import { ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { Dayjs } from 'dayjs';
-const props = withDefaults(
-	defineProps<{
-		formatShow: string | undefined;
-		formatValue: Dayjs | undefined;
-		disabled: boolean;
-		placeholder: string;
-		allowClear: boolean;
-		suffix?: boolean;
-		showIcon?: boolean;
-		readonly?: boolean;
-		showTime?: boolean | object;
-	}>(),
-	{
-		suffix: true,
-		showIcon: true,
-		readonly: false,
-		showTime: false,
-	}
-);
+const {
+	allowClear,
+	showIcon = true,
+	readonly = false,
+	showTime = false,
+} = defineProps<{
+	formatShow: string | undefined;
+	formatValue: Dayjs | undefined;
+	disabled: boolean;
+	placeholder: string;
+	allowClear: boolean;
+	showIcon?: boolean;
+	readonly?: boolean;
+	showTime?: boolean | object;
+}>();
 const emit = defineEmits<{
 	clearClick: [];
 }>();
 
 const datePickerInputRef = ref<HTMLInputElement | null>();
 const clearClick = () => {
-	if (!props.allowClear) return;
+	if (!allowClear) return;
 	emit('clearClick');
 };
 const focus = (options?: FocusOptions) => {
@@ -50,7 +46,7 @@ defineExpose({
 			:value="formatShow"
 			:disabled
 			:readonly
-			:size="props.showTime ? 21 : 10"
+			:size="showTime ? 21 : 10"
 		/>
 		<span class="dd-picker-suffix">
 			<slot name="suffixIcon">
@@ -161,7 +157,9 @@ defineExpose({
 		transform: translateY(-50%);
 		cursor: pointer;
 		opacity: 0;
-		transition: opacity 0.2s, color 0.2s;
+		transition:
+			opacity 0.2s,
+			color 0.2s;
 		&:hover {
 			color: var(--dd-date-picker-icon-active-color);
 		}

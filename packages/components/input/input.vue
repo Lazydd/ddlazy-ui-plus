@@ -12,7 +12,8 @@ defineOptions({
 	name: createName('input'),
 });
 
-const props = defineProps(inputProps);
+const { size, disabled, allowClear, readonly, type, value, showCount, maxlength, search, loading } =
+	defineProps(inputProps);
 const emit = defineEmits(['update:value', 'change', 'clear', 'input', 'search']);
 const slots = useSlots();
 
@@ -20,8 +21,8 @@ const ddInputRef = ref<HTMLInputElement | null>(null);
 const ddInputTextAreaRef = ref<HTMLTextAreaElement | null>(null);
 
 const handleInput = (e) => {
-	if (props.maxlength && e.target.value.length > props.maxlength) {
-		e.target.value = e.target.value.substring(0, props.maxlength);
+	if (maxlength && e.target.value.length > maxlength) {
+		e.target.value = e.target.value.substring(0, maxlength);
 		return;
 	}
 	emit('update:value', e.target.value);
@@ -36,12 +37,8 @@ const clear = () => {
 	ddInputRef.value.focus();
 };
 
-const showClear = computed(
-	() => props.allowClear && !props.disabled && !props.readonly && props.value,
-);
-const showPwdVisible = computed(
-	() => props.type == 'password' && !props.disabled && !props.readonly && props.value,
-);
+const showClear = computed(() => allowClear && !disabled && !readonly && value);
+const showPwdVisible = computed(() => type == 'password' && !disabled && !readonly && value);
 const passwordVisible = ref(false);
 const passwordIcon = computed(() => (passwordVisible.value ? EyeOutlined : EyeInvisibleOutlined));
 
@@ -50,10 +47,10 @@ const handlePasswordVisible = () => {
 	ddInputRef.value.focus();
 };
 
-const inputCount = computed(() => props.value?.toString().length || 0);
+const inputCount = computed(() => value?.toString().length || 0);
 
 const searchChange = () => {
-	if (props.loading) return;
+	if (loading) return;
 	emit('search', ddInputRef.value.value);
 };
 

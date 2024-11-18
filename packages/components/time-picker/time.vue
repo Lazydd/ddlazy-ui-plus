@@ -3,40 +3,40 @@ import { computed, ref, onMounted } from 'vue';
 import { useTime } from '../../utils/hook';
 import dayjs, { Dayjs } from 'dayjs';
 
-const props = withDefaults(
-	defineProps<{
-		value: any;
-		type: string;
-		step?: number;
-		activeInput?: number;
-		disabledTime?: number[];
-		hideDisabledOptions?: boolean;
-	}>(),
-	{
-		step: 1,
-		disabledTime: () => [],
-		hideDisabledOptions: false,
-	}
-);
+const {
+	value,
+	type,
+	activeInput,
+	step = 1,
+	disabledTime = [],
+	hideDisabledOptions = false,
+} = defineProps<{
+	value: any;
+	type: string;
+	step?: number;
+	activeInput?: number;
+	disabledTime?: number[];
+	hideDisabledOptions?: boolean;
+}>();
 const emit = defineEmits<{
 	click: [value: string, type: string];
 }>();
 
 const showTime = computed(() => {
 	let str = undefined;
-	if (Array.isArray(props.value)) {
-		if (props.value[props.activeInput]) {
-			str = dayjs(props.value[props.activeInput], formatTimeType.value.formatType);
+	if (Array.isArray(value)) {
+		if (value[activeInput]) {
+			str = dayjs(value[activeInput], formatTimeType.value.formatType);
 		}
-	} else if (props.value) {
-		str = dayjs(props.value, formatTimeType.value.formatType);
+	} else if (value) {
+		str = dayjs(value, formatTimeType.value.formatType);
 	}
 	if (!str) return;
-	if (props.type === 'hour') {
+	if (type === 'hour') {
 		str = str.hour();
-	} else if (props.type === 'minute') {
+	} else if (type === 'minute') {
 		str = str.minute();
-	} else if (props.type === 'second') {
+	} else if (type === 'second') {
 		str = str.second();
 	}
 	if (str || str == 0) str = str.toString().padStart(2, '0');
@@ -45,16 +45,16 @@ const showTime = computed(() => {
 const formatShowTime = computed(() => dayjs(showTime.value, formatTimeType.value.formatType));
 const dateInfo = computed(() => {
 	return useTime({
-		type: props.type,
-		step: props.step,
-		disabledArr: props.disabledTime,
-	}).value.filter((v) => (props.hideDisabledOptions ? !v.disabled : true));
+		type: type,
+		step: step,
+		disabledArr: disabledTime,
+	}).value.filter((v) => (hideDisabledOptions ? !v.disabled : true));
 });
 
 const formatTimeType = computed(() => {
 	let formatType = '',
 		type = '';
-	switch (props.type) {
+	switch (type) {
 		case 'hour':
 			formatType = 'HH';
 			type = 'h';
@@ -81,25 +81,25 @@ const timeClick = (v: any, index: number, disabled: boolean) => {
 	if (disabled) return;
 	scrollTo(index);
 	let time: Dayjs | Dayjs[];
-	const value = Array.isArray(props.value) ? props.value[props.activeInput] : props.value;
-	switch (props.type) {
+	const newValue = Array.isArray(value) ? value[activeInput] : value;
+	switch (type) {
 		case 'hour':
-			time = dayjs(value ?? undefined).hour(v);
+			time = dayjs(newValue ?? undefined).hour(v);
 			break;
 		case 'minute':
-			time = dayjs(value ?? undefined).minute(v);
+			time = dayjs(newValue ?? undefined).minute(v);
 			break;
 		case 'second':
-			time = dayjs(value ?? undefined).second(v);
+			time = dayjs(newValue ?? undefined).second(v);
 			break;
 	}
-	if (Array.isArray(props.value)) {
-		const temp = props.value;
-		temp[props.activeInput] = time;
+	if (Array.isArray(value)) {
+		const temp = value;
+		temp[activeInput] = time;
 		time = temp as Dayjs[];
 	}
 	timeValue.value = time;
-	emit('click', v, props.type);
+	emit('click', v, type);
 };
 onMounted(() => {
 	init();
@@ -115,9 +115,9 @@ const scrollTo = (index: number, behavior: ScrollBehavior = 'smooth') => {
 };
 const same = (v: string) => {
 	const t1 = dayjs(v, formatTimeType.value.formatType);
-	if (props.type === 'hour') return t1.hour() === formatShowTime.value.hour();
-	else if (props.type === 'minute') return t1.minute() === formatShowTime.value.minute();
-	else if (props.type === 'second') return t1.second() === formatShowTime.value.second();
+	if (type === 'hour') return t1.hour() === formatShowTime.value.hour();
+	else if (type === 'minute') return t1.minute() === formatShowTime.value.minute();
+	else if (type === 'second') return t1.second() === formatShowTime.value.second();
 };
 defineExpose({
 	init,

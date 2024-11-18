@@ -13,7 +13,8 @@ import TimeInput from './time-input.vue';
 defineOptions({
 	name: createName('time-picker'),
 });
-const props = defineProps(timePickerProps);
+const { value, disabled, valueFormat, format, allowClear, disabledTime } =
+	defineProps(timePickerProps);
 const emit = defineEmits<{
 	change: [time: Dayjs | string];
 	openChange: [boolean];
@@ -30,13 +31,13 @@ const timePickerContainerShow = defineModel<boolean>('open');
 
 const formatValue = defineModel<Dayjs | undefined>('value', {
 	get(value) {
-		return value ? dayjs(value, props.valueFormat as string) : undefined;
+		return value ? dayjs(value, valueFormat as string) : undefined;
 	},
 	set(value) {
 		let newValue = undefined;
 		let formatType: TimePickerFormatType;
 		if (value) {
-			formatType = props.valueFormat;
+			formatType = valueFormat;
 			newValue = dayjs(value).format(formatType as string);
 		}
 		return newValue;
@@ -46,7 +47,7 @@ const formatShow = computed<string>(() => {
 	let value = undefined;
 	let formatType: TimePickerFormatType;
 	if (tempValue.value ?? formatValue.value) {
-		formatType = props.format;
+		formatType = format;
 		value = (tempValue.value ?? formatValue.value)?.format(formatType as string);
 	}
 	return value;
@@ -62,7 +63,7 @@ const timeValue = computed({
 	},
 });
 const timePickerClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	timePickerContainerShow.value = true;
 	timePickerInputRef.value.focus();
 	await nextTick();
@@ -76,14 +77,14 @@ const timeInfo = computed(() => ({
 	second: tempValue.value?.second() ?? formatValue.value?.second(),
 }));
 const clearClick = () => {
-	if (!props.allowClear) return;
+	if (!allowClear) return;
 	timePickerContainerShow.value = false;
 	formatValue.value = undefined;
 	tempValue.value = undefined;
 };
 const changeFormat = () => {
 	if (!timePickerContainerShow.value) return;
-	if (!props.value) {
+	if (!value) {
 		hourRef.value?.scrollTo(timeInfo.value.hour ?? dayjs().hour());
 		minuteRef.value?.scrollTo(timeInfo.value.minute ?? dayjs().minute());
 		secondRef.value?.scrollTo(timeInfo.value.second ?? dayjs().second());
@@ -93,7 +94,7 @@ const setNowDisabled = computed(
 	() =>
 		disabledHours().includes(dayjs().hour()) ||
 		disabledMinutes(timeInfo.value.hour).includes(dayjs().minute()) ||
-		disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(dayjs().second())
+		disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(dayjs().second()),
 );
 const setNow = () => {
 	if (setNowDisabled.value) {
@@ -117,7 +118,7 @@ const {
 	disabledHours = () => [],
 	disabledMinutes = () => [],
 	disabledSeconds = () => [],
-} = computed(() => props.disabledTime(formatValue.value)).value;
+} = computed(() => disabledTime(formatValue.value)).value;
 const outSideClick = (visible: boolean) => {
 	if (!visible) return;
 	tempValue.value = undefined;
@@ -126,7 +127,7 @@ watch(
 	() => timePickerContainerShow.value,
 	() => {
 		emit('openChange', timePickerContainerShow.value);
-	}
+	},
 );
 </script>
 

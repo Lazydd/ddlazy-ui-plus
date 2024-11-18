@@ -2,30 +2,28 @@
 import { ref } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { Dayjs } from 'dayjs';
-const props = withDefaults(
-	defineProps<{
-		formatShow: string | undefined;
-		formatValue: Dayjs | undefined;
-		disabled: boolean;
-		placeholder: string;
-		allowClear: boolean;
-		suffix?: boolean;
-		showIcon?: boolean;
-		readonly?: boolean;
-	}>(),
-	{
-		suffix: true,
-		showIcon: true,
-		readonly: false,
-	}
-);
+const {
+	allowClear,
+	suffix = true,
+	showIcon = true,
+	readonly = false,
+} = defineProps<{
+	formatShow: string | undefined;
+	formatValue: Dayjs | undefined;
+	disabled: boolean;
+	placeholder: string;
+	allowClear: boolean;
+	suffix?: boolean;
+	showIcon?: boolean;
+	readonly?: boolean;
+}>();
 const emit = defineEmits<{
 	clearClick: [];
 }>();
 
 const timePickerInputRef = ref<HTMLInputElement | null>();
 const clearClick = () => {
-	if (!props.allowClear) return;
+	if (!allowClear) return;
 	emit('clearClick');
 };
 const focus = (options?: FocusOptions) => {
@@ -158,7 +156,9 @@ defineExpose({
 		transform: translateY(-50%);
 		cursor: pointer;
 		opacity: 0;
-		transition: opacity 0.2s, color 0.2s;
+		transition:
+			opacity 0.2s,
+			color 0.2s;
 		height: 14px;
 		&:hover {
 			color: var(--dd-time-picker-icon-active-color);

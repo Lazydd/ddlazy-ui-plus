@@ -2,22 +2,19 @@
 import { computed } from 'vue';
 import dayjs from 'dayjs';
 import type { DatePickerModeType } from './types';
-const props = withDefaults(
-	defineProps<{
-		activeMode?: DatePickerModeType;
-		year?: number;
-		month?: number;
-		hiddenPrev?: boolean;
-		hiddenNext?: boolean;
-	}>(),
-	{
-		activeMode: 'date',
-		year: dayjs().year(),
-		month: dayjs().month(),
-		hiddenPrev: false,
-		hiddenNext: false,
-	}
-);
+const {
+	activeMode = 'date',
+	year = dayjs().year(),
+	month = dayjs().month(),
+	hiddenPrev = false,
+	hiddenNext = false,
+} = defineProps<{
+	activeMode?: DatePickerModeType;
+	year?: number;
+	month?: number;
+	hiddenPrev?: boolean;
+	hiddenNext?: boolean;
+}>();
 
 const emit = defineEmits<{
 	'year-change': [value: number];
@@ -25,9 +22,9 @@ const emit = defineEmits<{
 	'active-mode-change': [value: string];
 }>();
 
-const startYear = computed(() => Math.floor((props.year ?? dayjs().year()) / 10) * 10);
+const startYear = computed(() => Math.floor((year ?? dayjs().year()) / 10) * 10);
 const endYear = computed(() => startYear.value + 9);
-const showMonth = computed(() => props.activeMode === 'date' || props.activeMode === 'week');
+const showMonth = computed(() => activeMode === 'date' || activeMode === 'week');
 const dacadeStartYear = computed(() => Math.floor(startYear.value / 100) * 100);
 const dacadeEndYear = computed(() => dacadeStartYear.value + 99);
 

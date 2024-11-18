@@ -7,17 +7,15 @@ import { computed } from 'vue';
 defineOptions({
 	name: createName('switch'),
 });
-const props = defineProps(switchProps);
+const { value, disabled, loading, checkedValue, unCheckedValue } = defineProps(switchProps);
 const emit = defineEmits(['update:value', 'change']);
 
-const reversValue = computed(() =>
-	props.value === props.checkedValue ? props.unCheckedValue : props.checkedValue
-);
+const reversValue = computed(() => (value === checkedValue ? unCheckedValue : checkedValue));
 
 const switchClick = (e) => {
-	if (props.disabled || props.loading) return;
+	if (disabled || loading) return;
 	emit('update:value', reversValue.value);
-	emit('change', props.value, e);
+	emit('change', value, e);
 };
 </script>
 

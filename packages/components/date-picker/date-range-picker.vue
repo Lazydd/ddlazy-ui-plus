@@ -19,7 +19,8 @@ import Time from '../time-picker/time.vue';
 defineOptions({
 	name: createName('dateRangePicker'),
 });
-const props = defineProps(dateRangePickerProps);
+const { value, disabled, valueFormat, showTime, mode, allowClear, placeholder, onOk } =
+	defineProps(dateRangePickerProps);
 const showTimeConfig = {
 	format: 'HH:mm:ss',
 	valueFormat: 'HH:mm:ss',
@@ -37,7 +38,7 @@ const emit = defineEmits<{
 	'update:value': [value: string | number | Date | Dayjs];
 	change: [time: string | number | Date | Dayjs];
 }>();
-const showTimeInfo = { ...showTimeConfig, ...props.showTime };
+const showTimeInfo = { ...showTimeConfig, ...showTime };
 
 const datePickerContainerShow = ref(false);
 const datePickerRef = ref<HTMLElement | null>();
@@ -54,7 +55,7 @@ const width = computed(() => {
 });
 
 const datePickerClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	datePickerContainerShow.value = true;
 	datePickerInputRef1.value.focus();
 	await nextTick();
@@ -96,22 +97,20 @@ const format = (value) => {
 };
 
 const formatTypeArr = computed<FormatType[]>(() =>
-	Array.isArray(props.format)
-		? props.format
-		: (Array.from({ length: 2 }, () => props.format) as FormatType[])
+	Array.isArray(format) ? format : (Array.from({ length: 2 }, () => format) as FormatType[]),
 );
 const valueFormatArr = computed<FormatType[]>(() =>
-	Array.isArray(props.valueFormat)
-		? props.valueFormat
-		: (Array.from({ length: 2 }, () => props.valueFormat) as FormatType[])
+	Array.isArray(valueFormat)
+		? valueFormat
+		: (Array.from({ length: 2 }, () => valueFormat) as FormatType[]),
 );
 const activeInput = ref();
 
-const timeformatType = computed(() => props.showTime.format ?? 'HH:mm:ss');
+const timeformatType = computed(() => showTime.format ?? 'HH:mm:ss');
 const dataTemp = ref<(Dayjs | null)[]>([]);
 const dataValue = computed({
 	get() {
-		return props.value?.map((v) => (v ? dayjs(v) : undefined)) ?? Array.from({ length: 2 });
+		return value?.map((v) => (v ? dayjs(v) : undefined)) ?? Array.from({ length: 2 });
 	},
 	set(value: any) {
 		console.log(value);
@@ -122,8 +121,8 @@ const dataValue = computed({
 		// }
 	},
 });
-const startDate = ref(props.value?.[0] ? dayjs(props.value[0]) : null);
-const endDate = ref(props.value?.[1] ? dayjs(props.value[1]) : null);
+const startDate = ref(value?.[0] ? dayjs(value[0]) : null);
+const endDate = ref(value?.[1] ? dayjs(value[1]) : null);
 const formatValue = computed({
 	get() {
 		return dataTemp.value.length ? dataTemp.value.map((v) => dayjs(v)) : dataValue.value;
@@ -143,7 +142,7 @@ const formatValue = computed({
 					formatType = Array.from({ length: 2 }, () => 'YYYY');
 					break;
 			}
-			if (props.valueFormat) {
+			if (valueFormat) {
 				formatType = valueFormatArr.value;
 			}
 			// if (props.showTime) {
@@ -171,7 +170,7 @@ const formatValue = computed({
 		}
 		console.log(newValue);
 
-		if (!props.showTime) {
+		if (!showTime) {
 			emit('update:value', newValue);
 			// if (!formatValue.value?.isSame(dayjs(dataValue.value), 'd')) {
 			// 	emit('change', formatValue.value);
@@ -189,11 +188,11 @@ const formatValue = computed({
 });
 const formatShow = computed(() => {
 	let value = null;
-	const formatType = props.format
+	const formatType = format
 		? formatTypeArr.value
 		: Array.from({ length: 2 }, () => format(activeMode.value));
 	value = formatValue.value?.map((v, i) => (v ? v?.format(formatType[i] as string) : null));
-	if (props.showTime) {
+	if (showTime) {
 		let time = dayjs(formatValue.value).format(timeformatType.value as string);
 		value = value + ' ' + time;
 	}
@@ -202,33 +201,31 @@ const formatShow = computed(() => {
 	return value;
 });
 const formatShow2 = computed(() => {
-	let value: any = props.showTime
+	let newValue: any = showTime
 		? formatValue.value
-		: props.value?.map((v) => (v ? dayjs(v) : null)) ?? Array.from({ length: 2 });
-	const formatType = props.format
-		? formatTypeArr.value
-		: Array.from({ length: 2 }, () => format(props.mode));
-	value =
-		props.mode === 'quarter'
-			? value.map((v, i) => v?.format(formatType[i] as string)?.replace(/-(?!.*-)/, '-Q'))
-			: value.map((v, i) => v?.format(formatType[i] as string));
-	if (props.showTime) {
+		: value?.map((v) => (v ? dayjs(v) : null)) ?? Array.from({ length: 2 });
+	const formatType = format ? formatTypeArr.value : Array.from({ length: 2 }, () => format(mode));
+	newValue =
+		mode === 'quarter'
+			? newValue.map((v, i) => v?.format(formatType[i] as string)?.replace(/-(?!.*-)/, '-Q'))
+			: newValue.map((v, i) => v?.format(formatType[i] as string));
+	if (showTime) {
 		let time = formatValue.value && timeValue.value.format(timeformatType.value as string);
-		if (time) value = value + ' ' + time;
+		if (time) newValue = newValue + ' ' + time;
 	}
-	return value;
+	return newValue;
 });
-const activeMode = ref(props.mode);
+const activeMode = ref(mode);
 
 const inputTitle = computed(() =>
-	props.mode === 'quarter' ? formatShow.value?.replace(/-(?!.*-)/, '-Q') : formatShow.value
+	mode === 'quarter' ? formatShow.value?.replace(/-(?!.*-)/, '-Q') : formatShow.value,
 );
 const inputValue = ref(inputTitle.value);
 
 const month = ref(formatValue.value[activeInput.value]?.month() ?? dayjs().month());
 const year = ref(formatValue.value[activeInput.value]?.year() ?? dayjs().year());
 watchEffect(() => {
-	if (props.value) {
+	if (value) {
 		month.value = formatValue.value[activeInput.value]?.month();
 		year.value = formatValue.value[activeInput.value]?.year();
 	}
@@ -259,12 +256,12 @@ const today = () => {
 	year.value = dayjs().year();
 	month.value = dayjs().month();
 	tempTime.value = null;
-	if (props.showTime) {
+	if (showTime) {
 		let data = null;
 		let formatType: FormatType | FormatType[];
 		if (formatValue.value) {
 			formatType = format(activeMode.value);
-			if (props.format) {
+			if (format) {
 				formatType = formatTypeArr.value;
 			}
 			data = formatValue.value.format(formatType as string);
@@ -276,7 +273,7 @@ const today = () => {
 };
 
 const clearClick = () => {
-	if (!props.allowClear) return;
+	if (!allowClear) return;
 	formatValue.value = null;
 	dataValue.value = null;
 	timeValue.value = null;
@@ -321,11 +318,11 @@ const activeModeChange = (value: string) => {
 
 const showPlaceholder = computed(() => {
 	let str: string[];
-	str = Array.isArray(props.placeholder)
-		? props.placeholder
-		: Array.from({ length: 2 }, () => props.placeholder as string);
+	str = Array.isArray(placeholder)
+		? placeholder
+		: Array.from({ length: 2 }, () => placeholder as string);
 	if (!str[0] || !str[1])
-		switch (props.mode) {
+		switch (mode) {
 			case 'date':
 				str[0] = str[0] ?? '请选择日期';
 				str[1] = str[1] ?? '请选择日期';
@@ -353,7 +350,7 @@ const showPlaceholder = computed(() => {
 	return str;
 });
 
-const timeAttr = computed(() => props.showTime);
+const timeAttr = computed(() => showTime);
 
 const tempTime = ref<Dayjs | null>();
 const timeValue = computed({
@@ -368,13 +365,13 @@ const timeValue = computed({
 const ok = () => {
 	formatValue.value = dayjs(info.value);
 	dataValue.value = dataTemp.value[activeInput.value];
-	props.onOk();
+	onOk();
 	datePickerContainerShow.value = false;
 };
 
 const changeFormat = () => {
 	if (!datePickerContainerShow.value) return;
-	if (!props.value) {
+	if (!value) {
 		hourRef.value?.scrollTo(info.value.hour);
 		minuteRef.value?.scrollTo(info.value.minute);
 		secondRef.value?.scrollTo(info.value.second);
@@ -403,9 +400,7 @@ const {
 const mouseenter = (value: Dayjs) => {
 	isOutSide.value = false;
 	if (!datePickerContainerShow.value) return;
-	const formatType = props.format
-		? formatTypeArr.value
-		: Array.from({ length: 2 }, () => format(props.mode));
+	const formatType = format ? formatTypeArr.value : Array.from({ length: 2 }, () => format(mode));
 	if (activeMode.value === 'week') value = dayjs(value).year(value.year()).week(value.week());
 	else if (activeMode.value === 'month')
 		value = dayjs(value).year(value.year()).month(value.month()).date(info.value.date);
@@ -414,8 +409,8 @@ const mouseenter = (value: Dayjs) => {
 	else if (activeMode.value === 'year' || activeMode.value === 'dacade')
 		value = dayjs(value).year(value.year()).month(info.value.month).date(info.value.date);
 	const newValue = value.format(formatType[activeInput.value] as string);
-	let temp = props.mode === 'quarter' ? newValue.replace(/-(?!.*-)/, '-Q') : newValue;
-	if (props.showTime) {
+	let temp = mode === 'quarter' ? newValue.replace(/-(?!.*-)/, '-Q') : newValue;
+	if (showTime) {
 		temp = temp + ' ' + (timeValue.value ?? dayjs())?.format(timeformatType.value as string);
 	}
 	inputValue.value[activeInput.value] = temp;
@@ -438,7 +433,7 @@ const outSideClick = (visible: boolean) => {
 const sOpen = ref(false);
 const eOpen = ref(false);
 const startClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	datePickerContainerShow.value = true;
 	datePickerInputRef1.value.focus();
 	activeInput.value = 0;
@@ -447,7 +442,7 @@ const startClick = async () => {
 	// timeScrollInit();
 };
 const endClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	datePickerContainerShow.value = true;
 	datePickerInputRef2.value.focus();
 	activeInput.value = 1;

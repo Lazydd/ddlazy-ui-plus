@@ -8,7 +8,7 @@ defineOptions({
 	name: createName('input-number'),
 });
 
-const props = defineProps(inputNumberProps);
+const { value, description, max, min, step, disabled, precision } = defineProps(inputNumberProps);
 const emit = defineEmits<{
 	'update:value': [value: number | undefined];
 	change: [value: number | undefined];
@@ -19,18 +19,18 @@ const handleInput = (e) => {
 };
 
 const operate = (type: string) => {
-	if (props.disabled) return;
+	if (disabled) return;
 	let newValue: any;
 	if (type === 'add') {
-		if (props.value >= props.max) return;
-		const temp = Number(props.value) + Number(props.step);
-		newValue = temp > props.max ? props.max : temp;
+		if (value >= max) return;
+		const temp = Number(value) + Number(step);
+		newValue = temp > max ? max : temp;
 	} else {
-		if (props.value <= props.min) return;
-		const temp = Number(props.value) - Number(props.step);
-		newValue = temp < props.min ? props.min : temp;
+		if (value <= min) return;
+		const temp = Number(value) - Number(step);
+		newValue = temp < min ? min : temp;
 	}
-	const temp = props.precision ? parseFloat(newValue).toFixed(props.precision) : newValue;
+	const temp = precision ? parseFloat(newValue).toFixed(precision) : newValue;
 	emit('update:value', temp);
 };
 </script>
@@ -47,7 +47,7 @@ const operate = (type: string) => {
 			<span
 				:class="[
 					'dd-input-number-handler dd-input-number-handler-up',
-					{ 'dd-input-number-handler-up-disabled': props.value >= props.max },
+					{ 'dd-input-number-handler-up-disabled': value >= max },
 				]"
 				@click="operate('add')"
 			>
@@ -70,7 +70,7 @@ const operate = (type: string) => {
 			<span
 				:class="[
 					'dd-input-number-handler dd-input-number-handler-down',
-					{ 'dd-input-number-handler-down-disabled': props.value <= props.min },
+					{ 'dd-input-number-handler-down-disabled': value <= min },
 				]"
 				@click="operate('rem')"
 			>

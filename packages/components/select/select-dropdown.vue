@@ -4,16 +4,15 @@ import { UseVirtualList } from '@vueuse/components';
 
 import Check from './icon/check.vue';
 import type { SelectOptionsType } from './types';
-const props = withDefaults(
-	defineProps<{
-		options: SelectOptionsType[];
-		value: any;
-		multiple?: boolean;
-	}>(),
-	{
-		multiple: false,
-	}
-);
+const {
+	options,
+	value,
+	multiple = false,
+} = defineProps<{
+	options: SelectOptionsType[];
+	value: any;
+	multiple?: boolean;
+}>();
 
 defineEmits(['select-item-click']);
 
@@ -27,7 +26,7 @@ const virtualListOptions = ref({
 const scrollTo = (index) => {
 	virtualListRef.value.scrollTo(index);
 };
-const setActive = (info) => props.value.some((item) => item.value === info);
+const setActive = (info) => value.some((item) => item.value === info);
 
 defineExpose({
 	scrollTo,
