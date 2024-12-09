@@ -363,6 +363,7 @@ const t = ref(dig());
 
 | Name                  | Description                                                      | Type                        | Default                                            | Version |
 | --------------------- | ---------------------------------------------------------------- | --------------------------- | -------------------------------------------------- | ------- |
+| autoExpandParent      | 是否自动展开父节点                                               | `boolean`                   | `false`                                            |
 | blockNode             | 是否节点占据一行                                                 | `boolean`                   | `false`                                            |
 | checkable             | 节点前添加 `Checkbox` 复选框                                     | `boolean`                   | `false`                                            |
 | checkedKeys(v-model)  | 选中复选框的树节点                                               | `string[] \| number[]`      | `[]`                                               |         |
@@ -381,11 +382,11 @@ const t = ref(dig());
 
 ### Tree Events
 
-| Name   | Description         | Type                                                                               |
-| ------ | ------------------- | ---------------------------------------------------------------------------------- |
-| select | 点击树节点触发      | `(checkedKeys: (string \| number)[], e: { node: any }) => void`                                                |
+| Name   | Description         | Type                                                                              |
+| ------ | ------------------- | --------------------------------------------------------------------------------- |
+| select | 点击树节点触发      | `(checkedKeys: (string \| number)[], e: { node: any }) => void`                   |
 | expand | 展开/收起节点时触发 | `(expandedKeys: (string \| number)[], e: { expand: boolean; node: any }) => void` |
-| check  | 点击复选框触发      | `(checkedKeys: (string \| number)[], e: { checked: boolean; node: any }) => void`  |
+| check  | 点击复选框触发      | `(checkedKeys: (string \| number)[], e: { checked: boolean; node: any }) => void` |
 
 ### TreeNode
 
