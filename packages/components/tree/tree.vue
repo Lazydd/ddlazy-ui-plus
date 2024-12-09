@@ -49,6 +49,30 @@ const selectedKeys = ref(new Map<string | number, TreeNodeType>());
 const checkedKeys = ref(new Set(props.checkedKeys));
 const expandedKeys = ref(new Set(props.expandedKeys));
 
+const expandParents = () => {
+	props.expandedKeys?.forEach((v) => {
+		expandParent(props.treeData, v)?.forEach((t) => {
+			if (!expandedKeys.value.has(t)) expandedKeys.value.add(t);
+		});
+	});
+};
+
+const expandParent = (nodes, key, path = []) => {
+	for (const node of nodes) {
+		const currentPath = [...path, node[fieldNames.value.key]];
+		if (node[fieldNames.value.key] === key) {
+			return path; // 返回不包括目标节点的父路径
+		}
+		if (node[fieldNames.value.children]) {
+			const result = expandParent(node[fieldNames.value.children], key, currentPath);
+			if (result) {
+				return result;
+			}
+		}
+	}
+	return null;
+};
+
 watch(
 	() => props.fieldNames,
 	(newValue) => {
@@ -87,6 +111,14 @@ watch(
 	},
 	{
 		immediate: true,
+	},
+);
+watch(
+	() => props.autoExpandParent,
+	(newValue) => {
+		if (newValue) {
+			expandParents();
+		}
 	},
 );
 const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) => {
