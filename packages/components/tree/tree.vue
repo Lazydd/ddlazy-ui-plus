@@ -3,12 +3,13 @@ import { createName } from '../../utils/index';
 import { UseVirtualList } from '@vueuse/components';
 import { treeProps, TreeNodeType } from './types';
 import TreeNode from './tree-node.vue';
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 
 defineOptions({
 	name: createName('tree'),
 });
 
+let flag = 0;
 const props = defineProps(treeProps);
 const emit = defineEmits<{
 	'update:value': [value: number];
@@ -26,11 +27,12 @@ const flattenTree = computed(() => {
 	function dfs(tree: TreeNodeType[]) {
 		tree?.forEach((node) => {
 			res.push(node);
-			if (props.defaultExpandAll) expandedKeys.value.add(node.key);
+			if (props.defaultExpandAll && flag == 0) expandedKeys.value.add(node.key);
 			if (expandedKeys.value.has(node.key)) dfs(node.children);
 		});
 	}
 	dfs(treeData.value);
+	flag = 1;
 	return res;
 });
 const treeMap = computed<Map<string | number, TreeNodeType>>(() => {
