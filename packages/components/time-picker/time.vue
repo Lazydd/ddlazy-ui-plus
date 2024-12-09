@@ -20,6 +20,7 @@ const props = withDefaults(
 );
 const emit = defineEmits<{
 	click: [value: string, type: string];
+	'update:value': [value: Dayjs | Dayjs[]];
 }>();
 
 const showTime = computed(() => {
@@ -76,7 +77,6 @@ const formatTimeType = computed(() => {
 
 const timeRef = ref<HTMLElement[] | null>();
 const timePanelRef = ref<HTMLElement | null>();
-const timeValue = defineModel<Dayjs | Dayjs[]>('value');
 const timeClick = (v: any, index: number, disabled: boolean) => {
 	if (disabled) return;
 	scrollTo(index);
@@ -98,7 +98,7 @@ const timeClick = (v: any, index: number, disabled: boolean) => {
 		temp[props.activeInput] = time;
 		time = temp as Dayjs[];
 	}
-	timeValue.value = time;
+	emit('update:value', time);
 	emit('click', v, props.type);
 };
 onMounted(() => {
