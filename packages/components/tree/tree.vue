@@ -3,7 +3,7 @@ import { createName } from '../../utils/index';
 import { UseVirtualList } from '@vueuse/components';
 import { treeProps, TreeNodeType } from './types';
 import TreeNode from './tree-node.vue';
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, nextTick } from 'vue';
 
 defineOptions({
 	name: createName('tree'),
@@ -37,10 +37,12 @@ const flattenTree = computed(() => {
 });
 const treeMap = computed<Map<string | number, TreeNodeType>>(() => {
 	const map = new Map<string | number, TreeNodeType>();
+	let index = 0;
 	const dfs = (data: TreeNodeType[]) => {
 		data?.forEach((item) => {
-			map.set(item.key, item);
+			map.set(item.key, { ...item, index });
 			dfs(item.children);
+			index++;
 		});
 	};
 	dfs(treeData.value);
@@ -73,6 +75,32 @@ const expandParent = (nodes, key, path = []) => {
 		}
 	}
 	return null;
+};
+
+const expandParentsSet = (nodes, keys) => {
+	const stack = nodes.map((node) => ({ node, path: [] }));
+	const visited = new Set();
+	const resultPaths = new Map();
+
+	while (stack.length > 0) {
+		const { node, path } = stack.pop();
+		const currentPath = [...path, node[fieldNames.value.key ?? 'id']];
+
+		if (keys.has(node[fieldNames.value.key ?? 'id'])) {
+			resultPaths.set(node[fieldNames.value.key ?? 'id'], path);
+		}
+
+		if (!visited.has(node[fieldNames.value.key ?? 'id'])) {
+			visited.add(node[fieldNames.value.key ?? 'id']);
+			if (node[fieldNames.value.children ?? 'children']) {
+				for (let child of node[fieldNames.value.children ?? 'children']) {
+					stack.push({ node: child, path: currentPath });
+				}
+			}
+		}
+	}
+
+	return resultPaths;
 };
 
 watch(
@@ -140,6 +168,7 @@ const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) 
 			isHalfChecked: item.isHalfChecked ?? false,
 			line: parent?.line ? [...parent.line, isLine] : [isLine],
 			rawNode: item,
+			index: i,
 		};
 		if (children.length) treeNode.children = formatTreeData(children, treeNode);
 		return treeNode;
@@ -197,6 +226,39 @@ const virtualListOptions = ref({
 	itemHeight: 28,
 	overscan: 10,
 });
+const virtualListRef = ref<HTMLElement | null>(null);
+const scrollTo = async (key: string | number) => {
+	const index = flattenTree.value.findIndex((v) => v.key === key);
+	if (index === -1) return;
+	await nextTick();
+	virtualListRef.value.scrollTo(index as ScrollToOptions);
+	return instance;
+};
+
+const setExpand = (str: string | ((node: TreeNodeType) => boolean)) => {
+	const arr = [];
+	let func = str as Function;
+	if (typeof str === 'string') {
+		func = (v: TreeNodeType) => v[fieldNames.value.title].includes(str);
+	}
+	treeMap.value.forEach((v) => {
+		if (func(v)) arr.push(v[fieldNames.value.key]);
+	});
+	if (!arr.length) return;
+	const newExpandedKeys = new Set([]);
+	expandParentsSet(props.treeData, new Set(arr))?.forEach((t) => {
+		t.forEach((id) => newExpandedKeys.add(id));
+	});
+	expandedKeys.value = newExpandedKeys;
+	return instance;
+};
+
+const instance = {
+	scrollTo,
+	setExpand,
+};
+
+defineExpose(instance);
 </script>
 
 <template>
