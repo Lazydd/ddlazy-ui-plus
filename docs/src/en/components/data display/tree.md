@@ -357,6 +357,51 @@ const t = ref(dig());
 
 :::
 
+## 查询树节点
+
+Use the `setExpand` method to expand the corresponding parent node, and use the `scrollTo` method to scroll to the specified node.
+
+:::demo
+
+```vue
+<template>
+	<div style="display: flex; gap: 10px;margin-bottom: 10px;">
+		<dd-input v-model:value="searchValue" placeholder="Please input" />
+		<dd-button @click="search">Search</dd-button>
+	</div>
+	<dd-tree :tree-data="t" showLine :height="200" ref="treeRef" blockNode />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+function dig(path = '0', level = 4) {
+	const list: any['treeData'] = [];
+	for (let i = 0; i < 8; i += 1) {
+		const key = `${path}-${i}`;
+		const treeNode: any['treeData'][number] = {
+			title: key,
+			key,
+		};
+
+		if (level > 0) {
+			treeNode.children = dig(key, level - 1);
+		}
+
+		list.push(treeNode);
+	}
+	return list;
+}
+const t = ref(dig());
+const searchValue = ref('0-4-0-0');
+const treeRef = ref();
+const search = () => {
+	treeRef.value.setExpand(searchValue.value).scrollTo(searchValue.value);
+};
+</script>
+```
+
+:::
+
 ## API
 
 ### Tree Attributes
@@ -405,3 +450,10 @@ const t = ref(dig());
 | icon         | customize icon                              |
 | switcherIcon | customize collapse/expand icon of tree node |
 | title        | custom title                                |
+
+### Tree Exposes
+
+| Name      | Description        | Type                                                             |
+| --------- | ------------------ | ---------------------------------------------------------------- |
+| setExpand | Set expandedKeys   | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
+| scrollTo  | Scroll to the node | `(key: string \| number) => instance`                            |

@@ -357,6 +357,51 @@ const t = ref(dig());
 
 :::
 
+## 查询树节点
+
+使用 `setExpand` 方法来展开对应的父节点，使用 `scrollTo` 方法来滚动到指定节点。
+
+:::demo
+
+```vue
+<template>
+	<div style="display: flex; gap: 10px;margin-bottom: 10px;">
+		<dd-input v-model:value="searchValue" placeholder="请输入关键字" />
+		<dd-button @click="search">搜索</dd-button>
+	</div>
+	<dd-tree :tree-data="t" showLine :height="200" ref="treeRef" blockNode />
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+function dig(path = '0', level = 4) {
+	const list: any['treeData'] = [];
+	for (let i = 0; i < 8; i += 1) {
+		const key = `${path}-${i}`;
+		const treeNode: any['treeData'][number] = {
+			title: key,
+			key,
+		};
+
+		if (level > 0) {
+			treeNode.children = dig(key, level - 1);
+		}
+
+		list.push(treeNode);
+	}
+	return list;
+}
+const t = ref(dig());
+const searchValue = ref('0-4-0-0');
+const treeRef = ref();
+const search = () => {
+	treeRef.value.setExpand(searchValue.value).scrollTo(searchValue.value);
+};
+</script>
+```
+
+:::
+
 ## API
 
 ### Tree Attributes
@@ -406,3 +451,10 @@ const t = ref(dig());
 | icon         | 自定义图标                  |
 | switcherIcon | 自定义树节点的展开/折叠图标 |
 | title        | 自定义标题                  |
+
+### Tree Exposes
+
+| Name      | Description    | Type                                                             |
+| --------- | -------------- | ---------------------------------------------------------------- |
+| setExpand | 设置展开节点   | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
+| scrollTo  | 滚动到指定节点 | `(key: string \| number) => instance`                            |
