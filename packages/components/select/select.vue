@@ -54,7 +54,7 @@ const count = computed(() => {
 	}
 });
 const maxCountSelect = computed(() =>
-	select.value.slice(0, (props.maxTagCount ?? 0) >= 0 ? props.maxTagCount : undefined)
+	select.value.slice(0, (props.maxTagCount ?? 0) >= 0 ? props.maxTagCount : undefined),
 );
 
 const selectItemClick = (item) => {
@@ -125,13 +125,13 @@ watch(
 	() => props.value,
 	() => {
 		init();
-	}
+	},
 );
 watch(
 	() => props.options,
 	() => {
 		filterOption.value = props.options;
-	}
+	},
 );
 watch(
 	() => selectDropdownShow.value,
@@ -142,7 +142,7 @@ watch(
 			searchValue.value = null;
 		}
 		emit('dropdown-visible-change', selectDropdownShow.value);
-	}
+	},
 );
 
 const handleInput = async (e) => {
@@ -168,17 +168,13 @@ const clear = () => {
 };
 
 const showPlaceholder = computed(() =>
-	props.showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible'
+	props.showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible',
 );
 const showPlaceholder2 = computed(() =>
-	!props.multiple ? !(label.value || props.value) : !select.value.length
+	!props.multiple ? !(label.value || props.value) : !select.value.length,
 );
 const passwordIcon = computed(() =>
-	props.showSearch && selectDropdownShow.value
-		? Search
-		: slots.suffixIcon
-		? slots.suffixIcon
-		: Arrow
+	props.showSearch && selectDropdownShow.value ? Search : slots.suffixIcon ?? Arrow,
 );
 </script>
 
