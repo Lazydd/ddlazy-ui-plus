@@ -271,6 +271,7 @@ defineExpose(instance);
 							:list="flattenTree"
 							:options="virtualListOptions"
 							:height="height + 'px'"
+							style="width: 100%"
 							ref="virtualListRef"
 						>
 							<template #="{ data }">
