@@ -228,6 +228,7 @@ const virtualListOptions = ref({
 });
 const virtualListRef = ref<HTMLElement | null>(null);
 const scrollTo = async (key: string | number) => {
+	if (!virtualListRef.value) return;
 	const index = flattenTree.value.findIndex((v) => v.key === key);
 	if (index === -1) return;
 	await nextTick();
@@ -266,7 +267,12 @@ defineExpose(instance);
 		<div class="dd-tree-list">
 			<div class="dd-tree-list-holder">
 				<div :class="['dd-tree-list-holder-inner', { 'dd-tree-block-node': blockNode }]">
-					<template v-if="height">
+					<template
+						v-if="
+							height &&
+							flattenTree.length > Math.ceil(height / virtualListOptions.itemHeight)
+						"
+					>
 						<UseVirtualList
 							:list="flattenTree"
 							:options="virtualListOptions"
