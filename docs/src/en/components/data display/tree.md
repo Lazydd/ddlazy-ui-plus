@@ -453,7 +453,7 @@ const search = () => {
 
 ### Tree Exposes
 
-| Name      | Description        | Type                                                             |
-| --------- | ------------------ | ---------------------------------------------------------------- |
-| setExpand | Set expandedKeys   | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
-| scrollTo  | Scroll to the node | `(key: string \| number) => instance`                            |
+| Name      | Description                                                                                      | Type                                                             |
+| --------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| setExpand | Set expandedKeys                                                                                 | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
+| scrollTo  | Scroll to the node(Enable virtual scroll and reach the desired quantity `height / 28` Round Up) | `(key: string \| number) => instance`                            |

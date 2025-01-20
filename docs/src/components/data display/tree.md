@@ -454,7 +454,7 @@ const search = () => {
 
 ### Tree Exposes
 
-| Name      | Description    | Type                                                             |
-| --------- | -------------- | ---------------------------------------------------------------- |
-| setExpand | 设置展开节点   | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
-| scrollTo  | 滚动到指定节点 | `(key: string \| number) => instance`                            |
+| Name      | Description                                                 | Type                                                             |
+| --------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
+| setExpand | 设置展开节点                                                | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
+| scrollTo  | 滚动到指定节点(开启虚拟滚动和数量达到 `height / 28` 向上取整) | `(key: string \| number) => instance`                            |
