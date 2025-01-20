@@ -46,7 +46,7 @@ const handleLoadTreeData = (node: TreeNodeType) => {
 		loadingKeys.value.add(node.key);
 		props.load(node, (res) => {
 			if (res.length) {
-				node.children = props.depTree(res, node.level + 1, node);
+				node.children = props.depTree(res, node.level, node);
 				props.expandedKeys.add(node.key);
 			} else {
 				node.isLeaf = true;
@@ -191,8 +191,8 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 				</slot>
 			</span>
 		</span>
-		<span class="dd-tree-iconEle" v-if="showIcon && data.isLeaf">
-			<span role="img" aria-label="file" class="anticon anticon-file">
+		<span class="dd-tree-iconEle" v-if="data.isLeaf">
+			<span role="img" aria-label="file" class="anticon anticon-file" v-if="showIcon">
 				<slot
 					name="icon"
 					v-bind="{ key: data.key, selected: props.selectedKeys?.has(data.key) }"
