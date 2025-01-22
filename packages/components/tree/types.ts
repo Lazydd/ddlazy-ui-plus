@@ -1,9 +1,9 @@
 import type { ExtractPropTypes, PropType, Component } from 'vue';
 
 export type TreeNodeType = {
-	key?: string | number;
+	value?: string | number;
 	disabled?: boolean;
-	title: string;
+	label: string;
 	disableCheckbox: boolean;
 	children?: TreeNodeType[];
 	isLeaf?: boolean;
@@ -60,8 +60,8 @@ export const treeProps = {
 		default: () => {},
 	},
 	fieldNames: {
-		type: Object as PropType<{ title: string; key: string; children: string }>,
-		default: () => ({ children: 'children', title: 'title', key: 'key' }),
+		type: Object as PropType<{ children: string; label: string; value: string }>,
+		default: () => ({ children: 'children', label: 'label', value: 'value' }),
 	},
 	height: {
 		type: Number,

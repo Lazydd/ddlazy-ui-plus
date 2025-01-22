@@ -27,8 +27,8 @@ const flattenTree = computed(() => {
 	function dfs(tree: TreeNodeType[]) {
 		tree?.forEach((node) => {
 			res.push(node);
-			if (props.defaultExpandAll && flag == 0) expandedKeys.value.add(node.key);
-			if (expandedKeys.value.has(node.key)) dfs(node.children);
+			if (props.defaultExpandAll && flag == 0) expandedKeys.value.add(node.value);
+			if (expandedKeys.value.has(node.value)) dfs(node.children);
 		});
 	}
 	dfs(treeData.value);
@@ -39,7 +39,7 @@ const treeMap = computed<Map<string | number, TreeNodeType>>(() => {
 	const map = new Map<string | number, TreeNodeType>();
 	const dfs = (data: TreeNodeType[]) => {
 		data?.forEach((item) => {
-			map.set(item.key, item);
+			map.set(item.value, item);
 			dfs(item.children);
 		});
 	};
@@ -61,12 +61,16 @@ const expandParents = () => {
 
 const expandParent = (nodes, key, path = []) => {
 	for (const node of nodes) {
-		const currentPath = [...path, node[fieldNames.value.key]];
-		if (node[fieldNames.value.key] === key) {
+		const currentPath = [...path, node[fieldNames.value.value ?? 'value']];
+		if (node[fieldNames.value.value ?? 'value'] === key) {
 			return path; // 返回不包括目标节点的父路径
 		}
-		if (node[fieldNames.value.children]) {
-			const result = expandParent(node[fieldNames.value.children], key, currentPath);
+		if (node[fieldNames.value.children ?? 'children']) {
+			const result = expandParent(
+				node[fieldNames.value.children ?? 'children'],
+				key,
+				currentPath,
+			);
 			if (result) {
 				return result;
 			}
@@ -82,14 +86,15 @@ const expandParentsSet = (nodes, keys) => {
 
 	while (stack.length > 0) {
 		const { node, path } = stack.pop();
-		const currentPath = [...path, node[fieldNames.value.key ?? 'id']];
 
-		if (keys.has(node[fieldNames.value.key ?? 'id'])) {
-			resultPaths.set(node[fieldNames.value.key ?? 'id'], path);
+		const currentPath = [...path, node[fieldNames.value.value ?? 'value']];
+
+		if (keys.has(node[fieldNames.value.value ?? 'value'])) {
+			resultPaths.set(node[fieldNames.value.value ?? 'value'], path);
 		}
 
-		if (!visited.has(node[fieldNames.value.key ?? 'id'])) {
-			visited.add(node[fieldNames.value.key ?? 'id']);
+		if (!visited.has(node[fieldNames.value.value ?? 'value'])) {
+			visited.add(node[fieldNames.value.value ?? 'value']);
 			if (node[fieldNames.value.children ?? 'children']) {
 				for (let child of node[fieldNames.value.children ?? 'children']) {
 					stack.push({ node: child, path: currentPath });
@@ -151,18 +156,18 @@ watch(
 );
 const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) => {
 	return data.map((item, i) => {
-		const children = item[fieldNames.value.children] || [];
+		const children = item[fieldNames.value.children ?? 'children'] || [];
 		const isLine = i === data.length - 1;
 		const treeNode = {
-			key: item[fieldNames.value.key],
-			title: item[fieldNames.value.title],
+			value: item[fieldNames.value.value ?? 'value'],
+			label: item[fieldNames.value.label ?? 'label'],
 			children: [],
 			disableCheckbox: item.disableCheckbox ?? false,
 			disabled: item.disabled ?? false,
 			level: parent ? parent.level + 1 : 0,
-			parentKey: parent ? parent.key : null,
-			isLeaf: item.isLeaf ?? !item[fieldNames.value.children],
-			isChecked: item.isChecked ?? checkedKeys.value.has(item.key),
+			parentKey: parent ? parent.value : null,
+			isLeaf: item.isLeaf ?? !item[fieldNames.value.children ?? 'children'],
+			isChecked: item.isChecked ?? checkedKeys.value.has(item.value),
 			isHalfChecked: item.isHalfChecked ?? false,
 			line: parent?.line ? [...parent.line, isLine] : [isLine],
 			rawNode: item,
@@ -180,12 +185,12 @@ const depTree = (tree: TreeNodeType[], level = 0, parent: TreeNodeType = undefin
 				...item,
 				level,
 				parent,
-				isLeaf: item.isLeaf ?? !item[fieldNames.value.children],
+				isLeaf: item.isLeaf ?? !item[fieldNames.value.children ?? 'children'],
 			});
-			if (expandedKeys.value.has(item.key)) {
+			if (expandedKeys.value.has(item.value)) {
 				const parents = JSON.parse(JSON.stringify(item));
-				item?.[fieldNames.value.children] &&
-					mp(item[fieldNames.value.children], level, parents);
+				item?.[fieldNames.value.children ?? 'children'] &&
+					mp(item[fieldNames.value.children ?? 'children'], level, parents);
 			}
 		});
 		level--;
@@ -214,7 +219,7 @@ const onExpandedNodes = (node: TreeNodeType, expand: boolean) => {
 	emit('expand', keys, { expand, node });
 };
 const onSelectNodes = (node: TreeNodeType[]) => {
-	const keys = node.map((v) => v.key);
+	const keys = node.map((v) => v.value);
 	emit('update:selectedKeys', keys);
 	emit('select', keys, { node });
 };
@@ -236,10 +241,10 @@ const setExpand = (str: string | ((node: TreeNodeType) => boolean)) => {
 	const arr = [];
 	let func = str as Function;
 	if (typeof str === 'string') {
-		func = (v: TreeNodeType) => v[fieldNames.value.title].includes(str);
+		func = (v: TreeNodeType) => v[fieldNames.value.label ?? 'label'].includes(str);
 	}
 	treeMap.value.forEach((v) => {
-		if (func(v)) arr.push(v[fieldNames.value.key]);
+		if (func(v)) arr.push(v[fieldNames.value.value ?? 'value']);
 	});
 	if (!arr.length) return;
 	const newExpandedKeys = new Set([]);

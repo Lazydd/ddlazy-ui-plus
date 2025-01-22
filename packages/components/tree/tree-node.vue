@@ -43,17 +43,17 @@ const loadingKeys = ref(new Set<string | number>([]));
 
 const handleLoadTreeData = (node: TreeNodeType) => {
 	if (!node?.children?.length && !node.isLeaf && props.load) {
-		loadingKeys.value.add(node.key);
+		loadingKeys.value.add(node.value);
 		props.load(node, (res) => {
 			if (res.length) {
 				node.children = props.depTree(res, node.level, node);
-				props.expandedKeys.add(node.key);
+				props.expandedKeys.add(node.value);
 			} else {
 				node.isLeaf = true;
-				props.expandedKeys.delete(node.key);
+				props.expandedKeys.delete(node.value);
 			}
 			props.onExpandedNodes(node, node.isChecked);
-			loadingKeys.value.delete(node.key);
+			loadingKeys.value.delete(node.value);
 		});
 		return true;
 	}
@@ -61,7 +61,7 @@ const handleLoadTreeData = (node: TreeNodeType) => {
 };
 
 const expand = (value: string | number, node: TreeNodeType) => {
-	if (node.disabled || props.disabled) return;
+	// if (node.disabled || props.disabled) return;
 	if (!handleLoadTreeData(node))
 		props.expandedKeys.has(value)
 			? props.expandedKeys.delete(value)
@@ -84,7 +84,7 @@ const checked = (disabled: boolean, node: TreeNodeType) => {
 	if (disabled || props.disabled) return;
 	node.isChecked = !node.isChecked;
 	if (node.isChecked) node.isHalfChecked = false;
-	props.checkedKeys[node.isChecked ? 'add' : 'delete'](node.key);
+	props.checkedKeys[node.isChecked ? 'add' : 'delete'](node.value);
 	setChildrenCheckedKeys(node, node.isChecked);
 	setParentCheckedKeys(node, node.isChecked);
 	emit('onCheckedNodes', toRaw(node.rawNode), node.isChecked);
@@ -95,7 +95,7 @@ const setChildrenCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		children?.forEach((v) => {
 			v.isChecked = isChecked;
 			if (isChecked) v.isHalfChecked = false;
-			props.checkedKeys[node.isChecked ? 'add' : 'delete'](v.key);
+			props.checkedKeys[node.isChecked ? 'add' : 'delete'](v.value);
 			setChildrenCheckedKeys(v, isChecked);
 		});
 	}
@@ -116,10 +116,10 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		if (isAll) {
 			parent.isChecked = isChecked;
 			parent.isHalfChecked = false;
-			props.checkedKeys[isChecked ? 'add' : 'delete'](parent.key);
+			props.checkedKeys[isChecked ? 'add' : 'delete'](parent.value);
 		} else {
 			parent.isChecked = false;
-			props.checkedKeys.delete(parent.key);
+			props.checkedKeys.delete(parent.value);
 			parent.isHalfChecked = isHalf;
 		}
 		parentKey = parent.parentKey;
@@ -144,14 +144,14 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		<span
 			v-if="!data.isLeaf || (!data.children && checkable && !showIcon)"
 			:class="['dd-tree-switcher', { 'dd-tree-switcher-noop': !data.children }]"
-			@click="expand(data.key, data)"
+			@click="expand(data.value, data)"
 		>
 			<svg
 				class="dd-circular"
 				viewBox="0 0 50 50"
 				width="1em"
 				height="1em"
-				v-if="loadingKeys.has(data.key)"
+				v-if="loadingKeys.has(data.value)"
 			>
 				<circle class="path" cx="25" cy="25" r="20" fill="none" />
 			</svg>
@@ -165,26 +165,26 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 					{
 						'dd-tree-switcher-icon-close': $slots.switcherIcon
 							? false
-							: !props.expandedKeys.has(data.key),
+							: !props.expandedKeys.has(data.value),
 					},
 				]"
 			>
 				<slot
 					name="switcherIcon"
 					v-bind="{
-						active: props.expandedKeys.has(data.key),
-						key: data.key,
-						selected: props.selectedKeys?.has(data.key),
-						expanded: props.expandedKeys.has(data.key),
-						checked: props.checkedKeys.has(data.key),
+						active: props.expandedKeys.has(data.value),
+						key: data.value,
+						selected: props.selectedKeys?.has(data.value),
+						expanded: props.expandedKeys.has(data.value),
+						checked: props.checkedKeys.has(data.value),
 						switcherCls: {
 							'dd-tree-switcher-icon': true,
-							'dd-tree-switcher-icon-close': !props.expandedKeys.has(data.key),
+							'dd-tree-switcher-icon-close': !props.expandedKeys.has(data.value),
 						},
 						children: data.children,
 						data,
 						defaultIcon,
-						title: data.title,
+						title: data.label,
 					}"
 				>
 					<defaultIcon />
@@ -195,7 +195,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			<span role="img" aria-label="file" class="anticon anticon-file" v-if="showIcon">
 				<slot
 					name="icon"
-					v-bind="{ key: data.key, selected: props.selectedKeys?.has(data.key) }"
+					v-bind="{ key: data.value, selected: props.selectedKeys?.has(data.value) }"
 				>
 					<svg
 						focusable="false"
@@ -231,14 +231,14 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			:class="[
 				'dd-tree-node-content-wrapper',
 				{
-					'dd-tree-node-selected': props.selectedKeys?.has(data.key),
+					'dd-tree-node-selected': props.selectedKeys?.has(data.value),
 				},
 			]"
-			@click="select(data.key, data?.disabled ?? false, data)"
+			@click="select(data.value, data?.disabled ?? false, data)"
 		>
 			<span class="dd-tree-title">
-				<slot name="title" v-bind="{ data, title: data.title }">
-					{{ data.title }}
+				<slot name="title" v-bind="{ data, title: data.label }">
+					{{ data.label }}
 				</slot>
 			</span>
 		</span>
