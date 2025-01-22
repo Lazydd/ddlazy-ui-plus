@@ -408,23 +408,23 @@ const search = async () => {
 
 ### Tree Attributes
 
-| Name                  | Description                                                                                     | Type                        | Default                                            | Version |
-| --------------------- | ----------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------------------------- | ------- |
-| blockNode             | Whether treeNode fill remaining horizontal space                                                | `boolean`                   | `false`                                            |
-| checkable             | Adds a `Checkbox` before the treeNodes                                                          | `boolean`                   | `false`                                            |
-| checkedKeys(v-model)  | Specifies the keys of the checked treeNodes                                                     | `string[] \| number[]`      | `[]`                                               |         |
-| defaultExpandAll      | Whether to expand all treeNodes by default                                                      | `boolean`                   | `false`                                            |
-| disabled              | whether disabled the tree                                                                       | `boolean`                   | `false`                                            |
-| expandedKeys(v-model) | Specifies the keys of the expanded treeNodes                                                    | `string[] \| number[]`      | `[]`                                               |         |
-| fieldNames            | Replace the title,key and children fields in treeNode with the corresponding fields in treeData | `object`                    | `{children:'children', title:'title', key:'key' }` |
-| height                | Config virtual scroll height. Will not support horizontal scroll when enable this               | `number`                    | —                                                  |
-| load                  | Load data asynchronously                                                                        | `function(node)`            | —                                                  |
-| multiple              | Allows selecting multiple treeNodes                                                             | `boolean`                   | `false`                                            |
-| selectable            | whether can be selected                                                                         | `boolean`                   | `true`                                             |
-| selectedKeys(v-model) | Specifies the keys of the selected treeNodes                                                    | `string[] \| number[]`      | `[]`                                               |         |
-| showIcon              | Shows the icon before a TreeNode's title.                                                       | `boolean`                   | `false`                                            |         |
-| showLine              | Shows a connecting line                                                                         | `boolean`                   | `false`                                            |         |
-| treeData              | treeNode of tree                                                                                | [`TreeNode[]`](###TreeNode) | —                                                  |         |
+| Name                  | Description                                                                                       | Type                        | Default                                                | Version |
+| --------------------- | ------------------------------------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------ | ------- |
+| blockNode             | Whether treeNode fill remaining horizontal space                                                  | `boolean`                   | `false`                                                |
+| checkable             | Adds a `Checkbox` before the treeNodes                                                            | `boolean`                   | `false`                                                |
+| checkedKeys(v-model)  | Specifies the keys of the checked treeNodes                                                       | `string[] \| number[]`      | `[]`                                                   |         |
+| defaultExpandAll      | Whether to expand all treeNodes by default                                                        | `boolean`                   | `false`                                                |
+| disabled              | whether disabled the tree                                                                         | `boolean`                   | `false`                                                |
+| expandedKeys(v-model) | Specifies the keys of the expanded treeNodes                                                      | `string[] \| number[]`      | `[]`                                                   |         |
+| fieldNames            | Replace the label,value and children fields in treeNode with the corresponding fields in treeData | `object`                    | `{children:'children', label:'label', value:'value' }` |
+| height                | Config virtual scroll height. Will not support horizontal scroll when enable this                 | `number`                    | —                                                      |
+| load                  | Load data asynchronously                                                                          | `function(node)`            | —                                                      |
+| multiple              | Allows selecting multiple treeNodes                                                               | `boolean`                   | `false`                                                |
+| selectable            | whether can be selected                                                                           | `boolean`                   | `true`                                                 |
+| selectedKeys(v-model) | Specifies the keys of the selected treeNodes                                                      | `string[] \| number[]`      | `[]`                                                   |         |
+| showIcon              | Shows the icon before a TreeNode's title.                                                         | `boolean`                   | `false`                                                |         |
+| showLine              | Shows a connecting line                                                                           | `boolean`                   | `false`                                                |         |
+| treeData              | treeNode of tree                                                                                  | [`TreeNode[]`](###TreeNode) | —                                                      |         |
 
 ### Tree Events
 

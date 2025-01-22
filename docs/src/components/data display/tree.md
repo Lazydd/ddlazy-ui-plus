@@ -16,15 +16,15 @@ import { ref } from 'vue';
 function dig(path = '0', level = 2) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 2; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			title: key,
-			key,
+			label: value,
+			value,
 			disabled: i === 1,
 		};
 
 		if (level > 0) {
-			treeNode.children = dig(key, level - 1);
+			treeNode.children = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -84,14 +84,14 @@ import { ref } from 'vue';
 function dig(path = '0', level = 2) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 2; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			title: key,
-			key,
+			label: value,
+			value,
 		};
 
 		if (level > 0) {
-			treeNode.children = dig(key, level - 1);
+			treeNode.children = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -119,57 +119,57 @@ const t = ref(dig());
 import { ref } from 'vue';
 const data = ref([
 	{
-		key: 1,
-		title: '一级 1',
+		value: 1,
+		label: '一级 1',
 		children: [
 			{
-				key: 4,
-				title: '二级 1-1',
+				value: 4,
+				label: '二级 1-1',
 				children: [
 					{
-						key: 9,
-						title: '三级 1-1-1',
+						value: 9,
+						label: '三级 1-1-1',
 						// new
 						isLeaf: false,
 					},
 					{
-						key: 10,
-						title: '三级 1-1-2',
+						value: 10,
+						label: '三级 1-1-2',
 					},
 				],
 			},
 		],
 	},
 	{
-		key: 2,
-		title: '一级 2',
+		value: 2,
+		label: '一级 2',
 		children: [
 			{
-				key: 100,
-				title: '二级 2-1',
+				value: 100,
+				label: '二级 2-1',
 			},
 			{
-				key: 200,
-				title: '二级 2-2',
+				value: 200,
+				label: '二级 2-2',
 			},
 		],
 	},
 	{
-		key: 3,
-		title: '一级 3',
+		value: 3,
+		label: '一级 3',
 	},
 ]);
 const loadMoreData = (node, resolve) => {
-	if (node.key === 9) {
+	if (node.value === 9) {
 		setTimeout(() => {
 			resolve([
 				{
-					key: 20,
-					title: '四级 1-1-1-1',
+					value: 20,
+					label: '四级 1-1-1-1',
 				},
 				{
-					key: 21,
-					title: '四级 1-1-1-2',
+					value: 21,
+					label: '四级 1-1-1-2',
 				},
 			]);
 		}, 1500);
@@ -194,14 +194,14 @@ import { ref } from 'vue';
 function dig(path = '0', level = 2) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 2; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			title: key,
-			key,
+			label: value,
+			value,
 		};
 
 		if (level > 0) {
-			treeNode.children = dig(key, level - 1);
+			treeNode.children = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -265,14 +265,14 @@ import { ref } from 'vue';
 function dig(path = '0', level = 2) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 2; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			title: key,
-			key,
+			label: value,
+			value,
 		};
 
 		if (level > 0) {
-			treeNode.children = dig(key, level - 1);
+			treeNode.children = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -293,7 +293,7 @@ const t = ref(dig());
 
 ```vue
 <template>
-	<dd-tree :tree-data="t" showLine :fieldNames="{ children: 'a', title: 'b', key: 'c' }" />
+	<dd-tree :tree-data="t" showLine :fieldNames="{ children: 'a', label: 'b', value: 'c' }" />
 </template>
 
 <script lang="ts" setup>
@@ -301,14 +301,14 @@ import { ref } from 'vue';
 function dig(path = '0', level = 2) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 2; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			b: key,
-			c: key,
+			b: value,
+			c: value,
 		};
 
 		if (level > 0) {
-			treeNode.a = dig(key, level - 1);
+			treeNode.a = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -337,14 +337,14 @@ import { ref } from 'vue';
 function dig(path = '0', level = 4) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 8; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			title: key,
-			key,
+			label: value,
+			value,
 		};
 
 		if (level > 0) {
-			treeNode.children = dig(key, level - 1);
+			treeNode.children = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -377,14 +377,14 @@ import { ref, nextTick } from 'vue';
 function dig(path = '0', level = 4) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 8; i += 1) {
-		const key = `${path}-${i}`;
+		const value = `${path}-${i}`;
 		const treeNode: any['treeData'][number] = {
-			title: key,
-			key,
+			label: value,
+			value,
 		};
 
 		if (level > 0) {
-			treeNode.children = dig(key, level - 1);
+			treeNode.children = dig(value, level - 1);
 		}
 
 		list.push(treeNode);
@@ -408,24 +408,24 @@ const search = async () => {
 
 ### Tree Attributes
 
-| Name                  | Description                                                      | Type                        | Default                                            | Version |
-| --------------------- | ---------------------------------------------------------------- | --------------------------- | -------------------------------------------------- | ------- |
-| autoExpandParent      | 是否自动展开父节点                                               | `boolean`                   | `false`                                            |
-| blockNode             | 是否节点占据一行                                                 | `boolean`                   | `false`                                            |
-| checkable             | 节点前添加 `Checkbox` 复选框                                     | `boolean`                   | `false`                                            |
-| checkedKeys(v-model)  | 选中复选框的树节点                                               | `string[] \| number[]`      | `[]`                                               |         |
-| defaultExpandAll      | 默认展开所有树节点                                               | `boolean`                   | `false`                                            |
-| disabled              | 将树禁用                                                         | `boolean`                   | `false`                                            |
-| expandedKeys(v-model) | 展开指定的树节点                                                 | `string[] \| number[]`      | `[]`                                               |         |
-| fieldNames            | 替换 treeNode 中 title,key,children 字段为 treeData 中对应的字段 | `object`                    | `{children:'children', title:'title', key:'key' }` |
-| height                | 设置虚拟滚动容器高度，设置后内部节点不再支持横向滚动             | `number`                    | —                                                  |
-| load                  | 异步加载数据                                                     | `function(node)`            | —                                                  |
-| multiple              | 支持点选多个节点（节点本身）                                     | `boolean`                   | `false`                                            |
-| selectable            | 是否可选中                                                       | `boolean`                   | `true`                                             |
-| selectedKeys(v-model) | 设置选中的树节点                                                 | `string[] \| number[]`      | `[]`                                               |         |
-| showIcon              | 是否展示 TreeNode title 前的图标                                 | `boolean`                   | `false`                                            |         |
-| showLine              | 是否展示连接线                                                   | `boolean`                   | `false`                                            |         |
-| treeData              | treeNodes 数据                                                   | [`TreeNode[]`](###TreeNode) | —                                                  |         |
+| Name                  | Description                                                        | Type                        | Default                                                | Version |
+| --------------------- | ------------------------------------------------------------------ | --------------------------- | ------------------------------------------------------ | ------- |
+| autoExpandParent      | 是否自动展开父节点                                                 | `boolean`                   | `false`                                                |
+| blockNode             | 是否节点占据一行                                                   | `boolean`                   | `false`                                                |
+| checkable             | 节点前添加 `Checkbox` 复选框                                       | `boolean`                   | `false`                                                |
+| checkedKeys(v-model)  | 选中复选框的树节点                                                 | `string[] \| number[]`      | `[]`                                                   |         |
+| defaultExpandAll      | 默认展开所有树节点                                                 | `boolean`                   | `false`                                                |
+| disabled              | 将树禁用                                                           | `boolean`                   | `false`                                                |
+| expandedKeys(v-model) | 展开指定的树节点                                                   | `string[] \| number[]`      | `[]`                                                   |         |
+| fieldNames            | 替换 treeNode 中 label,value,children 字段为 treeData 中对应的字段 | `object`                    | `{children:'children', label:'label', value:'value' }` |
+| height                | 设置虚拟滚动容器高度，设置后内部节点不再支持横向滚动               | `number`                    | —                                                      |
+| load                  | 异步加载数据                                                       | `function(node)`            | —                                                      |
+| multiple              | 支持点选多个节点（节点本身）                                       | `boolean`                   | `false`                                                |
+| selectable            | 是否可选中                                                         | `boolean`                   | `true`                                                 |
+| selectedKeys(v-model) | 设置选中的树节点                                                   | `string[] \| number[]`      | `[]`                                                   |         |
+| showIcon              | 是否展示 TreeNode title 前的图标                                   | `boolean`                   | `false`                                                |         |
+| showLine              | 是否展示连接线                                                     | `boolean`                   | `false`                                                |         |
+| treeData              | treeNodes 数据                                                     | [`TreeNode[]`](###TreeNode) | —                                                      |         |
 
 ### Tree Events
 
