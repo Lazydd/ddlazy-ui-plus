@@ -3,7 +3,7 @@ import { createName } from '../../utils/index';
 import { UseVirtualList } from '@vueuse/components';
 import { treeProps, TreeNodeType } from './types';
 import TreeNode from './tree-node.vue';
-import { ref, computed, watch, nextTick } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 defineOptions({
 	name: createName('tree'),
@@ -37,12 +37,10 @@ const flattenTree = computed(() => {
 });
 const treeMap = computed<Map<string | number, TreeNodeType>>(() => {
 	const map = new Map<string | number, TreeNodeType>();
-	let index = 0;
 	const dfs = (data: TreeNodeType[]) => {
 		data?.forEach((item) => {
-			map.set(item.key, { ...item, index });
+			map.set(item.key, item);
 			dfs(item.children);
-			index++;
 		});
 	};
 	dfs(treeData.value);
@@ -168,7 +166,6 @@ const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) 
 			isHalfChecked: item.isHalfChecked ?? false,
 			line: parent?.line ? [...parent.line, isLine] : [isLine],
 			rawNode: item,
-			index: i,
 		};
 		if (children.length) treeNode.children = formatTreeData(children, treeNode);
 		return treeNode;
@@ -227,11 +224,10 @@ const virtualListOptions = ref({
 	overscan: 10,
 });
 const virtualListRef = ref<HTMLElement | null>(null);
-const scrollTo = async (key: string | number) => {
+const scrollTo = (key: string | number) => {
 	if (!virtualListRef.value) return;
 	const index = flattenTree.value.findIndex((v) => v.key === key);
 	if (index === -1) return;
-	await nextTick();
 	virtualListRef.value.scrollTo(index as ScrollToOptions);
 	return instance;
 };

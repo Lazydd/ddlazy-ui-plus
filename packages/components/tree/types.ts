@@ -13,7 +13,6 @@ export type TreeNodeType = {
 	parentKey?: string | number;
 	rawNode: TreeNodeType;
 	line?: boolean[];
-	index: number;
 };
 
 export const treeProps = {
