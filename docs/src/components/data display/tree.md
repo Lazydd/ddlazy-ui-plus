@@ -373,7 +373,7 @@ const t = ref(dig());
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, nextTick } from 'vue';
 function dig(path = '0', level = 4) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 8; i += 1) {
@@ -394,8 +394,10 @@ function dig(path = '0', level = 4) {
 const t = ref(dig());
 const searchValue = ref('0-4-0-0');
 const treeRef = ref();
-const search = () => {
-	treeRef.value.setExpand(searchValue.value).scrollTo(searchValue.value);
+const search = async () => {
+	treeRef.value.setExpand(searchValue.value);
+	await nextTick();
+	treeRef.value.scrollTo(searchValue.value);
 };
 </script>
 ```
@@ -454,7 +456,7 @@ const search = () => {
 
 ### Tree Exposes
 
-| Name      | Description                                                 | Type                                                             |
-| --------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
-| setExpand | 设置展开节点                                                | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
+| Name      | Description                                                   | Type                                                             |
+| --------- | ------------------------------------------------------------- | ---------------------------------------------------------------- |
+| setExpand | 设置展开节点                                                  | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
 | scrollTo  | 滚动到指定节点(开启虚拟滚动和数量达到 `height / 28` 向上取整) | `(key: string \| number) => instance`                            |

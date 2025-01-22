@@ -373,7 +373,7 @@ Use the `setExpand` method to expand the corresponding parent node, and use the 
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, nextTick } from 'vue';
 function dig(path = '0', level = 4) {
 	const list: any['treeData'] = [];
 	for (let i = 0; i < 8; i += 1) {
@@ -394,8 +394,10 @@ function dig(path = '0', level = 4) {
 const t = ref(dig());
 const searchValue = ref('0-4-0-0');
 const treeRef = ref();
-const search = () => {
-	treeRef.value.setExpand(searchValue.value).scrollTo(searchValue.value);
+const search = async () => {
+	treeRef.value.setExpand(searchValue.value);
+	await nextTick();
+	treeRef.value.scrollTo(searchValue.value);
 };
 </script>
 ```
@@ -453,7 +455,7 @@ const search = () => {
 
 ### Tree Exposes
 
-| Name      | Description                                                                                      | Type                                                             |
-| --------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| setExpand | Set expandedKeys                                                                                 | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
+| Name      | Description                                                                                     | Type                                                             |
+| --------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| setExpand | Set expandedKeys                                                                                | `(str: string \| ((node: TreeNodeType) => boolean)) => instance` |
 | scrollTo  | Scroll to the node(Enable virtual scroll and reach the desired quantity `height / 28` Round Up) | `(key: string \| number) => instance`                            |
