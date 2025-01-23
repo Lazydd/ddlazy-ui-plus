@@ -236,7 +236,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			]"
 			@click="select(data.value, data?.disabled ?? false, data)"
 		>
-			<span class="dd-tree-title">
+			<span class="dd-tree-title" :title="data.label">
 				<slot name="title" v-bind="{ data, title: data.label }">
 					{{ data.label }}
 				</slot>
@@ -479,6 +479,9 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			line-height 0s,
 			box-shadow 0s;
 		user-select: none;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		&:hover:not(.dd-tree-node-selected) {
 			background-color: var(--dd-hover-background-color);
 		}
