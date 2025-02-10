@@ -425,7 +425,7 @@ const search = async () => {
 | selectedKeys(v-model) | 设置选中的树节点                                                   | `string[] \| number[]`      | `[]`                                                   |         |
 | showIcon              | 是否展示 TreeNode title 前的图标                                   | `boolean`                   | `false`                                                |         |
 | showLine              | 是否展示连接线                                                     | `boolean`                   | `false`                                                |         |
-| treeData              | treeNodes 数据                                                     | [`TreeNode[]`](###TreeNode) | —                                                      |         |
+| treeData              | treeNodes 数据                                                     | [`TreeNode[]`](#treenode) | —                                                      |         |
 
 ### Tree Events
 

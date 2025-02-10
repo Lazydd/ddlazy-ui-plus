@@ -424,7 +424,7 @@ const search = async () => {
 | selectedKeys(v-model) | Specifies the keys of the selected treeNodes                                                      | `string[] \| number[]`      | `[]`                                                   |         |
 | showIcon              | Shows the icon before a TreeNode's title.                                                         | `boolean`                   | `false`                                                |         |
 | showLine              | Shows a connecting line                                                                           | `boolean`                   | `false`                                                |         |
-| treeData              | treeNode of tree                                                                                  | [`TreeNode[]`](###TreeNode) | —                                                      |         |
+| treeData              | treeNode of tree                                                                                  | [`TreeNode[]`](#treenode) | —                                                      |         |
 
 ### Tree Events
 
