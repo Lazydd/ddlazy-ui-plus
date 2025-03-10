@@ -12,7 +12,7 @@ const props = withDefaults(
 	}>(),
 	{
 		multiple: false,
-	}
+	},
 );
 
 defineEmits(['select-item-click']);
@@ -78,7 +78,7 @@ defineExpose({
 		padding: 5px 12px;
 		color: var(--dd-select-color);
 		font-weight: normal;
-		font-size: 14px;
+		font-size: var(--dd-size);
 		cursor: pointer;
 		transition: background 0.3s ease;
 		border-radius: 4px;
@@ -140,6 +140,16 @@ defineExpose({
 	::-webkit-scrollbar-thumb:hover {
 		cursor: pointer;
 		background-color: rgba(0, 0, 0, 0.3);
+	}
+}
+.large {
+	.dd-select-item {
+		font-size: var(--dd-large);
+	}
+}
+.small {
+	.dd-select-item {
+		font-size: var(--dd-small);
 	}
 }
 </style>
