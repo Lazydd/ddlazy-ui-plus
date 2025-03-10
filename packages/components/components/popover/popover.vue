@@ -22,6 +22,7 @@ const props = withDefaults(
 		autoWidth?: boolean;
 		padding?: number;
 		popupArrowClassName?: string | Object;
+		popupClassName?: string | Object;
 		ignore?: HTMLElement[] | null;
 		generate?: boolean;
 	}>(),
@@ -30,7 +31,7 @@ const props = withDefaults(
 		autoWidth: true,
 		padding: 12,
 		generate: false,
-	}
+	},
 );
 const emit = defineEmits<{
 	'update:visible': [value: boolean];
@@ -55,7 +56,7 @@ useEventListener(
 	'scroll',
 	useThrottleFn(() => {
 		setInset();
-	}, 150)
+	}, 150),
 );
 
 const instanceAttributes = computed(() => {
@@ -136,7 +137,7 @@ const outSideClick = () => {
 	<div v-if="created || generate">
 		<transition name="fade">
 			<div
-				class="dd-popover"
+				:class="['dd-popover', popupClassName]"
 				:style="{ inset: insetStyle }"
 				ref="popoverRef"
 				v-show="visible"
