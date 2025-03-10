@@ -20,6 +20,7 @@ const props = withDefaults(
 		instance?: HTMLElement | null;
 		arrow?: boolean;
 		autoWidth?: boolean;
+		width?: number;
 		padding?: number;
 		popupArrowClassName?: string | Object;
 		popupClassName?: string | Object;
@@ -149,7 +150,7 @@ const outSideClick = () => {
 				/>
 				<div
 					class="dd-popover-content"
-					:style="{ width: !autoWidth ? instanceWidth + 'px' : '' }"
+					:style="{ width: (!autoWidth ? instanceWidth : width) + 'px' }"
 				>
 					<div class="dd-popover-inner" :style="{ padding: padding + 'px' }">
 						<div class="dd-popover-inner-content">
