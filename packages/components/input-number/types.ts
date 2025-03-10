@@ -4,7 +4,7 @@ export type InputNumberSizeType = 'large' | 'middle' | 'small';
 
 export const inputNumberProps = {
 	value: {
-		type: Number,
+		type: [Number, String] as PropType<any>,
 		default: false,
 	},
 	description: {

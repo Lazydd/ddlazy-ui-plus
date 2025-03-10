@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { inputNumberProps } from './types';
 
-import { ref } from 'vue';
+import { computed } from 'vue';
 
 defineOptions({
 	name: createName('input-number'),
@@ -17,17 +17,18 @@ const handleInput = (e) => {
 	emit('update:value', e.target.value);
 	emit('change', e.target.value);
 };
+const formatValue = computed(() => Number(props.value));
 
 const operate = (type: string) => {
 	if (props.disabled) return;
 	let newValue: any;
 	if (type === 'add') {
-		if (props.value >= props.max) return;
-		const temp = Number(props.value) + Number(props.step);
+		if (formatValue.value >= props.max) return;
+		const temp = formatValue.value + Number(props.step);
 		newValue = temp > props.max ? props.max : temp;
 	} else {
-		if (props.value <= props.min) return;
-		const temp = Number(props.value) - Number(props.step);
+		if (formatValue.value <= props.min) return;
+		const temp = formatValue.value - Number(props.step);
 		newValue = temp < props.min ? props.min : temp;
 	}
 	const temp =
