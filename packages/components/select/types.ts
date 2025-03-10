@@ -59,6 +59,9 @@ export const selectProps = {
 		type: Boolean,
 		default: false,
 	},
+	popoverWidth: {
+		type: Number,
+	},
 } as const;
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;

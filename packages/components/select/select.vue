@@ -286,10 +286,10 @@ const passwordIcon = computed(() =>
 				v-model:visible="selectDropdownShow"
 				:instance="selectRef"
 				:arrow="false"
-				:autoWidth="false"
 				:padding="4"
 				:generate
 				:popupClassName="size"
+				:width="popoverWidth"
 				class="dd-select-popover"
 			>
 				<slot name="dropdownRender">
