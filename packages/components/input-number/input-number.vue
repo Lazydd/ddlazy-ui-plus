@@ -30,7 +30,10 @@ const operate = (type: string) => {
 		const temp = Number(props.value) - Number(props.step);
 		newValue = temp < props.min ? props.min : temp;
 	}
-	const temp = props.precision ? parseFloat(newValue).toFixed(props.precision) : newValue;
+	const temp =
+		props.precision || props.precision === 0
+			? Number(parseFloat(newValue).toFixed(props.precision))
+			: newValue;
 	emit('update:value', temp);
 };
 </script>

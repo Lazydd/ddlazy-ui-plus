@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	color: var(--dd-color-1);
-	font-size: 14px;
+	font-size: var(--dd-size);
 	list-style: none;
 	position: relative;
 	display: inline-block;
@@ -140,6 +140,7 @@
 .large {
 	&.dd-input-number {
 		border-radius: var(--dd-radius-large);
+		font-size: var(--dd-large);
 	}
 	.dd-input-number-input {
 		height: 38px;
@@ -159,10 +160,11 @@
 .small {
 	&.dd-input-number {
 		border-radius: var(--dd-radius-small);
+		font-size: var(--dd-small);
 	}
 	.dd-input-number-input {
 		height: 22px;
-		padding: 0 7px;
+		padding: 0 4px;
 		border-radius: var(--dd-radius-small);
 	}
 	.dd-input-number-handler-wrap {
