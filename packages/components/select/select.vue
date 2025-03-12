@@ -145,6 +145,13 @@ watch(
 	},
 );
 
+watch(
+	() => props.value,
+	(value) => {
+		emit('change', value);
+	},
+);
+
 const handleInput = async (e) => {
 	emit('input', e.target.value);
 	if (props.showSearch) {
