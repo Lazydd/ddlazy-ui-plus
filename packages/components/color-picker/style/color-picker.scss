@@ -1,0 +1,143 @@
+.dd-color-picker {
+	border-radius: 6px;
+	border: 1px solid #d9d9d9;
+	cursor: inherit;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s;
+	background: #ffffff;
+	padding: 3px;
+	&-trigger {
+		position: relative;
+		border-radius: 4px;
+		width: 24px;
+		height: 24px;
+		box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.25);
+		background-image: conic-gradient(
+			rgba(0, 0, 0, 0.06) 0 25%,
+			transparent 0 50%,
+			rgba(0, 0, 0, 0.06) 0 75%,
+			transparent 0
+		);
+		background-size: 50% 50%;
+	}
+	&-inner {
+		width: 100%;
+		height: 100%;
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: inherit;
+		&-content {
+			display: flex;
+			flex-direction: column;
+			width: 234px;
+			margin-bottom: 12px;
+		}
+	}
+
+	&-presets-color {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+		gap: 6px;
+	}
+	&-color-block-inner {
+		position: relative;
+		cursor: pointer;
+		width: 24px;
+		height: 24px;
+		border-radius: 4px;
+	}
+	&-inner {
+		width: 100%;
+		height: 100%;
+		border: 1px solid rgba(0, 0, 0, 0.06);
+		border-radius: inherit;
+		&-content {
+			display: flex;
+			flex-direction: column;
+			width: 234px;
+			gap: 12px;
+		}
+	}
+	&-operation {
+		width: 24px;
+		height: 24px;
+		border-radius: 4px;
+		border: 1px solid rgba(5, 5, 5, 0.06);
+	}
+	&-clear {
+		width: 100%;
+		height: 100%;
+
+		position: relative;
+		overflow: hidden;
+		cursor: pointer;
+		transition: all 0.1s;
+		margin-inline-start: auto;
+		&::after {
+			content: '';
+			position: absolute;
+			inset-inline-end: calc(1px * -1);
+			top: calc(1px * -1);
+			display: block;
+			width: 40px;
+			height: 2px;
+			transform-origin: calc(100% - 1px) 1px;
+			transform: rotate(-45deg);
+			background-color: #f5222d;
+		}
+	}
+
+	&-input-container {
+		display: flex;
+		gap: 4px;
+		:deep(.dd-select) {
+			flex: 1;
+			max-width: 42px;
+			.dd-select-arrow {
+				right: 0;
+			}
+			.dd-select-selection-item {
+				padding-inline-end: unset !important;
+			}
+		}
+		.dd-color-picker-input {
+			flex: 1;
+			:deep(.dd-input-affix-wrapper) {
+				padding: 0 8px;
+				.dd-input-prefix,
+				.dd-input-suffix {
+					color: rgba(0, 0, 0, 0.25);
+				}
+			}
+		}
+
+		.dd-input-number {
+			flex: 0 0 44px;
+		}
+	}
+
+	&-disabled {
+		cursor: not-allowed;
+	}
+}
+
+.large {
+	min-width: 40px;
+	height: 40px;
+	border-radius: 8px;
+	.dd-color-picker-trigger {
+		width: 32px;
+		height: 32px;
+	}
+}
+.small {
+	min-width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	.dd-color-picker-trigger {
+		width: 16px;
+		height: 16px;
+	}
+}

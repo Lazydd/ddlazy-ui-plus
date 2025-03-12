@@ -121,6 +121,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					text: 'TimePicker',
 					link: '/en/components/form/time-picker',
 				},
+				{
+					text: 'ColorPicker',
+					link: '/en/components/form/color-picker',
+				},
 			],
 		},
 		{

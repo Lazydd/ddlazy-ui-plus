@@ -23,6 +23,7 @@ export * from './radio-group';
 export * from './time-picker';
 export * from './date-picker';
 export * from './tree';
+export * from './color-picker';
 
 export default {
 	install(app: App) {
