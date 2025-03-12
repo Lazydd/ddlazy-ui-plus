@@ -36,6 +36,7 @@ const operate = (type: string) => {
 			? Number(parseFloat(newValue).toFixed(props.precision))
 			: newValue;
 	emit('update:value', temp);
+	emit('change', temp);
 };
 </script>
 
