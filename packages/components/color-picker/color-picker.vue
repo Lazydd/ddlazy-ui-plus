@@ -297,6 +297,7 @@ const colorClick = () => {
 							:bordered="false"
 							size="small"
 							generate
+							autoWidth
 							:popover-width="68"
 							:options="[
 								{ label: 'HEX', value: 'hex' },
