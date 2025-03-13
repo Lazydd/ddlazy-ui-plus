@@ -51,6 +51,7 @@
 }
 /* input */
 :root {
+	--dd-input-border-color: var(--dd-border-color);
 	--dd-input-background-color: var(--dd-white);
 	--dd-input-disabled-background-color: var(--dd-disabled-background-color);
 	--dd-input-disabled-color: var(--dd-disabled-color);

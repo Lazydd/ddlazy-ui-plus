@@ -54,9 +54,7 @@
 		line-height: 1.5;
 		background-color: var(--dd-input-background-color);
 		background-image: none;
-		border-width: 1px;
-		border-style: solid;
-		border-color: var(--dd-border-color);
+		border:1px solid var(--dd-input-border-color);
 		border-radius: var(--dd-radius-size);
 		transition: all 0.2s;
 		&:hover:not([disabled]) {
@@ -75,7 +73,7 @@
 			user-select: none;
 			opacity: 1;
 			&:hover {
-				border-color: var(--dd-border-color);
+				border-color: var(--dd-input-border-color);
 			}
 		}
 	}
@@ -124,7 +122,7 @@
 		font-weight: normal;
 		font-size: var(--dd-size);
 		background-color: rgba(0, 0, 0, 0.02);
-		border: 1px solid var(--dd-border-color);
+		border: 1px solid var(--dd-input-border-color);
 		border-radius: 6px;
 		transition: all 0.3s;
 		line-height: 1;
@@ -164,7 +162,7 @@
 				stroke: var(--dd-input-disabled-color);
 			}
 			&:hover {
-				border-color: var(--dd-border-color);
+				border-color: var(--dd-input-border-color);
 			}
 		}
 	}
