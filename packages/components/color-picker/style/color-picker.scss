@@ -1,13 +1,16 @@
 .dd-color-picker {
 	border-radius: 6px;
-	border: 1px solid #d9d9d9;
+	border: 1px solid var(--dd-color-picker-border-color);
 	cursor: inherit;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	transition: all 0.2s;
-	background: #ffffff;
+	background: var(--dd-color-picker-background-color);
 	padding: 3px;
+	&-container {
+		display: inline-block;
+	}
 	&-trigger {
 		position: relative;
 		border-radius: 4px;

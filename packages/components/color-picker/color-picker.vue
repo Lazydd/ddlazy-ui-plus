@@ -254,7 +254,7 @@ const colorClick = () => {
 
 <template>
 	<div
-		:class="[size]"
+		:class="[size, 'dd-color-picker-container']"
 		:style="{ cursor: disabled ? 'not-allowed' : 'pointer' }"
 		ref="colorPickerRef"
 		@click="colorClick"

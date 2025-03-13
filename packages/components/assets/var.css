@@ -157,3 +157,10 @@
 	--dd-tree-switcher-hover-background-color: rgba(0, 0, 0, 0.06);
 	--dd-tree-selected-background-color: #e6f4ff;
 }
+
+/* color-picker */
+:root {
+	--dd-color-picker-border-color: var(--dd-border-color);
+	--dd-color-picker-background-color: var(--dd-white);
+	--dd-color-picker-handler-color: var(--dd-white);
+}

@@ -83,3 +83,11 @@
 	--dd-tree-selected-background-color: #111a2c;
 	--dd-tree-inner-background-color: #141414;
 }
+/* color-picker */
+.dark {
+	--dd-color-picker-border-color: #424242;
+	--dd-color-picker-background-color: #1f1f1f;
+	--dd-color-picker-handler-color: #1f1f1f;
+	--dd-input-number-background-color: #1f1f1f;
+	--dd-select-background-color: #1f1f1f;
+}

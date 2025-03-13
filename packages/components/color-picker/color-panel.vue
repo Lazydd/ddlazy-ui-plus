@@ -339,7 +339,7 @@ onUnmounted(() => {
 			position: absolute;
 			width: 16px;
 			height: 16px;
-			border: 2px solid #ffffff;
+			border: 2px solid var(--dd-color-picker-handler-color);
 			border-radius: 50%;
 			box-shadow:
 				0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -383,7 +383,7 @@ onUnmounted(() => {
 		top: 0;
 		width: 12px;
 		height: 12px;
-		border: 2px solid #ffffff;
+		border: 2px solid var(--dd-color-picker-handler-color);
 		border-radius: 50%;
 		transform: translate(-6px, -2px);
 		box-shadow:
