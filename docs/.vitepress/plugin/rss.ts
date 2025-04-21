@@ -15,7 +15,7 @@ export async function createRssFile(config: SiteConfig) {
 		copyright: 'Copyright © 2023-present ddlazy',
 	});
 
-	const posts = await createContentLoader('src/**/*.md', {
+	const posts = await createContentLoader('/components/**/*.md', {
 		excerpt: true,
 		render: true,
 	}).load();
@@ -30,7 +30,7 @@ export async function createRssFile(config: SiteConfig) {
 			id: `${githubLink}${url}`,
 			link: `${githubLink}${url}`,
 			description: excerpt,
-			content: html,
+			content: html?.replaceAll('&ZeroWidthSpace;', ''),
 			author: [
 				{
 					name: 'lazy',
