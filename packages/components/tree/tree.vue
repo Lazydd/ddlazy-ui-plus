@@ -3,7 +3,7 @@ import { createName } from '../../utils/index';
 import { UseVirtualList } from '@vueuse/components';
 import { treeProps, TreeNodeType } from './types';
 import TreeNode from './tree-node.vue';
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, useTemplateRef } from 'vue';
 
 defineOptions({
 	name: createName('tree'),
@@ -69,7 +69,7 @@ const expandParent = (nodes, key, path = []) => {
 			const result = expandParent(
 				node[fieldNames.value.children ?? 'children'],
 				key,
-				currentPath,
+				currentPath
 			);
 			if (result) {
 				return result;
@@ -113,7 +113,7 @@ watch(
 	},
 	{
 		immediate: true,
-	},
+	}
 );
 
 watch(
@@ -126,7 +126,7 @@ watch(
 	},
 	{
 		immediate: true,
-	},
+	}
 );
 watch(
 	() => props.checkedKeys,
@@ -135,7 +135,7 @@ watch(
 	},
 	{
 		immediate: true,
-	},
+	}
 );
 watch(
 	() => props.expandedKeys,
@@ -144,7 +144,7 @@ watch(
 	},
 	{
 		immediate: true,
-	},
+	}
 );
 watch(
 	() => props.autoExpandParent,
@@ -152,7 +152,7 @@ watch(
 		if (newValue) {
 			expandParents();
 		}
-	},
+	}
 );
 const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) => {
 	return data.map((item, i) => {
@@ -205,7 +205,7 @@ watch(
 	},
 	{
 		immediate: true,
-	},
+	}
 );
 
 const onCheckedNodes = (node: TreeNodeType, checked: boolean) => {
@@ -228,7 +228,7 @@ const virtualListOptions = ref({
 	itemHeight: 28,
 	overscan: 10,
 });
-const virtualListRef = ref<HTMLElement | null>(null);
+const virtualListRef = useTemplateRef<HTMLElement | null>('virtualList');
 const scrollTo = (key: string | number) => {
 	if (!virtualListRef.value) return;
 	const index = flattenTree.value.findIndex((v) => v.key === key);
@@ -279,7 +279,7 @@ defineExpose(instance);
 							:options="virtualListOptions"
 							:height="height + 'px'"
 							style="width: 100%"
-							ref="virtualListRef"
+							ref="virtualList"
 						>
 							<template #="{ data }">
 								<TreeNode

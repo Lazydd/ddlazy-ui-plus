@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { computed, defineEmits, defineProps, onMounted, ref, watch } from 'vue';
+import { computed, defineEmits, defineProps, onMounted, ref, useTemplateRef } from 'vue';
 import { colorPickerProps } from './types';
 import colorPanel from './color-panel.vue';
 import Popover from '../components/popover/popover.vue';
@@ -31,7 +31,7 @@ const emit = defineEmits<{
 	(e: 'change', value: string): void;
 }>();
 
-const colorPickerRef = ref<HTMLElement | null>();
+const colorPickerRef = useTemplateRef('colorPicker');
 
 const colorPickerContainerShow = ref(false);
 
@@ -256,7 +256,7 @@ const colorClick = () => {
 	<div
 		:class="[size, 'dd-color-picker-container']"
 		:style="{ cursor: disabled ? 'not-allowed' : 'pointer' }"
-		ref="colorPickerRef"
+		ref="colorPicker"
 		@click="colorClick"
 	>
 		<div class="dd-color-picker-operation" v-if="clearable">
@@ -292,7 +292,6 @@ const colorClick = () => {
 					/>
 					<div class="dd-color-picker-input-container">
 						<dd-select
-							ref="selectTypeRef"
 							v-model:value="inputFormat"
 							:bordered="false"
 							size="small"

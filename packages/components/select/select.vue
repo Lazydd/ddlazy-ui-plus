@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { selectProps } from './types';
 
-import { ref, watch, nextTick, computed, onMounted } from 'vue';
+import { ref, watch, nextTick, computed, onMounted, useTemplateRef } from 'vue';
 
 import Popover from '../components/popover/popover.vue';
 import Arrow from './icon/arrow.vue';
@@ -33,9 +33,9 @@ const slots = defineSlots<{
 	suffixIcon: HTMLElement;
 }>();
 
-const selectRef = ref<HTMLElement | null>(null);
-const selectInputRef = ref<HTMLInputElement | null>(null);
-const selectDropdownRef = ref(null);
+const selectRef = useTemplateRef('select');
+const selectInputRef = useTemplateRef('selectInput');
+const selectDropdownRef = useTemplateRef('selectDropdown');
 const selectDropdownShow = ref(false);
 
 const label = ref();
@@ -54,7 +54,7 @@ const count = computed(() => {
 	}
 });
 const maxCountSelect = computed(() =>
-	select.value.slice(0, (props.maxTagCount ?? 0) >= 0 ? props.maxTagCount : undefined),
+	select.value.slice(0, (props.maxTagCount ?? 0) >= 0 ? props.maxTagCount : undefined)
 );
 
 const selectItemClick = (item) => {
@@ -125,13 +125,13 @@ watch(
 	() => props.value,
 	() => {
 		init();
-	},
+	}
 );
 watch(
 	() => props.options,
 	() => {
 		filterOption.value = props.options;
-	},
+	}
 );
 watch(
 	() => selectDropdownShow.value,
@@ -142,14 +142,14 @@ watch(
 			searchValue.value = null;
 		}
 		emit('dropdown-visible-change', selectDropdownShow.value);
-	},
+	}
 );
 
 watch(
 	() => props.value,
 	(value) => {
 		emit('change', value);
-	},
+	}
 );
 
 const handleInput = async (e) => {
@@ -175,13 +175,13 @@ const clear = () => {
 };
 
 const showPlaceholder = computed(() =>
-	props.showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible',
+	props.showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible'
 );
 const showPlaceholder2 = computed(() =>
-	!props.multiple ? !(label.value || props.value) : !select.value.length,
+	!props.multiple ? !(label.value || props.value) : !select.value.length
 );
 const passwordIcon = computed(() =>
-	props.showSearch && selectDropdownShow.value ? Search : slots.suffixIcon ?? Arrow,
+	props.showSearch && selectDropdownShow.value ? Search : slots.suffixIcon ?? Arrow
 );
 </script>
 
@@ -196,7 +196,7 @@ const passwordIcon = computed(() =>
 				'dd-select-borderless': !bordered,
 			},
 		]"
-		ref="selectRef"
+		ref="select"
 		:showSearch
 		:clearable
 		@click="selectClick"
@@ -214,7 +214,7 @@ const passwordIcon = computed(() =>
 			<template v-if="!multiple">
 				<span class="dd-select-selection-search">
 					<input
-						ref="selectInputRef"
+						ref="selectInput"
 						type="text"
 						v-model="searchValue"
 						v-bind="$attrs"
@@ -268,7 +268,7 @@ const passwordIcon = computed(() =>
 						class="dd-select-selection-search dd-select-selection-overflow-item-suffix"
 					>
 						<input
-							ref="selectInputRef"
+							ref="selectInput"
 							type="text"
 							v-model="searchValue"
 							v-bind="$attrs"
@@ -308,7 +308,7 @@ const passwordIcon = computed(() =>
 						:value="multiple ? select : value"
 						:multiple
 						@selectItemClick="selectItemClick"
-						ref="selectDropdownRef"
+						ref="selectDropdown"
 					/>
 					<dd-empty v-else />
 				</slot>

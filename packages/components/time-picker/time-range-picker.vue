@@ -6,7 +6,7 @@ import Popover from '../components/popover/popover.vue';
 import TimeInput from './time-input.vue';
 import Time from './time.vue';
 
-import { ref, computed, nextTick, watchEffect, watch } from 'vue';
+import { ref, computed, nextTick, watchEffect, watch, useTemplateRef } from 'vue';
 import dayjs, { type Dayjs } from 'dayjs';
 
 defineOptions({
@@ -17,13 +17,13 @@ const emit = defineEmits<{
 	change: [time: Dayjs[] | string[]];
 	openChange: [value: boolean];
 }>();
-const timeRangePickerRef = ref();
-const timePickerInputRef1 = ref<typeof TimeInput>();
-const timePickerInputRef2 = ref<typeof TimeInput>();
+const timeRangePickerRef = useTemplateRef('timeRangePicker');
+const timePickerInputRef1 = useTemplateRef<typeof TimeInput>('timePickerInput1');
+const timePickerInputRef2 = useTemplateRef<typeof TimeInput>('timePickerInput2');
 
-const hourRef = ref<InstanceType<typeof Time> | null>();
-const minuteRef = ref<InstanceType<typeof Time> | null>();
-const secondRef = ref<InstanceType<typeof Time> | null>();
+const hourRef = useTemplateRef<InstanceType<typeof Time> | null>('hour');
+const minuteRef = useTemplateRef<InstanceType<typeof Time> | null>('minute');
+const secondRef = useTemplateRef<InstanceType<typeof Time> | null>('second');
 
 const timeRangePickerContainerShow = defineModel<boolean>('open');
 
@@ -223,11 +223,11 @@ watch(
 				'dd-picker-borderless': !bordered,
 			},
 		]"
-		ref="timeRangePickerRef"
+		ref="timeRangePicker"
 		@click="timeRangePickerClick"
 	>
 		<TimeInput
-			ref="timePickerInputRef1"
+			ref="timePickerInput1"
 			:format-show="formatShow[0]"
 			:format-value="formatValue[0]"
 			:disabled
@@ -256,7 +256,7 @@ watch(
 			</span>
 		</div>
 		<TimeInput
-			ref="timePickerInputRef2"
+			ref="timePickerInput2"
 			:format-show="formatShow[1]"
 			:format-value="formatValue[1]"
 			:disabled
@@ -329,7 +329,7 @@ watch(
 					<div class="dd-picker-time-panel">
 						<div class="dd-picker-content">
 							<Time
-								ref="hourRef"
+								ref="hour"
 								type="hour"
 								:step="hourStep"
 								v-model:value="timeValue"
@@ -338,7 +338,7 @@ watch(
 								@click="changeFormat"
 							/>
 							<Time
-								ref="minuteRef"
+								ref="minute"
 								type="minute"
 								:step="minuteStep"
 								v-model:value="timeValue"
@@ -347,7 +347,7 @@ watch(
 								@click="changeFormat"
 							/>
 							<Time
-								ref="secondRef"
+								ref="second"
 								type="second"
 								:step="secondStep"
 								v-model:value="timeValue"

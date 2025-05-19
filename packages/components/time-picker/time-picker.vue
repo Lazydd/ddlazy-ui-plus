@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { timePickerProps, TimePickerFormatType } from './types';
 
-import { ref, computed, nextTick, watch } from 'vue';
+import { ref, computed, nextTick, watch, useTemplateRef } from 'vue';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 
@@ -19,12 +19,12 @@ const emit = defineEmits<{
 	openChange: [boolean];
 }>();
 
-const timePickerRef = ref<HTMLElement | null>();
-const timePickerInputRef = ref<typeof TimeInput>();
+const timePickerRef = useTemplateRef('timePicker');
+const timePickerInputRef = useTemplateRef<typeof TimeInput>('timePickerInput');
 
-const hourRef = ref<InstanceType<typeof Time> | null>();
-const minuteRef = ref<InstanceType<typeof Time> | null>();
-const secondRef = ref<InstanceType<typeof Time> | null>();
+const hourRef = useTemplateRef<InstanceType<typeof Time> | null>('hour');
+const minuteRef = useTemplateRef<InstanceType<typeof Time> | null>('minute');
+const secondRef = useTemplateRef<InstanceType<typeof Time> | null>('second');
 
 const timePickerContainerShow = defineModel<boolean>('open');
 
@@ -141,11 +141,11 @@ watch(
 				'dd-picker-borderless': !bordered,
 			},
 		]"
-		ref="timePickerRef"
+		ref="timePicker"
 		@click="timePickerClick"
 	>
 		<TimeInput
-			ref="timePickerInputRef"
+			ref="timePickerInput"
 			:formatShow
 			:formatValue
 			:disabled
@@ -169,7 +169,7 @@ watch(
 					<div class="dd-picker-time-panel">
 						<div class="dd-picker-content">
 							<Time
-								ref="hourRef"
+								ref="hour"
 								type="hour"
 								:step="hourStep"
 								v-model:value="timeValue"
@@ -178,7 +178,7 @@ watch(
 								@click="changeFormat"
 							/>
 							<Time
-								ref="minuteRef"
+								ref="minute"
 								type="minute"
 								:step="minuteStep"
 								v-model:value="timeValue"
@@ -187,7 +187,7 @@ watch(
 								@click="changeFormat"
 							/>
 							<Time
-								ref="secondRef"
+								ref="second"
 								type="second"
 								:step="secondStep"
 								v-model:value="timeValue"

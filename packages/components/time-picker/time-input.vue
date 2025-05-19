@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useTemplateRef } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { Dayjs } from 'dayjs';
 const props = withDefaults(
@@ -23,7 +23,7 @@ const emit = defineEmits<{
 	clearClick: [];
 }>();
 
-const timePickerInputRef = ref<HTMLInputElement | null>();
+const timePickerInputRef = useTemplateRef('timePickerInput');
 const clearClick = () => {
 	if (!props.allowClear) return;
 	emit('clearClick');
@@ -42,7 +42,7 @@ defineExpose({
 <template>
 	<div class="dd-picker-input" :disabled>
 		<input
-			ref="timePickerInputRef"
+			ref="timePickerInput"
 			autocomplete="off"
 			:placeholder="placeholder ?? '请选择时间'"
 			:value="formatShow"

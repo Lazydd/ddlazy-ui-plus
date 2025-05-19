@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, useTemplateRef } from 'vue';
 import { useTime } from '../../utils/hook';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -75,7 +75,7 @@ const formatTimeType = computed(() => {
 	};
 });
 
-const timeRef = ref<HTMLElement[] | null>();
+const timeRef = useTemplateRef<HTMLElement[] | null>('time');
 const timePanelRef = ref<HTMLElement | null>();
 const timeClick = (v: any, index: number, disabled: boolean) => {
 	if (disabled) return;
@@ -137,7 +137,7 @@ defineExpose({
 			]"
 			v-for="({ time, disabled }, i) in dateInfo"
 			:key="time"
-			ref="timeRef"
+			ref="time"
 			@click="timeClick(time, i, disabled)"
 		>
 			<div class="dd-picker-time-panel-cell-inner">

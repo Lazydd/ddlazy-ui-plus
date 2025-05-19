@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import { UseVirtualList } from '@vueuse/components';
 
 import Check from './icon/check.vue';
@@ -12,12 +12,12 @@ const props = withDefaults(
 	}>(),
 	{
 		multiple: false,
-	},
+	}
 );
 
 defineEmits(['select-item-click']);
 
-const virtualListRef = ref<HTMLElement | null>(null);
+const virtualListRef = useTemplateRef<HTMLElement | null>('virtualList');
 
 const virtualListOptions = ref({
 	itemHeight: 32,
@@ -40,7 +40,7 @@ defineExpose({
 			:list="options"
 			:options="virtualListOptions"
 			:height="options.length <= 8 ? '100%' : '256px'"
-			ref="virtualListRef"
+			ref="virtualList"
 		>
 			<template #="{ data }">
 				<div

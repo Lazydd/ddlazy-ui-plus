@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { datePickerProps, type FormatType } from './types';
 
-import { ref, computed, type Component, watchEffect, nextTick, watch } from 'vue';
+import { ref, computed, useTemplateRef, type Component, watchEffect, nextTick, watch } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
 import Popover from '../components/popover/popover.vue';
@@ -41,12 +41,12 @@ const showTimeInfo = { ...showTimeConfig, ...props.showTime };
 
 const datePickerContainerShow = defineModel<boolean>('open');
 
-const datePickerRef = ref<HTMLElement | null>();
-const datePickerInputRef = ref<HTMLInputElement | null>();
+const datePickerRef = useTemplateRef('datePicker');
+const datePickerInputRef = useTemplateRef('datePickerInput');
 
-const hourRef = ref<InstanceType<typeof Time> | null>();
-const minuteRef = ref<InstanceType<typeof Time> | null>();
-const secondRef = ref<InstanceType<typeof Time> | null>();
+const hourRef = useTemplateRef<InstanceType<typeof Time> | null>('hour');
+const minuteRef = useTemplateRef<InstanceType<typeof Time> | null>('minute');
+const secondRef = useTemplateRef<InstanceType<typeof Time> | null>('second');
 
 const datePickerClick = async () => {
 	if (props.disabled) return;
@@ -420,11 +420,11 @@ defineExpose({
 				'dd-picker-borderless': !bordered,
 			},
 		]"
-		ref="datePickerRef"
+		ref="datePicker"
 		@click="datePickerClick"
 	>
 		<DataInput
-			ref="datePickerInputRef"
+			ref="datePickerInput"
 			:format-show="isOutSide ? formatShow2 : inputValue"
 			:format-value="formatShow"
 			:disabled
@@ -498,7 +498,7 @@ defineExpose({
 						</div>
 						<div class="dd-picker-content">
 							<Time
-								ref="hourRef"
+								ref="hour"
 								type="hour"
 								:step="timeAttr.hourStep"
 								v-model:value="timeValue"
@@ -507,7 +507,7 @@ defineExpose({
 								@click="changeFormat"
 							/>
 							<Time
-								ref="minuteRef"
+								ref="minute"
 								type="minute"
 								:step="timeAttr.minuteStep"
 								v-model:value="timeValue"
@@ -516,7 +516,7 @@ defineExpose({
 								@click="changeFormat"
 							/>
 							<Time
-								ref="secondRef"
+								ref="second"
 								type="second"
 								:step="timeAttr.secondStep"
 								v-model:value="timeValue"

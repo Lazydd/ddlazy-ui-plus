@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch, useTemplateRef } from 'vue';
 import { hsvToRgb, rgbToHsv } from './utils';
 
 const props = defineProps<{
@@ -18,9 +18,9 @@ const alpha = defineModel<number>('alpha');
 const saturation = ref(100);
 const value = ref(100);
 
-const saturationPanel = ref<HTMLElement | null>(null);
-const hueSlider = ref<HTMLElement | null>(null);
-const alphaSlider = ref<HTMLElement | null>(null);
+const saturationPanelRef = useTemplateRef('saturationPanel');
+const hueSliderRef = useTemplateRef('hueSlider');
+const alphaSliderRef = useTemplateRef('alphaSlider');
 
 const isDraggingSaturation = ref(false);
 const isDraggingHue = ref(false);
@@ -52,7 +52,7 @@ const hexToRgb = (hex: string): [number, number, number] | null => {
 				parseInt(result[1], 16) / 255,
 				parseInt(result[2], 16) / 255,
 				parseInt(result[3], 16) / 255,
-			]
+		  ]
 		: null;
 };
 
@@ -72,7 +72,7 @@ watch(
 		if (newColor !== currentColorHex.value) {
 			initColor(newColor);
 		}
-	},
+	}
 );
 
 const currentColor = computed(() => {
@@ -93,11 +93,11 @@ const rgbToHex = (r: number, g: number, b: number): string => {
 };
 
 const updateSaturationValue = (e: MouseEvent | TouchEvent) => {
-	if (!saturationPanel.value) {
+	if (!saturationPanelRef.value) {
 		return;
 	}
 
-	const rect = saturationPanel.value.getBoundingClientRect();
+	const rect = saturationPanelRef.value.getBoundingClientRect();
 	const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
 	const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
@@ -114,11 +114,11 @@ const updateSaturationValue = (e: MouseEvent | TouchEvent) => {
 };
 
 const updateHue = (e: MouseEvent | TouchEvent) => {
-	if (!hueSlider.value) {
+	if (!hueSliderRef.value) {
 		return;
 	}
 
-	const rect = hueSlider.value.getBoundingClientRect();
+	const rect = hueSliderRef.value.getBoundingClientRect();
 	const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
 
 	let x = ((clientX - rect.left) / rect.width) * 360;
@@ -129,11 +129,11 @@ const updateHue = (e: MouseEvent | TouchEvent) => {
 };
 
 const updateSaturationValueAlpha = (e: MouseEvent | TouchEvent) => {
-	if (!saturationPanel.value) {
+	if (!saturationPanelRef.value) {
 		return;
 	}
 
-	const rect = saturationPanel.value.getBoundingClientRect();
+	const rect = saturationPanelRef.value.getBoundingClientRect();
 	const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
 	const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
@@ -150,11 +150,11 @@ const updateSaturationValueAlpha = (e: MouseEvent | TouchEvent) => {
 };
 
 const updateAlpha = (e: MouseEvent | TouchEvent) => {
-	if (!alphaSlider.value) {
+	if (!alphaSliderRef.value) {
 		return;
 	}
 
-	const rect = alphaSlider.value.getBoundingClientRect();
+	const rect = alphaSliderRef.value.getBoundingClientRect();
 	const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
 
 	let x = ((clientX - rect.left) / rect.width) * 100;
@@ -292,7 +292,10 @@ onUnmounted(() => {
 					</div>
 				</div>
 
-				<div class="dd-color-picker-slider-alpha dd-color-picker-slider" v-if="!disabledAlpha">
+				<div
+					class="dd-color-picker-slider-alpha dd-color-picker-slider"
+					v-if="!disabledAlpha"
+				>
 					<div
 						ref="alphaSlider"
 						class="dd-color-picker-palette"
@@ -341,9 +344,7 @@ onUnmounted(() => {
 			height: 16px;
 			border: 2px solid var(--dd-color-picker-handler-color);
 			border-radius: 50%;
-			box-shadow:
-				0 10px 15px -3px rgba(0, 0, 0, 0.1),
-				0 4px 6px -2px rgba(0, 0, 0, 0.05);
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 			transform: translate(-50%, -50%);
 		}
 	}
@@ -386,9 +387,7 @@ onUnmounted(() => {
 		border: 2px solid var(--dd-color-picker-handler-color);
 		border-radius: 50%;
 		transform: translate(-6px, -2px);
-		box-shadow:
-			0 10px 15px -3px rgba(0, 0, 0, 0.1),
-			0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	}
 	.dd-color-picker-slider-hue {
 		position: relative;

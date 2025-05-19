@@ -2,7 +2,7 @@
 import { createName } from '../../utils/index';
 import { inputProps } from './types';
 
-import { ref, computed, useSlots } from 'vue';
+import { ref, computed, useSlots, useTemplateRef } from 'vue';
 
 import Close from './icon/close.vue';
 import EyeOutlined from './icon/eye-outlined.vue';
@@ -16,8 +16,8 @@ const props = defineProps(inputProps);
 const emit = defineEmits(['update:value', 'change', 'clear', 'input', 'search']);
 const slots = useSlots();
 
-const ddInputRef = ref<HTMLInputElement | null>(null);
-const ddInputTextAreaRef = ref<HTMLTextAreaElement | null>(null);
+const InputRef = useTemplateRef('input');
+const InputTextAreaRef = useTemplateRef('inputTextArea');
 
 const handleInput = (e) => {
 	if (props.maxlength && e.target.value.length > props.maxlength) {
@@ -33,34 +33,34 @@ const clear = () => {
 	emit('change', '');
 	emit('clear');
 	emit('input', '');
-	ddInputRef.value.focus();
+	InputRef.value.focus();
 };
 
 const showClear = computed(
-	() => props.allowClear && !props.disabled && !props.readonly && props.value,
+	() => props.allowClear && !props.disabled && !props.readonly && props.value
 );
 const showPwdVisible = computed(
-	() => props.type == 'password' && !props.disabled && !props.readonly && props.value,
+	() => props.type == 'password' && !props.disabled && !props.readonly && props.value
 );
 const passwordVisible = ref(false);
 const passwordIcon = computed(() => (passwordVisible.value ? EyeOutlined : EyeInvisibleOutlined));
 
 const handlePasswordVisible = () => {
 	passwordVisible.value = !passwordVisible.value;
-	ddInputRef.value.focus();
+	InputRef.value.focus();
 };
 
 const inputCount = computed(() => props.value?.toString().length || 0);
 
 const searchChange = () => {
 	if (props.loading) return;
-	emit('search', ddInputRef.value.value);
+	emit('search', InputRef.value.value);
 };
 
 defineExpose({
 	clear,
-	input: ddInputRef,
-	textarea: ddInputTextAreaRef,
+	input: InputRef,
+	textarea: InputTextAreaRef,
 });
 </script>
 
@@ -81,7 +81,7 @@ defineExpose({
 				<slot name="prefix" />
 			</div>
 			<input
-				ref="ddInputRef"
+				ref="input"
 				:class="['dd-input', { 'dd-input-affix-wrapper': search }]"
 				v-bind="$attrs"
 				:value
@@ -131,7 +131,7 @@ defineExpose({
 		</template>
 		<template v-else>
 			<textarea
-				ref="ddInputTextAreaRef"
+				ref="inputTextArea"
 				class="dd-input"
 				:value
 				:readonly

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, nextTick, computed, watchEffect } from 'vue';
+import { watch, ref, nextTick, computed, watchEffect, useTemplateRef } from 'vue';
 import { vOnClickOutside } from '@vueuse/components';
 import {
 	useResizeObserver,
@@ -32,7 +32,7 @@ const props = withDefaults(
 		autoWidth: true,
 		padding: 12,
 		generate: false,
-	},
+	}
 );
 const emit = defineEmits<{
 	'update:visible': [value: boolean];
@@ -40,7 +40,7 @@ const emit = defineEmits<{
 }>();
 
 const insetStyle = ref('');
-const popoverRef = ref<HTMLElement | null>(null);
+const popoverRef = useTemplateRef('popover');
 
 const threshold = ref(30);
 const popoverPlacement = ref('topLeft');
@@ -57,7 +57,7 @@ useEventListener(
 	'scroll',
 	useThrottleFn(() => {
 		setInset();
-	}, 150),
+	}, 150)
 );
 
 const instanceAttributes = computed(() => {
@@ -140,7 +140,7 @@ const outSideClick = () => {
 			<div
 				:class="['dd-popover', popupClassName]"
 				:style="{ inset: insetStyle }"
-				ref="popoverRef"
+				ref="popover"
 				v-show="visible"
 				v-on-click-outside="[outSideClick, { ignore: [instance] }]"
 			>

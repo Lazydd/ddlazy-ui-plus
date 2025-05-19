@@ -34,10 +34,10 @@
 		"@ddlazy/utils": "^0.0.7",
 		"@iconify/json": "^2.2.336",
 		"@types/node": "^22.15.17",
-		"@vitejs/plugin-vue": "^5.2.3",
+		"@vitejs/plugin-vue": "^5.2.4",
 		"@vitejs/plugin-vue-jsx": "^4.1.2",
-		"@vueuse/components": "^13.1.0",
-		"@vueuse/core": "^13.1.0",
+		"@vueuse/components": "^13.2.0",
+		"@vueuse/core": "^13.2.0",
 		"feed": "^5.0.0",
 		"md5": "^2.3.0",
 		"sass": "^1.82.0",
@@ -51,7 +51,7 @@
 	},
 	"dependencies": {
 		"dayjs": "^1.11.13",
-		"vue": "^3.5.13"
+		"vue": "^3.5.14"
 	},
 	"browserslist": [
 		"> 1%",
