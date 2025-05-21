@@ -24,6 +24,7 @@ export * from './time-picker';
 export * from './date-picker';
 export * from './tree';
 export * from './color-picker';
+export * from './tree-select';
 
 export default {
 	install(app: App) {
