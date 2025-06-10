@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
 	plugins: [vue(), vueJsx()],
 	define: {
-		'__VUE_OPTIONS_API__': false,
+		__VUE_OPTIONS_API__: false,
 	},
 	resolve: {
 		dedupe: ['vue'],
@@ -35,6 +35,15 @@ export default defineConfig({
 		rollupOptions: {
 			external: ['vue'],
 			output: {
+				// manualChunks: {
+				// 	vendor: ['dayjs', 'vitepress-theme-demoblock-fork'],
+				// 	instability: ['@vueuse/core', '@vueuse/components', '@ddlazy/utils'],
+				// },
+				manualChunks: (id) => {
+					if (id.includes('node_modules') && (id.endsWith('.js') || id.endsWith('.ts'))) {
+						return 'vendor';
+					}
+				},
 				exports: 'named',
 				globals: {
 					vue: 'Vue',
