@@ -27,7 +27,7 @@ const virtualListOptions = ref({
 const scrollTo = (index) => {
 	virtualListRef.value.scrollTo(index);
 };
-const setActive = (info) => props.value.some((item) => item.value === info);
+const setActive = (info) => props.value?.some((item) => item.value === info);
 
 defineExpose({
 	scrollTo,
