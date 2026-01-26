@@ -125,7 +125,7 @@ const value = ref(10);
 import { ref } from 'vue';
 const value = ref(10);
 </script>
-<style>
+<style scoped>
 .dd-input-number + .dd-input-number {
 	margin-left: 20px;
 }
