@@ -117,19 +117,14 @@ const value = ref(10);
 ```vue
 <template>
 	<dd-input-number v-model:value="value" placeholder="Please input" size="large" />
-	<dd-input-number v-model:value="value" placeholder="Please input" />
-	<dd-input-number v-model:value="value" placeholder="Please input" size="small" />
+	<dd-input-number v-model:value="value" placeholder="Please input" style="margin-left: 20px;" />
+	<dd-input-number v-model:value="value" placeholder="Please input" size="small" style="margin-left: 20px;" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
 const value = ref(10);
 </script>
-<style scoped>
-.dd-input-number + .dd-input-number {
-	margin-left: 20px;
-}
-</style>
 ```
 
 :::
