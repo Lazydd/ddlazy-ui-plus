@@ -1,6 +1,5 @@
-import { computed } from 'vue';
-import type { MaybeRefOrGetter } from '@vueuse/core';
-import { toValue } from '@vueuse/core';
+import { computed, toValue } from 'vue';
+import type { MaybeRefOrGetter } from 'vue';
 import type { CommitInfo } from '../../../scripts/types/changelog';
 import { siteName } from '../meta';
 export const useCommits = (allCommits: CommitInfo[], path: MaybeRefOrGetter<string>) => {
