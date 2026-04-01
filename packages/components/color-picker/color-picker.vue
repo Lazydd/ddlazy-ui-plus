@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { computed, defineEmits, defineProps, onMounted, ref, useTemplateRef } from 'vue';
+import { computed, onMounted, ref, useTemplateRef } from 'vue';
 import { colorPickerProps } from './types';
 import colorPanel from './color-panel.vue';
 import Popover from '../components/popover/popover.vue';

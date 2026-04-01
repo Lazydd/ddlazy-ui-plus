@@ -35,8 +35,11 @@ const emit = defineEmits<{
 	onCheckedNodes: [nodes: TreeNodeType, checked: boolean];
 }>();
 
+
 defineSlots<{
-	switcherIcon(props: SwitcherIconType): SwitcherIconType;
+	switcherIcon(props: SwitcherIconType & { title: string; data: TreeNodeType; defaultIcon: typeof defaultIcon }): any;
+	icon?(props: { key: string | number; selected: boolean }): any;
+	title?(props: { data: TreeNodeType; title: string }): any;
 }>();
 
 const loadingKeys = ref(new Set<string | number>([]));
