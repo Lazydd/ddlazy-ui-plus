@@ -1,25 +1,27 @@
 {
 	"compilerOptions": {
 		"outDir": "lib",
+		"rootDir": "./packages",
 		"target": "esnext",
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"allowJs": true,
 		"strict": false,
 		"jsx": "preserve",
 		"types": ["vite/client"],
-		"baseUrl": ".",
 		"skipLibCheck": true,
 		"declaration": true,
 		"declarationDir": "lib",
 		"emitDeclarationOnly": true,
+		"ignoreDeprecations": "6.0",
+		"baseUrl": ".",
 		"paths": {
-			"@theme/*": [".vitepress/theme/*"],
-			"@/lib/*": ["lib/*"],
-			"@/packages/*": ["packages/*"],
-			"@/docs/*": ["docs/*"]
+			"@theme/*": ["./.vitepress/theme/*"],
+			"@/lib/*": ["./lib/*"],
+			"@/packages/*": ["./packages/*"],
+			"@/docs/*": ["./docs/*"]
 		}
 	},
 	"include": ["packages/**/*"],
