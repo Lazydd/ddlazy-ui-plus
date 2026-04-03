@@ -121,6 +121,7 @@
 		.dd-select-selection-item {
 			display: flex;
 			align-self: center;
+			gap: 4px;
 			flex: none;
 			box-sizing: border-box;
 			max-width: 100%;
@@ -134,12 +135,10 @@
 				font-size 0.3s,
 				line-height 0.3s,
 				height 0.3s;
-			margin-inline-end: 4px;
 			padding-inline-start: 8px;
 			padding-inline-end: 4px;
 			&-content {
 				display: inline-block;
-				margin-inline-end: 4px;
 				overflow: hidden;
 				white-space: pre;
 				text-overflow: ellipsis;
