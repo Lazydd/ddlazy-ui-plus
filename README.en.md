@@ -4,7 +4,7 @@
 
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT"></a>
 <a href="https://github.com/Lazydd"><img src="https://img.shields.io/badge/github-Lazydd-brightgreen.svg" alt="github"></a>
-<a href="https://github.com/facebook/react"><img src="https://img.shields.io/badge/npm-%5E3.3.4-blue" alt="react"></a>
+<a href="https://github.com/Lazydd/ddlazy-ui-plus"><img src="https://img.shields.io/badge/npm-%5E0.0.2-blue" alt="react"></a>
 
 [Preview](https://lazydd.github.io/ddlazy-ui-plus/)
 
