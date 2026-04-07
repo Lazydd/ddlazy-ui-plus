@@ -49,7 +49,7 @@
 		border-color: var(--dd-base-bg);
 		opacity: 0.65;
 	}
-	&.plain {
+	&.plain:not(.disabled):not(.loading) {
 		&:hover,
 		&:focus {
 			background: var(--dd-white);
