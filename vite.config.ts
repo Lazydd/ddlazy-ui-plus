@@ -58,7 +58,7 @@ export default defineConfig({
 		},
 		cssCodeSplit: true,
 		sourcemap: false,
-		minify: 'terser', //esbuild 打包速度快     terser 打包体积小
+		minify: 'oxc', //esbuild 打包速度快     terser 打包体积小
 		assetsInlineLimit: 4000,
 	},
 });
