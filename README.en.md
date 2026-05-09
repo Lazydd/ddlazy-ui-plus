@@ -44,3 +44,4 @@ All components supported in modern browsers, support of neerly two or three vers
 
 [MIT](https://github.com/ElemeFE/element/blob/dev/LICENSE)
 
+![My GitHub Game](game.gif)

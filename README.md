@@ -44,3 +44,4 @@ app.mount('#app');
 
 [MIT](https://github.com/ElemeFE/element/blob/dev/LICENSE)
 
+![My GitHub Game](game.gif)
