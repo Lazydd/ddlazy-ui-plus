@@ -148,6 +148,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					link: '/en/components/notice/message',
 				},
 				{
+					text: 'Modal',
+					link: '/en/components/notice/modal',
+				},
+				{
 					text: 'Tooltip',
 					link: '/en/components/notice/tooltip',
 				},
