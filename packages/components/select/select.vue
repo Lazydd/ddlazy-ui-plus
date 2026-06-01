@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { selectProps } from './types';
+import { selectProps, SelectProps, SelectOptionsType } from './types';
 
 import { ref, watch, nextTick, computed, onMounted, useTemplateRef } from 'vue';
 
@@ -14,20 +14,21 @@ import SelectDropdown from './select-dropdown.vue';
 defineOptions({
 	name: createName('select'),
 });
-const props = defineProps(selectProps);
-const emit = defineEmits([
-	'update:value',
-	'change',
-	'select',
-	'input',
-	'search',
-	'deselect',
-	'remove-tag',
-	'clear',
-	'dropdown-visible-change',
-	'focus',
-	'blur',
-]);
+
+const modelValue = defineModel<SelectProps['value']>('value');
+const { options, maxTagCount, multiple, disabled, showSearch, filterOption } = defineProps(selectProps);
+const emit = defineEmits<{
+	change: [value: SelectProps['value']];
+	select: [value: SelectProps['value'], item: SelectOptionsType];
+	input: [value: SelectProps['value']];
+	search: [value: SelectProps['value']];
+	deselect: [value: SelectProps['value'], item: SelectOptionsType];
+	'remove-tag': [value: SelectProps['value'], index: number];
+	clear: [];
+	'dropdown-visible-change': [selectDropdownShow: boolean];
+	focus: [e: FocusEvent];
+	blur: [e: FocusEvent];
+}>();
 const slots = defineSlots<{
 	dropdownRender: HTMLElement;
 	suffixIcon: HTMLElement;
@@ -42,56 +43,55 @@ const label = ref();
 const index = ref();
 const searchValue = ref();
 const select = ref([]);
-const filterOption = ref(props.options);
+const filterOptions = ref(options);
 
 const count = computed(() => {
-	if (props.maxTagCount == 0) {
-		return props.value.length;
+	if (maxTagCount == 0) {
+		return modelValue.value.length;
 	} else {
-		return props.maxTagCount
-			? props.value.length - ((props.maxTagCount ?? 0) <= 0 ? 0 : props.maxTagCount)
+		return maxTagCount
+			? modelValue.value.length - ((maxTagCount ?? 0) <= 0 ? 0 : maxTagCount)
 			: false;
 	}
 });
 const maxCountSelect = computed(() =>
-	select.value.slice(0, (props.maxTagCount ?? 0) >= 0 ? props.maxTagCount : undefined)
+	select.value.slice(0, (maxTagCount ?? 0) >= 0 ? maxTagCount : undefined)
 );
 
 const selectItemClick = (item) => {
 	emit('select', item.value, item);
-	if (props.multiple) {
+	if (multiple) {
 		const index = select.value.findIndex((v) => v.value === item.value);
 		if (index === -1) select.value.push({ label: item.label, value: item.value });
 		else {
 			select.value.splice(index, 1);
 			emit('deselect', item.value, item);
 		}
-		const arr = select.value.map((item) => item.value);
-		emit('update:value', arr);
+		modelValue.value = select.value.map((item) => item.value);
 	} else {
 		label.value = item.label ?? item.value;
 		selectDropdownShow.value = false;
-		if (props.value === item.value) return;
-		emit('update:value', item.value);
+		if (modelValue.value === item.value) return;
+		modelValue.value = item.value
 	}
 };
 
 const init = () => {
-	if (!props.value) {
+	if (!modelValue.value) {
 		label.value = null;
 		return;
 	}
-	if (Array.isArray(props.value)) {
-		let temp = new Set(props.value);
+	if (Array.isArray(modelValue.value)) {
+		let temp = new Set(modelValue.value);
 		const indexMap = {};
-		props.value.forEach((value, index) => {
+		modelValue.value.forEach((value, index) => {
 			indexMap[value] = index;
 		});
-		select.value = props.options
+		select.value = options
 			.filter((item) => temp.has(item.value))
 			.sort((a, b) => indexMap[a.value] - indexMap[b.value]);
 	} else {
-		const selecteOption = filterOption.value.find((item) => item.value === props.value);
+		const selecteOption = filterOptions.value.find((item) => item.value === modelValue.value);
 		if (!selecteOption) return;
 		label.value = selecteOption.title ?? selecteOption.label ?? selecteOption.value;
 	}
@@ -101,43 +101,42 @@ onMounted(() => {
 });
 
 const scrollTo = () => {
-	if (!selectDropdownShow.value || !filterOption.value.length) return;
-	const value = props.multiple ? props.value[0] : props.value;
-	index.value = filterOption.value.findIndex((item) => item.value === value) - 3;
+	if (!selectDropdownShow.value || !filterOptions.value.length) return;
+	const value = multiple ? modelValue.value[0] : modelValue.value;
+	index.value = filterOptions.value.findIndex((item) => item.value === value) - 3;
 	selectDropdownRef.value.scrollTo(index.value);
 };
 const selectClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	selectDropdownShow.value = !selectDropdownShow.value;
-	if (props.showSearch) selectInputRef.value.focus();
+	if (showSearch) selectInputRef.value.focus();
 	await nextTick();
 	scrollTo();
 };
 const closeSelection = (index) => {
-	if (props.disabled) return;
+	if (disabled) return;
 	emit('remove-tag', select.value[index].value, select.value[index]);
 	select.value.splice(index, 1);
-	const arr = select.value.map((item) => item.value);
-	emit('update:value', arr);
+	modelValue.value = select.value.map((item) => item.value);
 };
 
 watch(
-	() => props.value,
+	() => modelValue.value,
 	() => {
 		init();
 	}
 );
 watch(
-	() => props.options,
+	() => options,
 	() => {
-		filterOption.value = props.options;
+		filterOptions.value = options;
 	}
 );
 watch(
 	() => selectDropdownShow.value,
 	() => {
 		if (selectDropdownShow.value) {
-			filterOption.value = props.options;
+			filterOptions.value = options;
 		} else {
 			searchValue.value = null;
 		}
@@ -146,42 +145,43 @@ watch(
 );
 
 watch(
-	() => props.value,
+	() => modelValue.value,
 	(value) => {
 		emit('change', value);
 	}
 );
 
-const handleInput = async (e) => {
-	emit('input', e.target.value);
-	if (props.showSearch) {
-		emit('search', e.target.value);
+const handleInput = async (e: InputEvent) => {
+	const inputValue = (e.target as HTMLInputElement).value;
+	emit('input', inputValue);
+	if (showSearch) {
+		emit('search', inputValue);
 	}
-	if (!props.filterOption) {
+	if (!filterOption) {
 		return;
 	}
-	filterOption.value = props.options.filter((item) => {
-		return props?.filterOption(e.target.value, item);
+	filterOptions.value = options.filter((item) => {
+		return filterOption(inputValue, item);
 	});
-	if (filterOption.value.length == 0) return;
+	if (filterOptions.value.length == 0) return;
 	await nextTick();
 	selectDropdownRef.value.scrollTo(0);
 };
 
 const clear = () => {
-	if (props.disabled) return;
-	emit('update:value', props.multiple ? [] : '');
+	if (disabled) return;
+	modelValue.value = multiple ? [] : ''
 	emit('clear');
 };
 
 const showPlaceholder = computed(() =>
-	props.showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible'
+	showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible'
 );
 const showPlaceholder2 = computed(() =>
-	!props.multiple ? !(label.value || props.value) : !select.value.length
+	!multiple ? !(label.value || modelValue.value) : !select.value.length
 );
 const passwordIcon = computed(() =>
-	props.showSearch && selectDropdownShow.value ? Search : slots.suffixIcon ?? Arrow
+	showSearch && selectDropdownShow.value ? Search : slots.suffixIcon ?? Arrow
 );
 </script>
 
@@ -303,8 +303,8 @@ const passwordIcon = computed(() =>
 			>
 				<slot name="dropdownRender">
 					<SelectDropdown
-						v-if="filterOption.length"
-						:options="filterOption"
+						v-if="filterOptions.length"
+						:options="filterOptions"
 						:value="multiple ? select : value"
 						:multiple
 						@selectItemClick="selectItemClick"
