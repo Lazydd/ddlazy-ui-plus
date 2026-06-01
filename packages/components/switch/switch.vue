@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { switchProps } from './types';
-
-import { computed } from 'vue';
+import { switchProps, SwitchProps } from './types';
 
 defineOptions({
 	name: createName('switch'),
 });
-const props = defineProps(switchProps);
-const emit = defineEmits(['update:value', 'change']);
+const { disabled, loading, checkedValue, unCheckedValue } = defineProps(switchProps);
+const modelValue = defineModel<SwitchProps['value']>('value');
+const emit = defineEmits<{
+	change: [value: SwitchProps['value'], e: PointerEvent];
+}>();
 
-const reversValue = computed(() =>
-	props.value === props.checkedValue ? props.unCheckedValue : props.checkedValue
-);
-
-const switchClick = (e) => {
-	if (props.disabled || props.loading) return;
-	emit('update:value', reversValue.value);
-	emit('change', props.value, e);
+const switchClick = (e: PointerEvent) => {
+	if (disabled || loading) return;
+	const newValue = modelValue.value === checkedValue
+		? unCheckedValue
+		: checkedValue;
+	modelValue.value = newValue;
+	emit('change', modelValue.value, e);
 };
 </script>
 
