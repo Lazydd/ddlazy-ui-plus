@@ -52,7 +52,7 @@ const operate = (type: string) => {
 		size,
 		{ 'dd-input-number-disabled': disabled, 'dd-input-number-borderless': !bordered },
 	]">
-		<div class="dd-input-number-handler-wrap" v-if="!disabled">
+		<div class="dd-input-number-handler-wrap" v-if="controls && !disabled">
 			<span :class="[
 				'dd-input-number-handler dd-input-number-handler-up',
 				{ 'dd-input-number-handler-up-disabled': modelValue >= max },

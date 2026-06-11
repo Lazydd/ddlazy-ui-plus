@@ -38,6 +38,10 @@ export const inputNumberProps = {
 	precision: {
 		type: Number,
 	},
+	controls: {
+		type: Boolean,
+		default: true,
+	}
 } as const;
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;

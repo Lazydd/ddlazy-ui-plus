@@ -149,6 +149,7 @@ const value = ref(10);
 | size           | size of Input Number        | `large \| default \| small` | —           |
 | precision      | precision of input value    | `number`                    | —           |
 | bordered       | No border                   | `boolean`                   | `false`     |
+| controls       | Whether to show +- controls | `boolean`                   | `true`      |
 
 ### Input Number Events
 

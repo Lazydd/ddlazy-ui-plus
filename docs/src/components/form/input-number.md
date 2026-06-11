@@ -118,7 +118,12 @@ const value = ref(10);
 <template>
 	<dd-input-number v-model:value="value" placeholder="Please input" size="large" />
 	<dd-input-number v-model:value="value" placeholder="Please input" style="margin-left: 20px;" />
-	<dd-input-number v-model:value="value" placeholder="Please input" size="small" style="margin-left: 20px;" />
+	<dd-input-number
+		v-model:value="value"
+		placeholder="Please input"
+		size="small"
+		style="margin-left: 20px;"
+	/>
 </template>
 
 <script lang="ts" setup>
@@ -142,8 +147,9 @@ const value = ref(10);
 | placeholder    | 输入框占位文本         | `string`                    | —           |
 | disabled       | 禁用                   | `boolean`                   | `false`     |
 | size           | 输入框尺寸             | `large \| default \| small` | —           |
-| precision      | 数值精度               | `'number'`                  | —           |
-| bordered       | 无边框样式             | `'boolean'`                 | `false`     |
+| precision      | 数值精度               | `number`                    | —           |
+| bordered       | 无边框样式             | `boolean`                   | `false`     |
+| controls       | 是否显示增减按钮       | `boolean`                   | `true`      |
 
 ### Input Number Events
 
