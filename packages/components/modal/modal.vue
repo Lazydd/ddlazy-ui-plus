@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { modalProps } from './types';
+import { modalProps, ModalProps } from './types';
 import { useDraggable } from '@vueuse/core'
 import { watch, ref, useTemplateRef, nextTick, onUnmounted, onMounted, computed } from 'vue';
 
@@ -9,7 +9,7 @@ import ddButton from '../button/index';
 defineOptions({
 	name: createName('modal'),
 });
-const props = defineProps(modalProps);
+const { draggable, containerElement, maskClosable, destroyOnClose, getContainer, } = defineProps(modalProps);
 
 const emit = defineEmits<{
 	cancel: [e?: MouseEvent];
@@ -20,17 +20,17 @@ const dialogRef = useTemplateRef('dialog')
 const modalHeader = useTemplateRef('modalHeader')
 const tag = ref(false)
 
-const showValue = defineModel<Boolean>('open')
+const showValue = defineModel<ModalProps['open']>('open')
 
-const toContainer = computed(() => props.getContainer())
+const toContainer = computed(() => getContainer())
 const initialPosition = ref({ x: 0, y: 0 })
 
 const { x, y } = useDraggable(dialogRef, {
 	initialValue: initialPosition.value,
 	preventDefault: true,
 	handle: modalHeader,
-	disabled: !props.draggable,
-	containerElement: props.containerElement
+	disabled: !draggable,
+	containerElement
 })
 
 const handleBackdropClick = (e: Event) => {
@@ -44,16 +44,16 @@ watch(showValue, (value) => {
 		showDialog()
 	} else {
 		dialogRef.value?.close();
-		if (props.destroyOnClose) tag.value = false
-		props.maskClosable && dialogRef.value?.removeEventListener('click', handleBackdropClick)
+		if (destroyOnClose) tag.value = false
+		maskClosable && dialogRef.value?.removeEventListener('click', handleBackdropClick)
 	}
 })
 
 const cancel = (e?: MouseEvent) => {
 	showValue.value = false
 	dialogRef.value?.close();
-	if (props.destroyOnClose) tag.value = false
-	props.maskClosable && dialogRef.value?.removeEventListener('click', handleBackdropClick)
+	if (destroyOnClose) tag.value = false
+	maskClosable && dialogRef.value?.removeEventListener('click', handleBackdropClick)
 	emit('cancel', e)
 }
 
@@ -61,7 +61,7 @@ const showDialog = () => {
 	tag.value = true
 	nextTick(() => {
 		dialogRef.value?.showModal();
-		props.maskClosable && dialogRef.value?.addEventListener('click', handleBackdropClick)
+		maskClosable && dialogRef.value?.addEventListener('click', handleBackdropClick)
 
 		const dialogRect = dialogRef.value?.getBoundingClientRect()
 
@@ -93,7 +93,7 @@ onUnmounted(() => {
 			<div class="dd-modal-content">
 				<div :class="['dd-modal-header', { draggable }]" ref="modalHeader">
 					<slot name="header">
-						<div class="dd-modal-title">{{ props.title }}</div>
+						<div class="dd-modal-title">{{ title }}</div>
 					</slot>
 					<div class="dd-modal-close" @click="cancel" v-if="closable">
 						<slot name="closeIcon">
