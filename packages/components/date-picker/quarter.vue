@@ -2,19 +2,13 @@
 import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
-const props = withDefaults(
-	defineProps<{
-		value: any;
-		month?: number;
-		year?: number;
-		disabledDate: Function;
-		conditionHideDatePickerContainerShow: Function;
-	}>(),
-	{
-		month: dayjs().month(),
-		year: dayjs().year(),
-	}
-);
+const { month = dayjs().month(), year = dayjs().year(), disabledDate, conditionHideDatePickerContainerShow } = defineProps<{
+	value: any;
+	month?: number;
+	year?: number;
+	disabledDate: Function;
+	conditionHideDatePickerContainerShow: Function;
+}>()
 
 const emit = defineEmits<{
 	mouseenter: [value: Dayjs];
@@ -25,14 +19,14 @@ const dateValue = defineModel<Dayjs>('value');
 const dateInfo = computed(() => {
 	return [
 		Array.from({ length: 4 }, (_, i) => ({
-			date: dayjs({ year: props.year, month: i * 3 }),
+			date: dayjs({ year, month: i * 3 }),
 		})),
 	];
 });
 
 const dateClick = (date: Dayjs) => {
 	dateValue.value = date;
-	props.conditionHideDatePickerContainerShow();
+	conditionHideDatePickerContainerShow();
 };
 
 const mouseenter = (date: Dayjs) => {
@@ -44,27 +38,19 @@ const mouseenter = (date: Dayjs) => {
 	<table class="dd-picker-content">
 		<tbody>
 			<tr v-for="quarter in dateInfo">
-				<td
-					:class="[
-						'dd-picker-cell',
-						'dd-picker-cell-in-view',
-						{
-							'dd-picker-cell-selected': dateValue
-								? dayjs(dateValue).isSame(dayjs(date), 'Q')
-								: false,
-							'dd-picker-cell-disabled': disabledDate(date),
-						},
-					]"
-					v-for="({ date }, i) in quarter"
-					:key="i"
-					:title="
-						dayjs(date)
-							.format('YYYY-Q')
-							.replace(/-(?!.*-)/, '-Q')
-					"
-					@click="dateClick(date)"
-					@mouseenter="mouseenter(date)"
-				>
+				<td :class="[
+					'dd-picker-cell',
+					'dd-picker-cell-in-view',
+					{
+						'dd-picker-cell-selected': dateValue
+							? dayjs(dateValue).isSame(dayjs(date), 'Q')
+							: false,
+						'dd-picker-cell-disabled': disabledDate(date),
+					},
+				]" v-for="({ date }, i) in quarter" :key="i" :title="dayjs(date)
+					.format('YYYY-Q')
+					.replace(/-(?!.*-)/, '-Q')
+					" @click="dateClick(date)" @mouseenter="mouseenter(date)">
 					<div class="dd-picker-cell-inner">Q{{ dayjs(date).format('Q') }}</div>
 				</td>
 			</tr>

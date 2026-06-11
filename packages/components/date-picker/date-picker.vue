@@ -19,7 +19,7 @@ import Time from '../time-picker/time.vue';
 defineOptions({
 	name: createName('datePicker'),
 });
-const props = defineProps(datePickerProps);
+const { showTime, disabled, valueFormat, format, mode, allowClear, placeholder, onOk } = defineProps(datePickerProps);
 const showTimeConfig = {
 	format: 'HH:mm:ss',
 	valueFormat: 'HH:mm:ss',
@@ -37,7 +37,7 @@ const emit = defineEmits<{
 	openChange: [open: boolean];
 	change: [time: string | number | Date | Dayjs];
 }>();
-const showTimeInfo = { ...showTimeConfig, ...props.showTime };
+const showTimeInfo = { ...showTimeConfig, ...showTime };
 
 const datePickerContainerShow = defineModel<boolean>('open');
 
@@ -49,7 +49,7 @@ const minuteRef = useTemplateRef<InstanceType<typeof Time> | null>('minute');
 const secondRef = useTemplateRef<InstanceType<typeof Time> | null>('second');
 
 const datePickerClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	datePickerContainerShow.value = true;
 	datePickerInputRef.value.focus();
 	await nextTick();
@@ -60,11 +60,11 @@ const datePickerClick = async () => {
 
 const conditionHideDatePickerContainerShow = () => {
 	if (modeArr.value.length) return;
-	if (props.showTime) return;
+	if (showTime) return;
 	datePickerContainerShow.value = false;
 };
 
-const format = (value) => {
+const formatDate = (value) => {
 	let formatType: FormatType;
 	switch (value) {
 		case 'date':
@@ -89,7 +89,7 @@ const format = (value) => {
 	return formatType;
 };
 
-const timeformatType = computed(() => props.showTime.format ?? 'HH:mm:ss');
+const timeformatType = computed(() => showTime.format ?? 'HH:mm:ss');
 
 const dataTemp = ref<Dayjs | null>();
 const dataValue = defineModel<any>('value', {
@@ -112,8 +112,8 @@ const formatValue = computed({
 		let newTime = null;
 		let formatType: FormatType;
 		if (value) {
-			if (props.valueFormat) {
-				formatType = props.valueFormat;
+			if (valueFormat) {
+				formatType = valueFormat;
 			} else {
 				switch (activeMode.value) {
 					case 'date':
@@ -127,7 +127,7 @@ const formatValue = computed({
 						break;
 				}
 			}
-			if (props.showTime) {
+			if (showTime) {
 				if (!timeValue.value) {
 					tempTime.value = dayjs();
 					changeFormat();
@@ -149,7 +149,7 @@ const formatValue = computed({
 				}
 			}
 		}
-		if (!props.showTime) {
+		if (!showTime) {
 			dataValue.value = newValue;
 			if (!formatValue.value?.isSame(dayjs(dataValue.value), 'd')) {
 				emit('change', formatValue.value);
@@ -163,10 +163,10 @@ const formatShow = computed(() => {
 	let value = null;
 	let formatType: FormatType;
 	if (formatValue.value) {
-		formatType = props.format ? props.format : format(activeMode.value);
+		formatType = format ? format : formatDate(activeMode.value);
 		value = formatValue.value.format(formatType as string);
 	}
-	if (props.showTime) {
+	if (showTime) {
 		let time = formatValue.value
 			? dayjs(formatValue.value).format(timeformatType.value as string)
 			: null;
@@ -175,31 +175,31 @@ const formatShow = computed(() => {
 	return value;
 });
 const formatShow2 = computed(() => {
-	let value: any = props.showTime ? formatValue.value : props.value ? dayjs(props.value) : null;
+	let value: any = showTime ? formatValue.value : dataValue.value;
 	let formatType: FormatType;
 	if (value) {
-		formatType = props.format ? props.format : format(props.mode);
+		formatType = format ? format : formatDate(mode);
 		value =
-			props.mode === 'quarter'
+			mode === 'quarter'
 				? value.format(formatType as string)?.replace(/-(?!.*-)/, '-Q')
 				: value.format(formatType as string);
 	}
-	if (props.showTime) {
+	if (showTime) {
 		let time = formatValue.value && timeValue.value.format(timeformatType.value as string);
 		if (time) value = value + ' ' + time;
 	}
 	return value;
 });
-const activeMode = ref(props.mode);
+const activeMode = ref(mode);
 
 const inputTitle = computed(() =>
-	props.mode === 'quarter' ? formatShow.value?.replace(/-(?!.*-)/, '-Q') : formatShow.value
+	mode === 'quarter' ? formatShow.value?.replace(/-(?!.*-)/, '-Q') : formatShow.value
 );
 const inputValue = ref(inputTitle.value);
 const month = ref(formatValue.value?.month() ?? dayjs().month());
 const year = ref(formatValue.value?.year() ?? dayjs().year());
 watchEffect(() => {
-	if (props.value) {
+	if (dataValue.value) {
 		month.value = formatValue.value?.month();
 		year.value = formatValue.value?.year();
 	}
@@ -229,11 +229,11 @@ const today = () => {
 	formatValue.value = dayjs();
 	year.value = dayjs().year();
 	month.value = dayjs().month();
-	if (props.showTime) {
+	if (showTime) {
 		let data = null;
 		let formatType: FormatType;
 		if (formatValue.value) {
-			formatType = props.format ? props.format : format(activeMode.value);
+			formatType = format ? format : formatDate(activeMode.value);
 			data = formatValue.value.format(formatType as string);
 		}
 		let time = dayjs().format(timeformatType.value as string);
@@ -245,7 +245,7 @@ const today = () => {
 };
 
 const clearClick = () => {
-	if (!props.allowClear) return;
+	if (!allowClear) return;
 	formatValue.value = null;
 	dataValue.value = null;
 	timeValue.value = null;
@@ -290,9 +290,9 @@ const activeModeChange = (value: string) => {
 
 const showPlaceholder = computed(() => {
 	let str: string;
-	if (props.placeholder) str = props.placeholder;
+	if (placeholder) str = placeholder;
 	else
-		switch (props.mode) {
+		switch (mode) {
 			case 'date':
 				str = '请选择日期';
 				break;
@@ -315,7 +315,7 @@ const showPlaceholder = computed(() => {
 	return str;
 });
 
-const timeAttr = computed(() => props.showTime);
+const timeAttr = computed(() => showTime);
 
 const tempTime = ref<Dayjs | null>();
 const timeValue = computed({
@@ -330,13 +330,13 @@ const timeValue = computed({
 const ok = () => {
 	formatValue.value = dayjs(info.value);
 	dataValue.value = dataTemp.value;
-	props.onOk();
+	onOk();
 	datePickerContainerShow.value = false;
 };
 
 const changeFormat = () => {
 	if (!datePickerContainerShow.value) return;
-	if (!props.value && !dataTemp.value) {
+	if (!dataValue.value && !dataTemp.value) {
 		formatValue.value = dayjs();
 		hourRef.value?.scrollTo(info.value.hour);
 		minuteRef.value?.scrollTo(info.value.minute);
@@ -367,8 +367,8 @@ const mouseenter = (value: Dayjs) => {
 	isOutSide.value = false;
 	if (!datePickerContainerShow.value) return;
 	let formatType: FormatType;
-	formatType = format(props.mode);
-	if (props.format) formatType = props.format;
+	formatType = formatDate(mode);
+	if (format) formatType = format;
 	if (activeMode.value === 'week') value = dayjs(value).year(value.year()).week(value.week());
 	else if (activeMode.value === 'month')
 		value = dayjs(value).year(value.year()).month(value.month()).date(info.value.date);
@@ -378,8 +378,8 @@ const mouseenter = (value: Dayjs) => {
 		value = dayjs(value).year(value.year()).month(info.value.month).date(info.value.date);
 
 	const newValue = value.format(formatType as string);
-	let temp = props.mode === 'quarter' ? newValue.replace(/-(?!.*-)/, '-Q') : newValue;
-	if (props.showTime) {
+	let temp = mode === 'quarter' ? newValue.replace(/-(?!.*-)/, '-Q') : newValue;
+	if (showTime) {
 		temp = temp + ' ' + (timeValue.value ?? dayjs())?.format(timeformatType.value as string);
 	}
 	inputValue.value = temp;
@@ -410,84 +410,44 @@ defineExpose({
 </script>
 
 <template>
-	<div
-		:class="[
-			'dd-date-picker',
-			size,
-			{
-				'dd-picker-focused': datePickerContainerShow,
-				'dd-picker-disabled': disabled,
-				'dd-picker-borderless': !bordered,
-			},
-		]"
-		ref="datePicker"
-		@click="datePickerClick"
-	>
-		<DataInput
-			ref="datePickerInput"
-			:format-show="isOutSide ? formatShow2 : inputValue"
-			:format-value="formatShow"
-			:disabled
-			:allow-clear
-			:placeholder="showPlaceholder"
-			:readonly
-			:show-time
-			@clearClick="clearClick"
-		>
+	<div :class="[
+		'dd-date-picker',
+		size,
+		{
+			'dd-picker-focused': datePickerContainerShow,
+			'dd-picker-disabled': disabled,
+			'dd-picker-borderless': !bordered,
+		},
+	]" ref="datePicker" @click="datePickerClick">
+		<DataInput ref="datePickerInput" :format-show="isOutSide ? formatShow2 : inputValue" :format-value="formatShow"
+			:disabled :allow-clear :placeholder="showPlaceholder" :readonly :show-time @clearClick="clearClick">
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />
 		</DataInput>
 		<Teleport to="body">
-			<Popover
-				v-if="datePickerRef"
-				v-model:visible="datePickerContainerShow"
-				:instance="datePickerRef"
-				:arrow="false"
-				:padding="0"
-				@outSideClick="outSideClick"
-			>
-				<div
-					:class="[
-						'dd-picker-datetime-panel',
-						{ 'dd-week-time': activeMode === 'week' },
-						{ 'dd-week-quarter': activeMode === 'quarter' },
-					]"
-				>
-					<div
-						:class="[
-							'dd-picker-date-panel',
-							{
-								'dd-picker-week-panel': activeMode === 'week',
-								'dd-picker-month-panel': activeMode === 'month',
-								'dd-picker-quarter-panel': activeMode === 'quarter',
-								'dd-picker-year-panel': activeMode === 'year',
-								'dd-picker-dacade-panel': activeMode === 'dacade',
-							},
-						]"
-					>
-						<DateHeader
-							:active-mode="activeMode"
-							:year
-							:month
-							@active-mode-change="activeModeChange"
-							@year-change="yearChange"
-							@month-change="monthChange"
-						/>
+			<Popover v-if="datePickerRef" v-model:visible="datePickerContainerShow" :instance="datePickerRef"
+				:arrow="false" :padding="0" @outSideClick="outSideClick">
+				<div :class="[
+					'dd-picker-datetime-panel',
+					{ 'dd-week-time': activeMode === 'week' },
+					{ 'dd-week-quarter': activeMode === 'quarter' },
+				]">
+					<div :class="[
+						'dd-picker-date-panel',
+						{
+							'dd-picker-week-panel': activeMode === 'week',
+							'dd-picker-month-panel': activeMode === 'month',
+							'dd-picker-quarter-panel': activeMode === 'quarter',
+							'dd-picker-year-panel': activeMode === 'year',
+							'dd-picker-dacade-panel': activeMode === 'dacade',
+						},
+					]">
+						<DateHeader :active-mode="activeMode" :year :month @active-mode-change="activeModeChange"
+							@year-change="yearChange" @month-change="monthChange" />
 						<div class="dd-picker-body">
-							<Component
-								:is="dateMode"
-								v-model:value="formatValue"
-								:disabledDate
-								:month
-								:year
-								:mode-arr
-								@month-change="monthChange"
-								@set-month="setMonth"
-								@set-year="setYear"
-								@year-change="yearChange"
-								@mouseenter="mouseenter"
-								@mouseleave="mouseleave"
-								:condition-hide-date-picker-container-show
-							/>
+							<Component :is="dateMode" v-model:value="formatValue" :disabledDate :month :year :mode-arr
+								@month-change="monthChange" @set-month="setMonth" @set-year="setYear"
+								@year-change="yearChange" @mouseenter="mouseenter" @mouseleave="mouseleave"
+								:condition-hide-date-picker-container-show />
 						</div>
 					</div>
 					<div class="dd-picker-time-panel" v-if="showTime">
@@ -497,40 +457,20 @@ defineExpose({
 							</div>
 						</div>
 						<div class="dd-picker-content">
-							<Time
-								ref="hour"
-								type="hour"
-								:step="timeAttr.hourStep"
-								v-model:value="timeValue"
+							<Time ref="hour" type="hour" :step="timeAttr.hourStep" v-model:value="timeValue"
 								:disabled-time="disabledHours()"
-								:hide-disabled-options="showTimeInfo?.hideDisabledOptions"
-								@click="changeFormat"
-							/>
-							<Time
-								ref="minute"
-								type="minute"
-								:step="timeAttr.minuteStep"
-								v-model:value="timeValue"
+								:hide-disabled-options="showTimeInfo?.hideDisabledOptions" @click="changeFormat" />
+							<Time ref="minute" type="minute" :step="timeAttr.minuteStep" v-model:value="timeValue"
 								:disabled-time="disabledMinutes(timeInfo.hour)"
-								:hide-disabled-options="showTimeInfo?.hideDisabledOptions"
-								@click="changeFormat"
-							/>
-							<Time
-								ref="second"
-								type="second"
-								:step="timeAttr.secondStep"
-								v-model:value="timeValue"
+								:hide-disabled-options="showTimeInfo?.hideDisabledOptions" @click="changeFormat" />
+							<Time ref="second" type="second" :step="timeAttr.secondStep" v-model:value="timeValue"
 								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
-								:hide-disabled-options="showTimeInfo?.hideDisabledOptions"
-								@click="changeFormat"
-							/>
+								:hide-disabled-options="showTimeInfo?.hideDisabledOptions" @click="changeFormat" />
 						</div>
 					</div>
 				</div>
-				<div
-					:class="['dd-picker-footer', { 'dd-picker-ranges': showTime }]"
-					v-if="showTime || activeMode === 'date'"
-				>
+				<div :class="['dd-picker-footer', { 'dd-picker-ranges': showTime }]"
+					v-if="showTime || activeMode === 'date'">
 					<div class="dd-picker-footer-extra" v-if="$slots.renderExtraFooter">
 						<slot name="renderExtraFooter" />
 					</div>
