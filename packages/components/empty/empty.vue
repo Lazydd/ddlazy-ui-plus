@@ -1,12 +1,16 @@
 <template>
 	<div class="dd-empty dd-empty-normal">
-		<div class="dd-empty-image"><component :is="EmptyImage" :style="imageStyle" /></div>
+		<div class="dd-empty-image">
+			<component :is="EmptyImage" :style="imageStyle" />
+		</div>
 		<p class="dd-empty-description" v-if="$slots.description || description">
 			<slot name="description">
 				{{ description }}
 			</slot>
 		</p>
-		<div class="dd-empty-footer" v-if="$slots.default"><slot /></div>
+		<div class="dd-empty-footer" v-if="$slots.default">
+			<slot />
+		</div>
 	</div>
 </template>
 
@@ -22,9 +26,9 @@ defineOptions({
 	name: createName('empty'),
 });
 
-const props = defineProps(emptyProps);
+const { image } = defineProps(emptyProps);
 
-const EmptyImage = computed(() => (props.image ? h('img', { src: props.image }) : EmptyIcon));
+const EmptyImage = computed(() => (image ? h('img', { src: image }) : EmptyIcon));
 </script>
 
 <style scoped>
