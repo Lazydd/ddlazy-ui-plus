@@ -13,7 +13,7 @@ import TimeInput from './time-input.vue';
 defineOptions({
 	name: createName('time-picker'),
 });
-const props = defineProps(timePickerProps);
+const { valueFormat, format, disabled, allowClear, disabledTime } = defineProps(timePickerProps);
 const emit = defineEmits<{
 	change: [time: Dayjs | string];
 	openChange: [boolean];
@@ -30,13 +30,13 @@ const timePickerContainerShow = defineModel<boolean>('open');
 
 const formatValue = defineModel<Dayjs | undefined>('value', {
 	get(value) {
-		return value ? dayjs(value, props.valueFormat as string) : undefined;
+		return value ? dayjs(value, valueFormat as string) : undefined;
 	},
 	set(value) {
 		let newValue = undefined;
 		let formatType: TimePickerFormatType;
 		if (value) {
-			formatType = props.valueFormat;
+			formatType = valueFormat;
 			newValue = dayjs(value).format(formatType as string);
 		}
 		return newValue;
@@ -46,7 +46,7 @@ const formatShow = computed<string>(() => {
 	let value = undefined;
 	let formatType: TimePickerFormatType;
 	if (tempValue.value ?? formatValue.value) {
-		formatType = props.format;
+		formatType = format;
 		value = (tempValue.value ?? formatValue.value)?.format(formatType as string);
 	}
 	return value;
@@ -62,7 +62,7 @@ const timeValue = computed({
 	},
 });
 const timePickerClick = async () => {
-	if (props.disabled) return;
+	if (disabled) return;
 	timePickerContainerShow.value = true;
 	timePickerInputRef.value.focus();
 	await nextTick();
@@ -76,14 +76,14 @@ const timeInfo = computed(() => ({
 	second: tempValue.value?.second() ?? formatValue.value?.second(),
 }));
 const clearClick = () => {
-	if (!props.allowClear) return;
+	if (!allowClear) return;
 	timePickerContainerShow.value = false;
 	formatValue.value = undefined;
 	tempValue.value = undefined;
 };
 const changeFormat = () => {
 	if (!timePickerContainerShow.value) return;
-	if (!props.value) {
+	if (!formatValue.value) {
 		hourRef.value?.scrollTo(timeInfo.value.hour ?? dayjs().hour());
 		minuteRef.value?.scrollTo(timeInfo.value.minute ?? dayjs().minute());
 		secondRef.value?.scrollTo(timeInfo.value.second ?? dayjs().second());
@@ -117,7 +117,7 @@ const {
 	disabledHours = () => [],
 	disabledMinutes = () => [],
 	disabledSeconds = () => [],
-} = computed(() => props.disabledTime(formatValue.value)).value;
+} = computed(() => disabledTime(formatValue.value)).value;
 const outSideClick = (visible: boolean) => {
 	if (!visible) return;
 	tempValue.value = undefined;
@@ -131,70 +131,33 @@ watch(
 </script>
 
 <template>
-	<div
-		:class="[
-			'dd-time-picker',
-			size,
-			{
-				'dd-picker-focused': timePickerContainerShow,
-				'dd-picker-disabled': disabled,
-				'dd-picker-borderless': !bordered,
-			},
-		]"
-		ref="timePicker"
-		@click="timePickerClick"
-	>
-		<TimeInput
-			ref="timePickerInput"
-			:formatShow
-			:formatValue
-			:disabled
-			:placeholder
-			:allowClear
-			:readonly
-			@clearClick="clearClick"
-		>
+	<div :class="[
+		'dd-time-picker',
+		size,
+		{
+			'dd-picker-focused': timePickerContainerShow,
+			'dd-picker-disabled': disabled,
+			'dd-picker-borderless': !bordered,
+		},
+	]" ref="timePicker" @click="timePickerClick">
+		<TimeInput ref="timePickerInput" :formatShow :formatValue :disabled :placeholder :allowClear :readonly
+			@clearClick="clearClick">
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />
 		</TimeInput>
 		<Teleport to="body">
-			<Popover
-				v-if="timePickerRef"
-				v-model:visible="timePickerContainerShow"
-				:instance="timePickerRef"
-				:arrow="false"
-				:padding="0"
-				@outSideClick="outSideClick"
-			>
+			<Popover v-if="timePickerRef" v-model:visible="timePickerContainerShow" :instance="timePickerRef"
+				:arrow="false" :padding="0" @outSideClick="outSideClick">
 				<div class="dd-picker-panel">
 					<div class="dd-picker-time-panel">
 						<div class="dd-picker-content">
-							<Time
-								ref="hour"
-								type="hour"
-								:step="hourStep"
-								v-model:value="timeValue"
-								:disabled-time="disabledHours()"
-								:hide-disabled-options
-								@click="changeFormat"
-							/>
-							<Time
-								ref="minute"
-								type="minute"
-								:step="minuteStep"
-								v-model:value="timeValue"
-								:disabled-time="disabledMinutes(timeInfo.hour)"
-								:hide-disabled-options
-								@click="changeFormat"
-							/>
-							<Time
-								ref="second"
-								type="second"
-								:step="secondStep"
-								v-model:value="timeValue"
-								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
-								:hide-disabled-options
-								@click="changeFormat"
-							/>
+							<Time ref="hour" type="hour" :step="hourStep" v-model:value="timeValue"
+								:disabled-time="disabledHours()" :hide-disabled-options @click="changeFormat" />
+							<Time ref="minute" type="minute" :step="minuteStep" v-model:value="timeValue"
+								:disabled-time="disabledMinutes(timeInfo.hour)" :hide-disabled-options
+								@click="changeFormat" />
+							<Time ref="second" type="second" :step="secondStep" v-model:value="timeValue"
+								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)" :hide-disabled-options
+								@click="changeFormat" />
 						</div>
 					</div>
 					<div class="dd-picker-footer">
@@ -203,23 +166,15 @@ watch(
 						</div>
 						<ul class="dd-picker-ranges">
 							<li class="dd-picker-now" v-if="showNow">
-								<span
-									:class="[
-										'dd-picker-now-btn',
-										{ 'dd-picker-now-btn-disabled': setNowDisabled },
-									]"
-									@click="setNow"
-								>
+								<span :class="[
+									'dd-picker-now-btn',
+									{ 'dd-picker-now-btn-disabled': setNowDisabled },
+								]" @click="setNow">
 									此刻
 								</span>
 							</li>
 							<li class="dd-picker-ok">
-								<dd-button
-									type="primary"
-									:disabled="!timeValue"
-									size="small"
-									@click="ok"
-								>
+								<dd-button type="primary" :disabled="!timeValue" size="small" @click="ok">
 									确定
 								</dd-button>
 							</li>

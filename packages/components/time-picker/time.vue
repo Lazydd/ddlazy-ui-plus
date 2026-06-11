@@ -159,7 +159,7 @@ defineExpose({
 	transition: background 0.2s;
 	overflow-x: hidden;
 	&:hover {
-		overflow-y: overlay;
+		overflow-y: auto;
 	}
 	.dd-picker-time-panel-cell {
 		margin-inline: 4px;
