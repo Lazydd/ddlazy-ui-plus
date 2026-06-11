@@ -14,7 +14,13 @@ const emit = defineEmits<{
 	change: [value: number | undefined];
 }>();
 const handleInput = (e) => {
-	modelValue.value = e.target.value
+	let temp = e.target.value
+	if (e.target.value >= max) {
+		temp = max
+	} else if (e.target.value <= min) {
+		temp = min
+	}
+	modelValue.value = temp
 	emit('change', e.target.value);
 };
 const formatValue = computed(() => Number(modelValue.value));
@@ -73,8 +79,8 @@ const operate = (type: string) => {
 			</span>
 		</div>
 		<div class="dd-input-number-input-wrap">
-			<input class="dd-input-number-input" type="number" :value :aria-valuenow="value" :aria-valuemax="max"
-				:aria-valuemin="min" v-bind="$attrs" @input="handleInput" />
+			<input class="dd-input-number-input" type="number" v-model="modelValue" :aria-valuenow="modelValue"
+				:aria-valuemax="max" :aria-valuemin="min" v-bind="$attrs" @input="handleInput" />
 		</div>
 	</div>
 </template>
