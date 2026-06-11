@@ -1,48 +1,33 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { radioButtonProps } from './types';
+import { radioButtonProps, RadioButtonProps } from './types';
 
 defineOptions({
 	name: createName('radio-button'),
 });
 
-const props = defineProps(radioButtonProps);
-const emit = defineEmits<{
-	'update:checked': [value: boolean];
-}>();
+const { disabled } = defineProps(radioButtonProps);
+const modelChecked = defineModel<RadioButtonProps['checked']>('checked')
 
 const radioClick = () => {
-	if (props.disabled || props.checked) return;
-	emit('update:checked', true);
+	if (disabled || modelChecked) return;
+	modelChecked.value = true
 };
-
-defineExpose({});
 </script>
 
 <template>
-	<label
-		:class="[
-			'dd-radio-button-wrapper',
-			{
-				'dd-radio-button-wrapper-disabled': disabled,
-				'dd-radio-button-wrapper-checked': checked,
-			},
-		]"
-		@click.stop="radioClick"
-	>
-		<span
-			:class="[
-				'dd-radio-button',
-				{ 'dd-radio-button-checked': checked, 'dd-radio-disabled': disabled },
-			]"
-		>
-			<input
-				type="radio"
-				class="dd-radio-input"
-				:disabled
-				:value
-				:checked
-			/>
+	<label :class="[
+		'dd-radio-button-wrapper',
+		{
+			'dd-radio-button-wrapper-disabled': disabled,
+			'dd-radio-button-wrapper-checked': modelChecked,
+		},
+	]" @click.stop="radioClick">
+		<span :class="[
+			'dd-radio-button',
+			{ 'dd-radio-button-checked': modelChecked, 'dd-radio-disabled': disabled },
+		]">
+			<input type="radio" class="dd-radio-input" :disabled :value :checked="modelChecked" />
 			<span class="dd-radio-button-inner" />
 		</span>
 		<span class="dd-radio-label" v-if="!($slots.defualt && value)">
