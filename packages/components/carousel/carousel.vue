@@ -9,7 +9,7 @@ defineOptions({
 	name: createName('carousel'),
 });
 
-const props = defineProps(carouselProps);
+const { interval, autoplay } = defineProps(carouselProps);
 const emit = defineEmits<{
 	change: [index: number];
 	next: [index: number];
@@ -76,10 +76,10 @@ const initTime = () => {
 	time.value = setInterval(() => {
 		if (slotLength.value <= 1) return;
 		next();
-	}, props.interval);
+	}, interval);
 };
 onMounted(() => {
-	if (props.autoplay) {
+	if (autoplay) {
 		initTime();
 	}
 });
@@ -88,10 +88,10 @@ onUnmounted(() => {
 });
 
 watch(
-	() => props.autoplay,
+	() => autoplay,
 	() => {
 		if (time.value) clearInterval(time.value);
-		if (props.autoplay) {
+		if (autoplay) {
 			initTime();
 		}
 	}
@@ -109,30 +109,15 @@ defineExpose({
 				<component :is="state" :key="state"></component>
 			</Transition>
 		</div>
-		<div
-			class="slick-arrow slick-prev"
-			v-if="$slots.prevArrow"
-			style="left: 10px"
-			@click="prevClick"
-		>
+		<div class="slick-arrow slick-prev" v-if="$slots.prevArrow" style="left: 10px" @click="prevClick">
 			<slot name="prevArrow" />
 		</div>
-		<div
-			class="slick-arrow slick-next"
-			v-if="$slots.nextArrow"
-			style="right: 10px"
-			@click="nextClick"
-		>
+		<div class="slick-arrow slick-next" v-if="$slots.nextArrow" style="right: 10px" @click="nextClick">
 			<slot name="nextArrow" />
 		</div>
 		<div class="slick-dots" v-if="dots">
 			<slot name="customPaging" :index>
-				<li
-					v-for="(_, i) in slots"
-					:ke="i"
-					:class="{ 'slick-active': i == index }"
-					@click="dotClick(i)"
-				>
+				<li v-for="(_, i) in slots" :ke="i" :class="{ 'slick-active': i == index }" @click="dotClick(i)">
 					<button>{{ i + 1 }}</button>
 				</li>
 			</slot>
