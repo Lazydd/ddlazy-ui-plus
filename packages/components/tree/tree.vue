@@ -47,7 +47,7 @@ const ModelselectedKeys = defineModel<TreeProps['selectedKeys']>('selectedKeys')
 const selectedKeysMap = computed({
 	get() {
 		const map = new Map()
-		ModelselectedKeys.value.forEach(v => {
+		ModelselectedKeys.value?.forEach(v => {
 			map.set(v, treeMap.value.get(v))
 		})
 		return map
