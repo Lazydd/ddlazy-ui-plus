@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
 import { UseVirtualList } from '@vueuse/components';
-import { treeProps, TreeNodeType } from './types';
+import { treeProps, TreeNodeType, TreeProps } from './types';
 import TreeNode from './tree-node.vue';
 import { ref, computed, watch, useTemplateRef } from 'vue';
 
@@ -10,28 +10,24 @@ defineOptions({
 });
 
 let flag = 0;
-const props = defineProps(treeProps);
+const { defaultExpandAll, expandedKeys, treeData, autoExpandParent, fieldNames } = defineProps(treeProps);
 const emit = defineEmits<{
-	'update:value': [value: number];
-	'update:expandedKeys': [value: (number | string)[]];
-	'update:checkedKeys': [value: (number | string)[]];
-	'update:selectedKeys': [value: (number | string)[]];
 	select: [selectedKeys: (number | string)[], e: { node: any }];
 	expand: [expandedKeys: (number | string)[], e: { expand: boolean; node: any }];
 	check: [checkedKeys: (number | string)[], e: { checked: boolean; node: any }];
 }>();
 
-const treeData = ref<TreeNodeType[]>();
+const treeDataForamt = ref<TreeNodeType[]>();
 const flattenTree = computed(() => {
 	const res = [];
 	function dfs(tree: TreeNodeType[]) {
 		tree?.forEach((node) => {
 			res.push(node);
-			if (props.defaultExpandAll && flag == 0) expandedKeys.value.add(node.value);
-			if (expandedKeys.value.has(node.value)) dfs(node.children);
+			if (defaultExpandAll && flag == 0) expandedKeysSet.value.add(node.value);
+			if (expandedKeysSet.value.has(node.value)) dfs(node.children);
 		});
 	}
-	dfs(treeData.value);
+	dfs(treeDataForamt.value);
 	flag = 1;
 	return res;
 });
@@ -43,31 +39,59 @@ const treeMap = computed<Map<string | number, TreeNodeType>>(() => {
 			dfs(item.children);
 		});
 	};
-	dfs(treeData.value);
+	dfs(treeDataForamt.value);
 	return map;
 });
-const fieldNames = ref(props.fieldNames);
-const selectedKeys = ref(new Map<string | number, TreeNodeType>());
-const checkedKeys = ref(new Set(props.checkedKeys));
-const expandedKeys = ref(new Set(props.expandedKeys));
+const fieldNamesValue = computed(() => fieldNames)
+const ModelselectedKeys = defineModel<TreeProps['selectedKeys']>('selectedKeys')
+const selectedKeysMap = computed({
+	get() {
+		const map = new Map()
+		ModelselectedKeys.value.forEach(v => {
+			map.set(v, treeMap.value.get(v))
+		})
+		return map
+	},
+	set(value) {
+		ModelselectedKeys.value = Array.from(value.values())
+	}
+})
+const ModelcheckedKeys = defineModel<TreeProps['checkedKeys']>('checkedKeys')
+const checkedKeysSet = computed({
+	get() {
+		return new Set(ModelcheckedKeys.value)
+	},
+	set(value) {
+		ModelcheckedKeys.value = Array.from(value)
+	}
+})
+const ModelexpandedKeys = defineModel<TreeProps['expandedKeys']>('expandedKeys')
+const expandedKeysSet = computed({
+	get() {
+		return new Set(ModelexpandedKeys.value)
+	},
+	set(value) {
+		ModelexpandedKeys.value = Array.from(value)
+	}
+})
 
 const expandParents = () => {
-	props.expandedKeys?.forEach((v) => {
-		expandParent(props.treeData, v)?.forEach((t) => {
-			if (!expandedKeys.value.has(t)) expandedKeys.value.add(t);
+	expandedKeys?.forEach((v) => {
+		expandParent(treeData, v)?.forEach((t) => {
+			if (!expandedKeysSet.value.has(t)) expandedKeysSet.value.add(t);
 		});
 	});
 };
 
 const expandParent = (nodes, key, path = []) => {
 	for (const node of nodes) {
-		const currentPath = [...path, node[fieldNames.value.value ?? 'value']];
-		if (node[fieldNames.value.value ?? 'value'] === key) {
+		const currentPath = [...path, node[fieldNamesValue.value.value ?? 'value']];
+		if (node[fieldNamesValue.value.value ?? 'value'] === key) {
 			return path; // 返回不包括目标节点的父路径
 		}
-		if (node[fieldNames.value.children ?? 'children']) {
+		if (node[fieldNamesValue.value.children ?? 'children']) {
 			const result = expandParent(
-				node[fieldNames.value.children ?? 'children'],
+				node[fieldNamesValue.value.children ?? 'children'],
 				key,
 				currentPath
 			);
@@ -87,16 +111,16 @@ const expandParentsSet = (nodes, keys) => {
 	while (stack.length > 0) {
 		const { node, path } = stack.pop();
 
-		const currentPath = [...path, node[fieldNames.value.value ?? 'value']];
+		const currentPath = [...path, node[fieldNamesValue.value.value ?? 'value']];
 
-		if (keys.has(node[fieldNames.value.value ?? 'value'])) {
-			resultPaths.set(node[fieldNames.value.value ?? 'value'], path);
+		if (keys.has(node[fieldNamesValue.value.value ?? 'value'])) {
+			resultPaths.set(node[fieldNamesValue.value.value ?? 'value'], path);
 		}
 
-		if (!visited.has(node[fieldNames.value.value ?? 'value'])) {
-			visited.add(node[fieldNames.value.value ?? 'value']);
-			if (node[fieldNames.value.children ?? 'children']) {
-				for (let child of node[fieldNames.value.children ?? 'children']) {
+		if (!visited.has(node[fieldNamesValue.value.value ?? 'value'])) {
+			visited.add(node[fieldNamesValue.value.value ?? 'value']);
+			if (node[fieldNamesValue.value.children ?? 'children']) {
+				for (let child of node[fieldNamesValue.value.children ?? 'children']) {
 					stack.push({ node: child, path: currentPath });
 				}
 			}
@@ -105,49 +129,8 @@ const expandParentsSet = (nodes, keys) => {
 
 	return resultPaths;
 };
-
 watch(
-	() => props.fieldNames,
-	(newValue) => {
-		fieldNames.value = newValue;
-	},
-	{
-		immediate: true,
-	}
-);
-
-watch(
-	() => props.selectedKeys,
-	(newValue) => {
-		selectedKeys.value.clear();
-		newValue.forEach((v) => {
-			selectedKeys.value.set(v, treeMap.value.get(v));
-		});
-	},
-	{
-		immediate: true,
-	}
-);
-watch(
-	() => props.checkedKeys,
-	(newValue) => {
-		checkedKeys.value = new Set(newValue);
-	},
-	{
-		immediate: true,
-	}
-);
-watch(
-	() => props.expandedKeys,
-	(newValue) => {
-		expandedKeys.value = new Set(newValue);
-	},
-	{
-		immediate: true,
-	}
-);
-watch(
-	() => props.autoExpandParent,
+	() => autoExpandParent,
 	(newValue) => {
 		if (newValue) {
 			expandParents();
@@ -156,18 +139,18 @@ watch(
 );
 const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) => {
 	return data.map((item, i) => {
-		const children = item[fieldNames.value.children ?? 'children'] || [];
+		const children = item[fieldNamesValue.value.children ?? 'children'] || [];
 		const isLine = i === data.length - 1;
 		const treeNode = {
-			value: item[fieldNames.value.value ?? 'value'],
-			label: item[fieldNames.value.label ?? 'label'],
+			value: item[fieldNamesValue.value.value ?? 'value'],
+			label: item[fieldNamesValue.value.label ?? 'label'],
 			children: [],
 			disableCheckbox: item.disableCheckbox ?? false,
 			disabled: item.disabled ?? false,
 			level: parent ? parent.level + 1 : 0,
 			parentKey: parent ? parent.value : null,
-			isLeaf: item.isLeaf ?? !item[fieldNames.value.children ?? 'children'],
-			isChecked: item.isChecked ?? checkedKeys.value.has(item.value),
+			isLeaf: item.isLeaf ?? !item[fieldNamesValue.value.children ?? 'children'],
+			isChecked: item.isChecked ?? checkedKeysSet.value.has(item.value),
 			isHalfChecked: item.isHalfChecked ?? false,
 			line: parent?.line ? [...parent.line, isLine] : [isLine],
 			rawNode: item,
@@ -185,12 +168,12 @@ const depTree = (tree: TreeNodeType[], level = 0, parent: TreeNodeType = undefin
 				...item,
 				level,
 				parent,
-				isLeaf: item.isLeaf ?? !item[fieldNames.value.children ?? 'children'],
+				isLeaf: item.isLeaf ?? !item[fieldNamesValue.value.children ?? 'children'],
 			});
-			if (expandedKeys.value.has(item.value)) {
+			if (expandedKeysSet.value.has(item.value)) {
 				const parents = JSON.parse(JSON.stringify(item));
-				item?.[fieldNames.value.children ?? 'children'] &&
-					mp(item[fieldNames.value.children ?? 'children'], level, parents);
+				item?.[fieldNamesValue.value.children ?? 'children'] &&
+					mp(item[fieldNamesValue.value.children ?? 'children'], level, parents);
 			}
 		});
 		level--;
@@ -199,9 +182,9 @@ const depTree = (tree: TreeNodeType[], level = 0, parent: TreeNodeType = undefin
 	return result;
 };
 watch(
-	() => props.treeData,
+	() => treeData,
 	(newValue) => {
-		treeData.value = formatTreeData(newValue, null);
+		treeDataForamt.value = formatTreeData(newValue, null);
 	},
 	{
 		immediate: true,
@@ -209,18 +192,18 @@ watch(
 );
 
 const onCheckedNodes = (node: TreeNodeType, checked: boolean) => {
-	const keys = Array.from(checkedKeys.value);
-	emit('update:checkedKeys', keys);
+	const keys = Array.from(checkedKeysSet.value);
+	ModelcheckedKeys.value = keys
 	emit('check', keys, { checked, node });
 };
 const onExpandedNodes = (node: TreeNodeType, expand: boolean) => {
-	const keys = Array.from(expandedKeys.value);
-	emit('update:expandedKeys', keys);
+	const keys = Array.from(expandedKeysSet.value);
+	ModelexpandedKeys.value = keys
 	emit('expand', keys, { expand, node });
 };
 const onSelectNodes = (node: TreeNodeType[]) => {
 	const keys = node.map((v) => v.value);
-	emit('update:selectedKeys', keys);
+	ModelselectedKeys.value = keys
 	emit('select', keys, { node });
 };
 
@@ -241,17 +224,17 @@ const setExpand = (str: string | ((node: TreeNodeType) => boolean)) => {
 	const arr = [];
 	let func = str as Function;
 	if (typeof str === 'string') {
-		func = (v: TreeNodeType) => v[fieldNames.value.label ?? 'label'].includes(str);
+		func = (v: TreeNodeType) => v[fieldNamesValue.value.label ?? 'label'].includes(str);
 	}
 	treeMap.value.forEach((v) => {
-		if (func(v)) arr.push(v[fieldNames.value.value ?? 'value']);
+		if (func(v)) arr.push(v[fieldNamesValue.value.value ?? 'value']);
 	});
 	if (!arr.length) return;
 	const newExpandedKeys = new Set([]);
-	expandParentsSet(props.treeData, new Set(arr))?.forEach((t) => {
+	expandParentsSet(treeData, new Set(arr))?.forEach((t) => {
 		t.forEach((id) => newExpandedKeys.add(id));
 	});
-	expandedKeys.value = newExpandedKeys;
+	expandedKeysSet.value = newExpandedKeys;
 	return instance;
 };
 
@@ -268,44 +251,22 @@ defineExpose(instance);
 		<div class="dd-tree-list">
 			<div class="dd-tree-list-holder">
 				<div :class="['dd-tree-list-holder-inner', { 'dd-tree-block-node': blockNode }]">
-					<template
-						v-if="
-							height &&
-							flattenTree.length > Math.ceil(height / virtualListOptions.itemHeight)
-						"
-					>
-						<UseVirtualList
-							:list="flattenTree"
-							:options="virtualListOptions"
-							:height="height + 'px'"
-							style="width: 100%"
-							ref="virtualList"
-						>
+					<template v-if="
+						height &&
+						flattenTree.length > Math.ceil(height / virtualListOptions.itemHeight)
+					">
+
+						<UseVirtualList :list="flattenTree" :options="virtualListOptions" :height="height + 'px'"
+							style="width: 100%" ref="virtualList">
 							<template #="{ data }">
-								<TreeNode
-									:data
-									:tree-map
-									:multiple
-									:checkable
-									:showIcon
-									:showLine
-									:disabled
-									:load
-									:depTree
-									:selectedKeys
-									:checkedKeys
-									:expandedKeys
-									:onExpandedNodes
-									@onSelectNodes="onSelectNodes"
-									@onCheckedNodes="onCheckedNodes"
-								>
+								<TreeNode :data :tree-map :multiple :checkable :showIcon :showLine :disabled :load
+									:depTree :selectedKeys="selectedKeysMap" :checkedKeys="checkedKeysSet"
+									:expandedKeys="expandedKeysSet" :onExpandedNodes @onSelectNodes="onSelectNodes"
+									@onCheckedNodes="onCheckedNodes">
 									<template #icon="icon">
 										<slot name="icon" v-bind="icon" />
 									</template>
-									<template
-										v-if="$slots.switcherIcon"
-										#switcherIcon="switcherIcon"
-									>
+									<template v-if="$slots.switcherIcon" #switcherIcon="switcherIcon">
 										<slot name="switcherIcon" v-bind="switcherIcon" />
 									</template>
 									<template #title="title">
@@ -316,23 +277,10 @@ defineExpose(instance);
 						</UseVirtualList>
 					</template>
 					<template v-else v-for="data in flattenTree">
-						<TreeNode
-							:data
-							:tree-map
-							:disabled
-							:multiple
-							:checkable
-							:showIcon
-							:showLine
-							:load
-							:depTree
-							:selectedKeys
-							:checkedKeys
-							:expandedKeys
-							:onExpandedNodes
-							@onSelectNodes="onSelectNodes"
-							@onCheckedNodes="onCheckedNodes"
-						>
+						<TreeNode :data :tree-map :disabled :multiple :checkable :showIcon :showLine :load :depTree
+							:selectedKeys="selectedKeysMap" :checkedKeys="checkedKeysSet"
+							:expandedKeys="expandedKeysSet" :onExpandedNodes @onSelectNodes="onSelectNodes"
+							@onCheckedNodes="onCheckedNodes">
 							<template #icon="icon">
 								<slot name="icon" v-bind="icon" />
 							</template>
