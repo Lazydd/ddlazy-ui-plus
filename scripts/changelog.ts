@@ -18,6 +18,7 @@ export async function getChangeLog(count = 200) {
 			i.message.includes('!') ||
 			i.message.startsWith('feat') ||
 			i.message.startsWith('fix') ||
+			i.message.startsWith('refrect') ||
 			i.message.startsWith('style')
 		);
 	}) as CommitInfo[];
