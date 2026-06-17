@@ -20,6 +20,8 @@
 		"build:ui": "vite build && pnpm build:dts",
 		"build:doc": "pnpm build:ui && vitepress build docs",
 		"build:dts": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.packages.json",
+		"fmt": "oxfmt packages/**/*",
+		"fmt:check": "oxfmt --check packages/**/*",
 		"serve": "vitepress serve docs",
 		"preview": "vitepress preview docs"
 	},
@@ -42,6 +44,7 @@
 		"feed": "^5.2.1",
 		"markdown-it": "^14.2.0",
 		"md5": "^2.3.0",
+		"oxfmt": "^0.55.0",
 		"sass": "^1.100.0",
 		"simple-git": "^3.36.0",
 		"terser": "^5.48.0",
