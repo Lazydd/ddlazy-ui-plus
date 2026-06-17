@@ -3,32 +3,21 @@ import type { TreeNodeType, SwitcherIconType } from './types';
 import { toRaw, ref } from 'vue';
 import defaultIcon from './icon/defaultIcon.vue';
 
-const props = withDefaults(
-	defineProps<{
-		data: TreeNodeType;
-		treeMap: Map<string | number, TreeNodeType>;
-		disabled?: boolean;
-		multiple?: boolean;
-		checkable?: boolean;
-		showIcon?: boolean;
-		showLine?: boolean;
-		selectedKeys: Map<string | number, TreeNodeType>;
-		checkedKeys: Set<string | number>;
-		expandedKeys: Set<string | number>;
-		depTree: Function;
-		load?: Function;
-		onExpandedNodes?: Function;
-	}>(),
-	{
-		disabled: false,
-		multiple: false,
-		checkable: false,
-		showIcon: false,
-		showLine: false,
-		load: () => {},
-		onExpandedNodes: (node: any, checked: boolean) => {},
-	},
-);
+const { disabled = false, checkable = false, showIcon = false, multiple = false, selectedKeys, checkedKeys, expandedKeys, treeMap, depTree, load = () => { }, onExpandedNodes = () => { } } = defineProps<{
+	data: TreeNodeType;
+	treeMap: Map<string | number, TreeNodeType>;
+	disabled?: boolean;
+	multiple?: boolean;
+	checkable?: boolean;
+	showIcon?: boolean;
+	showLine?: boolean;
+	selectedKeys: Map<string | number, TreeNodeType>;
+	checkedKeys: Set<string | number>;
+	expandedKeys: Set<string | number>;
+	depTree: Function;
+	load?: Function;
+	onExpandedNodes?: (node: any, checked: boolean) => void;
+}>()
 
 const emit = defineEmits<{
 	onSelectNodes: [nodes: TreeNodeType[]];
@@ -45,17 +34,17 @@ defineSlots<{
 const loadingKeys = ref(new Set<string | number>([]));
 
 const handleLoadTreeData = (node: TreeNodeType) => {
-	if (!node?.children?.length && !node.isLeaf && props.load) {
+	if (!node?.children?.length && !node.isLeaf && load) {
 		loadingKeys.value.add(node.value);
-		props.load(node, (res) => {
+		load(node, (res) => {
 			if (res.length) {
-				node.children = props.depTree(res, node.level, node);
-				props.expandedKeys.add(node.value);
+				node.children = depTree(res, node.level, node);
+				expandedKeys.add(node.value);
 			} else {
 				node.isLeaf = true;
-				props.expandedKeys.delete(node.value);
+				expandedKeys.delete(node.value);
 			}
-			props.onExpandedNodes(node, node.isChecked);
+			onExpandedNodes(node, node.isChecked);
 			loadingKeys.value.delete(node.value);
 		});
 		return true;
@@ -66,28 +55,28 @@ const handleLoadTreeData = (node: TreeNodeType) => {
 const expand = (value: string | number, node: TreeNodeType) => {
 	// if (node.disabled || props.disabled) return;
 	if (!handleLoadTreeData(node))
-		props.expandedKeys.has(value)
-			? props.expandedKeys.delete(value)
-			: props.expandedKeys.add(value);
-	props.onExpandedNodes(node, node.isChecked);
+		expandedKeys.has(value)
+			? expandedKeys.delete(value)
+			: expandedKeys.add(value);
+	onExpandedNodes(node, node.isChecked);
 };
 const select = (value: string | number, disabled: boolean, node: TreeNodeType) => {
-	if (disabled || props.disabled) return;
-	if (props.selectedKeys.has(value)) {
-		props.selectedKeys.delete(value);
+	if (disabled || disabled) return;
+	if (selectedKeys.has(value)) {
+		selectedKeys.delete(value);
 	} else {
-		if (!props.multiple) props.selectedKeys.clear();
-		props.selectedKeys.set(value, node);
+		if (!multiple) selectedKeys.clear();
+		selectedKeys.set(value, node);
 	}
-	const nodes = Array.from(props.selectedKeys).map(([_, node]) => toRaw(node));
+	const nodes = Array.from(selectedKeys).map(([_, node]) => toRaw(node));
 	emit('onSelectNodes', nodes);
 };
 
 const checked = (disabled: boolean, node: TreeNodeType) => {
-	if (disabled || props.disabled) return;
+	if (disabled || disabled) return;
 	node.isChecked = !node.isChecked;
 	if (node.isChecked) node.isHalfChecked = false;
-	props.checkedKeys[node.isChecked ? 'add' : 'delete'](node.value);
+	checkedKeys[node.isChecked ? 'add' : 'delete'](node.value);
 	setChildrenCheckedKeys(node, node.isChecked);
 	setParentCheckedKeys(node, node.isChecked);
 	emit('onCheckedNodes', toRaw(node.rawNode), node.isChecked);
@@ -98,7 +87,7 @@ const setChildrenCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		children?.forEach((v) => {
 			v.isChecked = isChecked;
 			if (isChecked) v.isHalfChecked = false;
-			props.checkedKeys[node.isChecked ? 'add' : 'delete'](v.value);
+			checkedKeys[node.isChecked ? 'add' : 'delete'](v.value);
 			setChildrenCheckedKeys(v, isChecked);
 		});
 	}
@@ -106,7 +95,7 @@ const setChildrenCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 	let parentKey = node?.parentKey;
 	while (parentKey) {
-		const parent = props.treeMap.get(parentKey);
+		const parent = treeMap.get(parentKey);
 		const children = parent.children;
 		let isAll = true,
 			isHalf = false;
@@ -119,10 +108,10 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		if (isAll) {
 			parent.isChecked = isChecked;
 			parent.isHalfChecked = false;
-			props.checkedKeys[isChecked ? 'add' : 'delete'](parent.value);
+			checkedKeys[isChecked ? 'add' : 'delete'](parent.value);
 		} else {
 			parent.isChecked = false;
-			props.checkedKeys.delete(parent.value);
+			checkedKeys.delete(parent.value);
 			parent.isHalfChecked = isHalf;
 		}
 		parentKey = parent.parentKey;
@@ -133,112 +122,74 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 <template>
 	<div :class="['dd-tree-treenode', { 'dd-tree-treenode-disabled': data.disabled || disabled }]">
 		<span class="dd-tree-indent">
-			<span
-				:class="[
-					'dd-tree-indent-unit',
-					{
-						'dd-tree-index-start': !data.line?.[i],
-					},
-				]"
-				v-for="(v, i) in data.level"
-				:key="v"
-			/>
+			<span :class="[
+				'dd-tree-indent-unit',
+				{
+					'dd-tree-index-start': !data.line?.[i],
+				},
+			]" v-for="(v, i) in data.level" :key="v" />
 		</span>
-		<span
-			v-if="!data.isLeaf || (!data.children && checkable && !showIcon)"
+		<span v-if="!data.isLeaf || (!data.children && checkable && !showIcon)"
 			:class="['dd-tree-switcher', { 'dd-tree-switcher-noop': !data.children }]"
-			@click="expand(data.value, data)"
-		>
-			<svg
-				class="dd-circular"
-				viewBox="0 0 50 50"
-				width="1em"
-				height="1em"
-				v-if="loadingKeys.has(data.value)"
-			>
+			@click="expand(data.value, data)">
+			<svg class="dd-circular" viewBox="0 0 50 50" width="1em" height="1em" v-if="loadingKeys.has(data.value)">
 				<circle class="path" cx="25" cy="25" r="20" fill="none" />
 			</svg>
-			<span
-				v-else-if="!data.isLeaf"
-				role="img"
-				aria-label="caret-down"
-				:class="[
-					'anticon',
-					'dd-tree-switcher-icon',
-					{
-						'dd-tree-switcher-icon-close': $slots.switcherIcon
-							? false
-							: !props.expandedKeys.has(data.value),
+			<span v-else-if="!data.isLeaf" role="img" aria-label="caret-down" :class="[
+				'anticon',
+				'dd-tree-switcher-icon',
+				{
+					'dd-tree-switcher-icon-close': $slots.switcherIcon
+						? false
+						: !expandedKeys.has(data.value),
+				},
+			]">
+				<slot name="switcherIcon" v-bind="{
+					active: expandedKeys.has(data.value),
+					key: data.value,
+					selected: selectedKeys?.has(data.value),
+					expanded: expandedKeys.has(data.value),
+					checked: checkedKeys.has(data.value),
+					switcherCls: {
+						'dd-tree-switcher-icon': true,
+						'dd-tree-switcher-icon-close': !expandedKeys.has(data.value),
 					},
-				]"
-			>
-				<slot
-					name="switcherIcon"
-					v-bind="{
-						active: props.expandedKeys.has(data.value),
-						key: data.value,
-						selected: props.selectedKeys?.has(data.value),
-						expanded: props.expandedKeys.has(data.value),
-						checked: props.checkedKeys.has(data.value),
-						switcherCls: {
-							'dd-tree-switcher-icon': true,
-							'dd-tree-switcher-icon-close': !props.expandedKeys.has(data.value),
-						},
-						children: data.children,
-						data,
-						defaultIcon,
-						title: data.label,
-					}"
-				>
+					children: data.children,
+					data,
+					defaultIcon,
+					title: data.label,
+				}">
 					<defaultIcon />
 				</slot>
 			</span>
 		</span>
 		<span class="dd-tree-iconEle" v-if="data.isLeaf">
 			<span role="img" aria-label="file" class="anticon anticon-file" v-if="showIcon">
-				<slot
-					name="icon"
-					v-bind="{ key: data.value, selected: props.selectedKeys?.has(data.value) }"
-				>
-					<svg
-						focusable="false"
-						data-icon="file"
-						width="1em"
-						height="1em"
-						fill="currentColor"
-						aria-hidden="true"
-						viewBox="64 64 896 896"
-					>
+				<slot name="icon" v-bind="{ key: data.value, selected: selectedKeys?.has(data.value) }">
+					<svg focusable="false" data-icon="file" width="1em" height="1em" fill="currentColor"
+						aria-hidden="true" viewBox="64 64 896 896">
 						<path
-							d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
-						/>
+							d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z" />
 					</svg>
 				</slot>
 			</span>
 		</span>
-		<span
-			:class="[
-				'dd-tree-checkbox',
-				{
-					'dd-tree-checkbox-checked': data.isChecked,
-					'dd-tree-checkbox-indeterminate': data.isHalfChecked,
-					'dd-tree-checkbox-disabled': data.disabled || data.disableCheckbox || disabled,
-				},
-			]"
-			v-if="checkable"
-			@click="checked(data?.disabled ?? data?.disableCheckbox ?? false, data)"
-		>
+		<span :class="[
+			'dd-tree-checkbox',
+			{
+				'dd-tree-checkbox-checked': data.isChecked,
+				'dd-tree-checkbox-indeterminate': data.isHalfChecked,
+				'dd-tree-checkbox-disabled': data.disabled || data.disableCheckbox || disabled,
+			},
+		]" v-if="checkable" @click="checked(data?.disabled ?? data?.disableCheckbox ?? false, data)">
 			<div class="dd-tree-checkbox-inner" />
 		</span>
-		<span
-			:class="[
-				'dd-tree-node-content-wrapper',
-				{
-					'dd-tree-node-selected': props.selectedKeys?.has(data.value),
-				},
-			]"
-			@click="select(data.value, data?.disabled ?? false, data)"
-		>
+		<span :class="[
+			'dd-tree-node-content-wrapper',
+			{
+				'dd-tree-node-selected': selectedKeys?.has(data.value),
+			},
+		]" @click="select(data.value, data?.disabled ?? false, data)">
 			<span class="dd-tree-title" :title="data.label">
 				<slot name="title" v-bind="{ data, title: data.label }">
 					{{ data.label }}
@@ -253,16 +204,19 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		transform: scale(1);
 		opacity: 0.5;
 	}
+
 	100% {
 		transform: scale(1.6);
 		opacity: 0;
 	}
 }
+
 @keyframes loading-rotate {
 	100% {
 		transform: rotate(360deg);
 	}
 }
+
 @keyframes loading-dash {
 	0% {
 		stroke-dasharray: 1, 200;
@@ -273,17 +227,20 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		stroke-dasharray: 90, 150;
 		stroke-dashoffset: -40px;
 	}
+
 	100% {
 		stroke-dasharray: 90, 150;
 		stroke-dashoffset: -120px;
 	}
 }
+
 .dd-tree {
 	&.dd-tree-show-line {
 		.dd-tree-indent-unit {
 			position: relative;
 			height: 100%;
 		}
+
 		.dd-tree-index-start {
 			&::before {
 				position: absolute;
@@ -295,6 +252,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			}
 		}
 	}
+
 	&-treenode {
 		display: flex;
 		align-items: flex-start;
@@ -306,6 +264,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		align-self: stretch;
 		white-space: nowrap;
 		user-select: none;
+
 		&-unit {
 			display: inline-block;
 			width: 24px;
@@ -325,13 +284,16 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		user-select: none;
 		transition: all 0.3s;
 		border-radius: 6px;
+
 		&:not(dd-tree-switcher-noop):hover {
 			background-color: var(--dd-tree-switcher-hover-background-color);
 		}
+
 		.dd-circular {
 			display: inline;
 			animation: loading-rotate 2s linear infinite;
 		}
+
 		.path {
 			animation: loading-dash 1.5s ease-in-out infinite;
 			stroke-dasharray: 90, 150;
@@ -340,10 +302,12 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			stroke: var(--dd-primary);
 			stroke-linecap: round;
 		}
+
 		&-icon {
 			display: inline-block;
 			font-size: 14px;
 			vertical-align: baseline;
+
 			&-close {
 				position: relative;
 				flex: none;
@@ -354,15 +318,17 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 				text-align: center;
 				cursor: pointer;
 				user-select: none;
-				> svg {
+
+				>svg {
 					transform: rotate(-90deg);
 				}
 			}
 
-			> svg {
+			>svg {
 				transition: transform 0.3s;
 			}
 		}
+
 		&-noop {
 			cursor: default;
 		}
@@ -372,6 +338,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		top: initial;
 		margin: 4px 8px 0 4px;
 		cursor: pointer;
+
 		&-inner {
 			position: relative;
 			top: 0;
@@ -385,6 +352,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 			border-radius: 4px;
 			border-collapse: separate;
 			transition: all 0.3s;
+
 			&::after {
 				box-sizing: border-box;
 				position: absolute;
@@ -428,9 +396,11 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 				content: '';
 				transition: all 0.3s;
 			}
+
 			.dd-tree-checkbox-inner {
 				background-color: var(--dd-border-hover-color);
 				border-color: transparent;
+
 				&::after {
 					opacity: 1;
 					transform: rotate(45deg) scale(1) translate(-50%, -50%);
@@ -438,6 +408,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 				}
 			}
 		}
+
 		&-indeterminate {
 			.dd-tree-checkbox-inner {
 				&::after {
@@ -453,12 +424,15 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 				}
 			}
 		}
+
 		&-disabled {
 			cursor: not-allowed;
 			pointer-events: none;
+
 			.dd-tree-checkbox-inner {
 				background: var(--dd-hover-background-color);
 				border-color: var(--dd-tree-border-color);
+
 				&::after {
 					border-color: var(--dd-tree-disabled-color);
 				}
@@ -485,6 +459,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+
 		&:hover:not(.dd-tree-node-selected) {
 			background-color: var(--dd-hover-background-color);
 		}
@@ -498,11 +473,13 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		.dd-tree-node-content-wrapper {
 			color: var(--dd-tree-disabled-color);
 			cursor: not-allowed;
+
 			&:hover:not(.dd-tree-node-selected) {
 				background-color: transparent;
 			}
 		}
 	}
+
 	&-iconEle {
 		display: inline-block;
 		width: 24px;
@@ -511,6 +488,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		text-align: center;
 		vertical-align: top;
 	}
+
 	&-switcher {
 		display: flex;
 		align-items: center;
@@ -525,6 +503,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		-moz-user-select: none;
 		user-select: none;
 	}
+
 	.anticon {
 		display: inline-flex;
 		align-items: center;
@@ -538,6 +517,7 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	}
+
 	&-disabled {
 		cursor: not-allowed;
 	}
