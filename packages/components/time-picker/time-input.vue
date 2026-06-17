@@ -17,7 +17,7 @@ const props = withDefaults(
 		suffix: true,
 		showIcon: true,
 		readonly: false,
-	}
+	},
 );
 const emit = defineEmits<{
 	clearClick: [];
@@ -158,7 +158,9 @@ defineExpose({
 		transform: translateY(-50%);
 		cursor: pointer;
 		opacity: 0;
-		transition: opacity 0.2s, color 0.2s;
+		transition:
+			opacity 0.2s,
+			color 0.2s;
 		height: 14px;
 		&:hover {
 			color: var(--dd-time-picker-icon-active-color);

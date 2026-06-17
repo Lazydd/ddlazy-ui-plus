@@ -19,7 +19,8 @@ import Time from '../time-picker/time.vue';
 defineOptions({
 	name: createName('datePicker'),
 });
-const { showTime, disabled, valueFormat, format, mode, allowClear, placeholder, onOk } = defineProps(datePickerProps);
+const { showTime, disabled, valueFormat, format, mode, allowClear, placeholder, onOk } =
+	defineProps(datePickerProps);
 const showTimeConfig = {
 	format: 'HH:mm:ss',
 	valueFormat: 'HH:mm:ss',
@@ -193,7 +194,7 @@ const formatShow2 = computed(() => {
 const activeMode = ref(mode);
 
 const inputTitle = computed(() =>
-	mode === 'quarter' ? formatShow.value?.replace(/-(?!.*-)/, '-Q') : formatShow.value
+	mode === 'quarter' ? formatShow.value?.replace(/-(?!.*-)/, '-Q') : formatShow.value,
 );
 const inputValue = ref(inputTitle.value);
 const month = ref(formatValue.value?.month() ?? dayjs().month());
@@ -401,7 +402,7 @@ watch(
 	() => datePickerContainerShow.value,
 	() => {
 		emit('openChange', datePickerContainerShow.value);
-	}
+	},
 );
 defineExpose({
 	datePickerClick,
@@ -410,44 +411,84 @@ defineExpose({
 </script>
 
 <template>
-	<div :class="[
-		'dd-date-picker',
-		size,
-		{
-			'dd-picker-focused': datePickerContainerShow,
-			'dd-picker-disabled': disabled,
-			'dd-picker-borderless': !bordered,
-		},
-	]" ref="datePicker" @click="datePickerClick">
-		<DataInput ref="datePickerInput" :format-show="isOutSide ? formatShow2 : inputValue" :format-value="formatShow"
-			:disabled :allow-clear :placeholder="showPlaceholder" :readonly :show-time @clearClick="clearClick">
+	<div
+		:class="[
+			'dd-date-picker',
+			size,
+			{
+				'dd-picker-focused': datePickerContainerShow,
+				'dd-picker-disabled': disabled,
+				'dd-picker-borderless': !bordered,
+			},
+		]"
+		ref="datePicker"
+		@click="datePickerClick"
+	>
+		<DataInput
+			ref="datePickerInput"
+			:format-show="isOutSide ? formatShow2 : inputValue"
+			:format-value="formatShow"
+			:disabled
+			:allow-clear
+			:placeholder="showPlaceholder"
+			:readonly
+			:show-time
+			@clearClick="clearClick"
+		>
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />
 		</DataInput>
 		<Teleport to="body">
-			<Popover v-if="datePickerRef" v-model:visible="datePickerContainerShow" :instance="datePickerRef"
-				:arrow="false" :padding="0" @outSideClick="outSideClick">
-				<div :class="[
-					'dd-picker-datetime-panel',
-					{ 'dd-week-time': activeMode === 'week' },
-					{ 'dd-week-quarter': activeMode === 'quarter' },
-				]">
-					<div :class="[
-						'dd-picker-date-panel',
-						{
-							'dd-picker-week-panel': activeMode === 'week',
-							'dd-picker-month-panel': activeMode === 'month',
-							'dd-picker-quarter-panel': activeMode === 'quarter',
-							'dd-picker-year-panel': activeMode === 'year',
-							'dd-picker-dacade-panel': activeMode === 'dacade',
-						},
-					]">
-						<DateHeader :active-mode="activeMode" :year :month @active-mode-change="activeModeChange"
-							@year-change="yearChange" @month-change="monthChange" />
+			<Popover
+				v-if="datePickerRef"
+				v-model:visible="datePickerContainerShow"
+				:instance="datePickerRef"
+				:arrow="false"
+				:padding="0"
+				@outSideClick="outSideClick"
+			>
+				<div
+					:class="[
+						'dd-picker-datetime-panel',
+						{ 'dd-week-time': activeMode === 'week' },
+						{ 'dd-week-quarter': activeMode === 'quarter' },
+					]"
+				>
+					<div
+						:class="[
+							'dd-picker-date-panel',
+							{
+								'dd-picker-week-panel': activeMode === 'week',
+								'dd-picker-month-panel': activeMode === 'month',
+								'dd-picker-quarter-panel': activeMode === 'quarter',
+								'dd-picker-year-panel': activeMode === 'year',
+								'dd-picker-dacade-panel': activeMode === 'dacade',
+							},
+						]"
+					>
+						<DateHeader
+							:active-mode="activeMode"
+							:year
+							:month
+							@active-mode-change="activeModeChange"
+							@year-change="yearChange"
+							@month-change="monthChange"
+						/>
 						<div class="dd-picker-body">
-							<Component :is="dateMode" v-model:value="formatValue" :disabledDate :month :year :mode-arr
-								@month-change="monthChange" @set-month="setMonth" @set-year="setYear"
-								@year-change="yearChange" @mouseenter="mouseenter" @mouseleave="mouseleave"
-								:condition-hide-date-picker-container-show />
+							<Component
+								:is="dateMode"
+								v-model:value="formatValue"
+								:disabledDate
+								:month
+								:year
+								:mode-arr
+								@month-change="monthChange"
+								@set-month="setMonth"
+								@set-year="setYear"
+								@year-change="yearChange"
+								@mouseenter="mouseenter"
+								@mouseleave="mouseleave"
+								:condition-hide-date-picker-container-show
+							/>
 						</div>
 					</div>
 					<div class="dd-picker-time-panel" v-if="showTime">
@@ -457,20 +498,40 @@ defineExpose({
 							</div>
 						</div>
 						<div class="dd-picker-content">
-							<Time ref="hour" type="hour" :step="timeAttr.hourStep" v-model:value="timeValue"
+							<Time
+								ref="hour"
+								type="hour"
+								:step="timeAttr.hourStep"
+								v-model:value="timeValue"
 								:disabled-time="disabledHours()"
-								:hide-disabled-options="showTimeInfo?.hideDisabledOptions" @click="changeFormat" />
-							<Time ref="minute" type="minute" :step="timeAttr.minuteStep" v-model:value="timeValue"
+								:hide-disabled-options="showTimeInfo?.hideDisabledOptions"
+								@click="changeFormat"
+							/>
+							<Time
+								ref="minute"
+								type="minute"
+								:step="timeAttr.minuteStep"
+								v-model:value="timeValue"
 								:disabled-time="disabledMinutes(timeInfo.hour)"
-								:hide-disabled-options="showTimeInfo?.hideDisabledOptions" @click="changeFormat" />
-							<Time ref="second" type="second" :step="timeAttr.secondStep" v-model:value="timeValue"
+								:hide-disabled-options="showTimeInfo?.hideDisabledOptions"
+								@click="changeFormat"
+							/>
+							<Time
+								ref="second"
+								type="second"
+								:step="timeAttr.secondStep"
+								v-model:value="timeValue"
 								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
-								:hide-disabled-options="showTimeInfo?.hideDisabledOptions" @click="changeFormat" />
+								:hide-disabled-options="showTimeInfo?.hideDisabledOptions"
+								@click="changeFormat"
+							/>
 						</div>
 					</div>
 				</div>
-				<div :class="['dd-picker-footer', { 'dd-picker-ranges': showTime }]"
-					v-if="showTime || activeMode === 'date'">
+				<div
+					:class="['dd-picker-footer', { 'dd-picker-ranges': showTime }]"
+					v-if="showTime || activeMode === 'date'"
+				>
 					<div class="dd-picker-footer-extra" v-if="$slots.renderExtraFooter">
 						<slot name="renderExtraFooter" />
 					</div>

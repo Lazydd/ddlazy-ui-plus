@@ -10,7 +10,8 @@ defineOptions({
 });
 
 let flag = 0;
-const { defaultExpandAll, expandedKeys, treeData, autoExpandParent, fieldNames } = defineProps(treeProps);
+const { defaultExpandAll, expandedKeys, treeData, autoExpandParent, fieldNames } =
+	defineProps(treeProps);
 const emit = defineEmits<{
 	select: [selectedKeys: (number | string)[], e: { node: any }];
 	expand: [expandedKeys: (number | string)[], e: { expand: boolean; node: any }];
@@ -42,38 +43,38 @@ const treeMap = computed<Map<string | number, TreeNodeType>>(() => {
 	dfs(treeDataForamt.value);
 	return map;
 });
-const fieldNamesValue = computed(() => fieldNames)
-const ModelselectedKeys = defineModel<TreeProps['selectedKeys']>('selectedKeys')
+const fieldNamesValue = computed(() => fieldNames);
+const ModelselectedKeys = defineModel<TreeProps['selectedKeys']>('selectedKeys');
 const selectedKeysMap = computed({
 	get() {
-		const map = new Map()
-		ModelselectedKeys.value?.forEach(v => {
-			map.set(v, treeMap.value.get(v))
-		})
-		return map
+		const map = new Map();
+		ModelselectedKeys.value?.forEach((v) => {
+			map.set(v, treeMap.value.get(v));
+		});
+		return map;
 	},
 	set(value) {
-		ModelselectedKeys.value = Array.from(value.values())
-	}
-})
-const ModelcheckedKeys = defineModel<TreeProps['checkedKeys']>('checkedKeys')
+		ModelselectedKeys.value = Array.from(value.values());
+	},
+});
+const ModelcheckedKeys = defineModel<TreeProps['checkedKeys']>('checkedKeys');
 const checkedKeysSet = computed({
 	get() {
-		return new Set(ModelcheckedKeys.value)
+		return new Set(ModelcheckedKeys.value);
 	},
 	set(value) {
-		ModelcheckedKeys.value = Array.from(value)
-	}
-})
-const ModelexpandedKeys = defineModel<TreeProps['expandedKeys']>('expandedKeys')
+		ModelcheckedKeys.value = Array.from(value);
+	},
+});
+const ModelexpandedKeys = defineModel<TreeProps['expandedKeys']>('expandedKeys');
 const expandedKeysSet = computed({
 	get() {
-		return new Set(ModelexpandedKeys.value)
+		return new Set(ModelexpandedKeys.value);
 	},
 	set(value) {
-		ModelexpandedKeys.value = Array.from(value)
-	}
-})
+		ModelexpandedKeys.value = Array.from(value);
+	},
+});
 
 const expandParents = () => {
 	expandedKeys?.forEach((v) => {
@@ -93,7 +94,7 @@ const expandParent = (nodes, key, path = []) => {
 			const result = expandParent(
 				node[fieldNamesValue.value.children ?? 'children'],
 				key,
-				currentPath
+				currentPath,
 			);
 			if (result) {
 				return result;
@@ -135,7 +136,7 @@ watch(
 		if (newValue) {
 			expandParents();
 		}
-	}
+	},
 );
 const formatTreeData = (data: TreeNodeType[], parent: TreeNodeType | undefined) => {
 	return data.map((item, i) => {
@@ -188,22 +189,22 @@ watch(
 	},
 	{
 		immediate: true,
-	}
+	},
 );
 
 const onCheckedNodes = (node: TreeNodeType, checked: boolean) => {
 	const keys = Array.from(checkedKeysSet.value);
-	ModelcheckedKeys.value = keys
+	ModelcheckedKeys.value = keys;
 	emit('check', keys, { checked, node });
 };
 const onExpandedNodes = (node: TreeNodeType, expand: boolean) => {
 	const keys = Array.from(expandedKeysSet.value);
-	ModelexpandedKeys.value = keys
+	ModelexpandedKeys.value = keys;
 	emit('expand', keys, { expand, node });
 };
 const onSelectNodes = (node: TreeNodeType[]) => {
 	const keys = node.map((v) => v.value);
-	ModelselectedKeys.value = keys
+	ModelselectedKeys.value = keys;
 	emit('select', keys, { node });
 };
 
@@ -251,22 +252,44 @@ defineExpose(instance);
 		<div class="dd-tree-list">
 			<div class="dd-tree-list-holder">
 				<div :class="['dd-tree-list-holder-inner', { 'dd-tree-block-node': blockNode }]">
-					<template v-if="
-						height &&
-						flattenTree.length > Math.ceil(height / virtualListOptions.itemHeight)
-					">
-
-						<UseVirtualList :list="flattenTree" :options="virtualListOptions" :height="height + 'px'"
-							style="width: 100%" ref="virtualList">
+					<template
+						v-if="
+							height &&
+							flattenTree.length > Math.ceil(height / virtualListOptions.itemHeight)
+						"
+					>
+						<UseVirtualList
+							:list="flattenTree"
+							:options="virtualListOptions"
+							:height="height + 'px'"
+							style="width: 100%"
+							ref="virtualList"
+						>
 							<template #="{ data }">
-								<TreeNode :data :tree-map :multiple :checkable :showIcon :showLine :disabled :load
-									:depTree :selectedKeys="selectedKeysMap" :checkedKeys="checkedKeysSet"
-									:expandedKeys="expandedKeysSet" :onExpandedNodes @onSelectNodes="onSelectNodes"
-									@onCheckedNodes="onCheckedNodes">
+								<TreeNode
+									:data
+									:tree-map
+									:multiple
+									:checkable
+									:showIcon
+									:showLine
+									:disabled
+									:load
+									:depTree
+									:selectedKeys="selectedKeysMap"
+									:checkedKeys="checkedKeysSet"
+									:expandedKeys="expandedKeysSet"
+									:onExpandedNodes
+									@onSelectNodes="onSelectNodes"
+									@onCheckedNodes="onCheckedNodes"
+								>
 									<template #icon="icon">
 										<slot name="icon" v-bind="icon" />
 									</template>
-									<template v-if="$slots.switcherIcon" #switcherIcon="switcherIcon">
+									<template
+										v-if="$slots.switcherIcon"
+										#switcherIcon="switcherIcon"
+									>
 										<slot name="switcherIcon" v-bind="switcherIcon" />
 									</template>
 									<template #title="title">
@@ -277,10 +300,23 @@ defineExpose(instance);
 						</UseVirtualList>
 					</template>
 					<template v-else v-for="data in flattenTree">
-						<TreeNode :data :tree-map :disabled :multiple :checkable :showIcon :showLine :load :depTree
-							:selectedKeys="selectedKeysMap" :checkedKeys="checkedKeysSet"
-							:expandedKeys="expandedKeysSet" :onExpandedNodes @onSelectNodes="onSelectNodes"
-							@onCheckedNodes="onCheckedNodes">
+						<TreeNode
+							:data
+							:tree-map
+							:disabled
+							:multiple
+							:checkable
+							:showIcon
+							:showLine
+							:load
+							:depTree
+							:selectedKeys="selectedKeysMap"
+							:checkedKeys="checkedKeysSet"
+							:expandedKeys="expandedKeysSet"
+							:onExpandedNodes
+							@onSelectNodes="onSelectNodes"
+							@onCheckedNodes="onCheckedNodes"
+						>
 							<template #icon="icon">
 								<slot name="icon" v-bind="icon" />
 							</template>

@@ -16,7 +16,8 @@ defineOptions({
 });
 
 const modelValue = defineModel<SelectProps['value']>('value');
-const { options, maxTagCount, multiple, disabled, showSearch, filterOption } = defineProps(selectProps);
+const { options, maxTagCount, multiple, disabled, showSearch, filterOption } =
+	defineProps(selectProps);
 const emit = defineEmits<{
 	change: [value: SelectProps['value']];
 	select: [value: SelectProps['value'], item: SelectOptionsType];
@@ -55,7 +56,7 @@ const count = computed(() => {
 	}
 });
 const maxCountSelect = computed(() =>
-	select.value.slice(0, (maxTagCount ?? 0) >= 0 ? maxTagCount : undefined)
+	select.value.slice(0, (maxTagCount ?? 0) >= 0 ? maxTagCount : undefined),
 );
 
 const selectItemClick = (item) => {
@@ -72,7 +73,7 @@ const selectItemClick = (item) => {
 		label.value = item.label ?? item.value;
 		selectDropdownShow.value = false;
 		if (modelValue.value === item.value) return;
-		modelValue.value = item.value
+		modelValue.value = item.value;
 	}
 };
 
@@ -124,13 +125,13 @@ watch(
 	() => modelValue.value,
 	() => {
 		init();
-	}
+	},
 );
 watch(
 	() => options,
 	() => {
 		filterOptions.value = options;
-	}
+	},
 );
 watch(
 	() => selectDropdownShow.value,
@@ -141,14 +142,14 @@ watch(
 			searchValue.value = null;
 		}
 		emit('dropdown-visible-change', selectDropdownShow.value);
-	}
+	},
 );
 
 watch(
 	() => modelValue.value,
 	(value) => {
 		emit('change', value);
-	}
+	},
 );
 
 const handleInput = async (e: InputEvent) => {
@@ -170,18 +171,18 @@ const handleInput = async (e: InputEvent) => {
 
 const clear = () => {
 	if (disabled) return;
-	modelValue.value = multiple ? [] : ''
+	modelValue.value = multiple ? [] : '';
 	emit('clear');
 };
 
 const showPlaceholder = computed(() =>
-	showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible'
+	showSearch && selectDropdownShow.value && searchValue.value ? 'hidden' : 'visible',
 );
 const showPlaceholder2 = computed(() =>
-	!multiple ? !(label.value || modelValue.value) : !select.value.length
+	!multiple ? !(label.value || modelValue.value) : !select.value.length,
 );
 const passwordIcon = computed(() =>
-	showSearch && selectDropdownShow.value ? Search : slots.suffixIcon ?? Arrow
+	showSearch && selectDropdownShow.value ? Search : (slots.suffixIcon ?? Arrow),
 );
 </script>
 

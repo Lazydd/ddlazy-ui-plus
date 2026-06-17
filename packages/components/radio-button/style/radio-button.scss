@@ -14,7 +14,11 @@
 	border-inline-start-width: 0;
 	border-inline-end-width: 1px;
 	cursor: pointer;
-	transition: color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+	transition:
+		color 0.2s,
+		background 0.2s,
+		border-color 0.2s,
+		box-shadow 0.2s;
 	input {
 		width: 0;
 		height: 0;

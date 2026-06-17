@@ -1,5 +1,5 @@
 import type { ExtractPropTypes, PropType } from 'vue';
-import type { ButtonProps } from '../button/types'
+import type { ButtonProps } from '../button/types';
 import type { ButtonType } from '../button/types';
 
 export const modalProps = {
@@ -39,15 +39,15 @@ export const modalProps = {
 	},
 	cancelText: {
 		type: String,
-		default: '取消'
+		default: '取消',
 	},
 	okText: {
 		type: String,
-		default: '确定'
+		default: '确定',
 	},
 	okType: {
 		type: String as PropType<ButtonType>,
-		default: 'primary'
+		default: 'primary',
 	},
 	width: {
 		type: [String, Number] as PropType<string | number>,
@@ -55,11 +55,11 @@ export const modalProps = {
 	},
 	wrapClassName: {
 		type: String,
-		default: ''
+		default: '',
 	},
 	bodyStyle: {
 		type: Object,
-		default: () => ({})
+		default: () => ({}),
 	},
 	okButtonProps: {
 		type: Object as PropType<Partial<ButtonProps>>,
@@ -68,16 +68,16 @@ export const modalProps = {
 		type: Object as PropType<Partial<ButtonProps>>,
 	},
 	content: {
-		type: String
+		type: String,
 	},
 	containerElement: {
 		type: Function as PropType<() => HTMLElement>,
-		default: () => document.body
+		default: () => document.body,
 	},
 	getContainer: {
 		type: Function as PropType<() => HTMLElement>,
-		default: () => document.body
-	}
+		default: () => document.body,
+	},
 } as const;
 
 export type ModalProps = ExtractPropTypes<typeof modalProps>;

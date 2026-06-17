@@ -41,7 +41,7 @@ export const inputNumberProps = {
 	controls: {
 		type: Boolean,
 		default: true,
-	}
+	},
 } as const;
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;

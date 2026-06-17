@@ -16,7 +16,7 @@ const props = withDefaults(
 		step: 1,
 		disabledTime: () => [],
 		hideDisabledOptions: false,
-	}
+	},
 );
 const emit = defineEmits<{
 	click: [value: string, type: string];

@@ -3,13 +3,18 @@ import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 import { useCalendar } from '../../utils/hook';
 
-const { month = dayjs().month(), year = dayjs().year(), disabledDate, conditionHideDatePickerContainerShow } = defineProps<{
+const {
+	month = dayjs().month(),
+	year = dayjs().year(),
+	disabledDate,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
 	value: any;
 	month?: number;
 	year?: number;
 	disabledDate: Function;
 	conditionHideDatePickerContainerShow: Function;
-}>()
+}>();
 
 const emit = defineEmits<{
 	'month-change': [value: number];
@@ -56,26 +61,38 @@ const mouseenter = (date: Dayjs) => {
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="week in dateInfo.dates" :class="[
-				'dd-picker-week-panel-row',
-				{
-					'dd-picker-week-panel-row-selected': dateValue
-						? dayjs(dateValue).isSame(week[0].date, 'w')
-						: false,
-				},
-			]">
-				<td :class="['dd-picker-cell']" @click="dateClick(week[0].date, week[0].isCurrMonth)">
+			<tr
+				v-for="week in dateInfo.dates"
+				:class="[
+					'dd-picker-week-panel-row',
+					{
+						'dd-picker-week-panel-row-selected': dateValue
+							? dayjs(dateValue).isSame(week[0].date, 'w')
+							: false,
+					},
+				]"
+			>
+				<td
+					:class="['dd-picker-cell']"
+					@click="dateClick(week[0].date, week[0].isCurrMonth)"
+				>
 					<div class="dd-picker-cell-inner">{{ dayjs(week[0].date).week() }}</div>
 				</td>
-				<td :class="[
-					'dd-picker-cell',
-					{
-						'dd-picker-cell-in-view': isCurrMonth,
-						'dd-picker-cell-today': dayjs().isSame(date, 'D'),
-						'dd-picker-cell-disabled': disabledDate(date),
-					},
-				]" v-for="{ date, isCurrMonth } in week" :key="(date as any)" :title="dayjs(date).format('YYYY-MM-DD')"
-					@click="dateClick(date, isCurrMonth)" @mouseenter="mouseenter(date)">
+				<td
+					:class="[
+						'dd-picker-cell',
+						{
+							'dd-picker-cell-in-view': isCurrMonth,
+							'dd-picker-cell-today': dayjs().isSame(date, 'D'),
+							'dd-picker-cell-disabled': disabledDate(date),
+						},
+					]"
+					v-for="{ date, isCurrMonth } in week"
+					:key="date as any"
+					:title="dayjs(date).format('YYYY-MM-DD')"
+					@click="dateClick(date, isCurrMonth)"
+					@mouseenter="mouseenter(date)"
+				>
 					<div class="dd-picker-cell-inner">{{ dayjs(date).format('D') }}</div>
 				</td>
 			</tr>

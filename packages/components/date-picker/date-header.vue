@@ -2,13 +2,19 @@
 import { computed } from 'vue';
 import dayjs from 'dayjs';
 import type { DatePickerModeType } from './types';
-const { activeMode = 'date', year = dayjs().year(), month = dayjs().month(), hiddenPrev = false, hiddenNext = false } = defineProps<{
+const {
+	activeMode = 'date',
+	year = dayjs().year(),
+	month = dayjs().month(),
+	hiddenPrev = false,
+	hiddenNext = false,
+} = defineProps<{
 	activeMode?: DatePickerModeType;
 	year?: number;
 	month?: number;
 	hiddenPrev?: boolean;
 	hiddenNext?: boolean;
-}>()
+}>();
 
 const emit = defineEmits<{
 	'year-change': [value: number];

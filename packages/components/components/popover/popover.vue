@@ -32,7 +32,7 @@ const props = withDefaults(
 		autoWidth: true,
 		padding: 12,
 		generate: false,
-	}
+	},
 );
 const emit = defineEmits<{
 	'update:visible': [value: boolean];
@@ -57,7 +57,7 @@ useEventListener(
 	'scroll',
 	useThrottleFn(() => {
 		setInset();
-	}, 150)
+	}, 150),
 );
 
 const instanceAttributes = computed(() => {

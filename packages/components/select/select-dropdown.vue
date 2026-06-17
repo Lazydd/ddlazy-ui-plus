@@ -12,7 +12,7 @@ const props = withDefaults(
 	}>(),
 	{
 		multiple: false,
-	}
+	},
 );
 
 defineEmits(['select-item-click']);

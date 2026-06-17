@@ -8,7 +8,8 @@ flex-direction: column;
 align-items: center;
 z-index: 1000;*/
 
-	transition: color 0.3s var(--demoblock-bezier) 0s,
+	transition:
+		color 0.3s var(--demoblock-bezier) 0s,
 		background-color 0.3s var(--demoblock-bezier) 0s;
 
 	z-index: 6000;
@@ -54,9 +55,13 @@ html.dark .demoblock-messages {
 .demoblock-message {
 	display: flex;
 	align-items: center;
-	transition: color 0.3s var(--demoblock-bezier), box-shadow 0.3s var(--demoblock-bezier),
-		background-color 0.3s var(--demoblock-bezier), opacity 0.3s var(--demoblock-bezier),
-		transform 0.3s var(--demoblock-bezier), margin-bottom 0.3s var(--demoblock-bezier);
+	transition:
+		color 0.3s var(--demoblock-bezier),
+		box-shadow 0.3s var(--demoblock-bezier),
+		background-color 0.3s var(--demoblock-bezier),
+		opacity 0.3s var(--demoblock-bezier),
+		transform 0.3s var(--demoblock-bezier),
+		margin-bottom 0.3s var(--demoblock-bezier);
 	padding: 10px 20px;
 	border-radius: 3px;
 	flex-wrap: nowrap;
@@ -64,7 +69,9 @@ html.dark .demoblock-messages {
 	max-width: 720px;
 	color: var(--demoblock-message-text-color);
 	background-color: var(--demoblock-message-bg-color);
-	box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+	box-shadow:
+		0 3px 6px -4px rgba(0, 0, 0, 0.12),
+		0 6px 16px 0 rgba(0, 0, 0, 0.08),
 		0 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -140,16 +147,24 @@ html.dark .demoblock-messages {
 
 .demoblock-fade-transition-leave-active {
 	overflow: visible;
-	transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-		opacity 0.3s var(--demoblock-bezier) 0s, margin-top 0.3s var(--demoblock-bezier) 0s,
-		margin-bottom 0.3s var(--demoblock-bezier) 0s, padding-top 0.3s var(--demoblock-bezier) 0s,
-		padding-bottom 0.3s var(--demoblock-bezier) 0s, transform 0.3s var(--demoblock-bezier);
+	transition:
+		max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+		opacity 0.3s var(--demoblock-bezier) 0s,
+		margin-top 0.3s var(--demoblock-bezier) 0s,
+		margin-bottom 0.3s var(--demoblock-bezier) 0s,
+		padding-top 0.3s var(--demoblock-bezier) 0s,
+		padding-bottom 0.3s var(--demoblock-bezier) 0s,
+		transform 0.3s var(--demoblock-bezier);
 }
 
 .demoblock-fade-transition-enter-active {
 	overflow: visible;
-	transition: max-height 0.3s var(--demoblock-bezier), opacity 0.3s cubic-bezier(0.4, 0, 1, 1),
-		margin-top 0.3s var(--demoblock-bezier), margin-bottom 0.3s var(--demoblock-bezier),
-		padding-top 0.3s var(--demoblock-bezier), padding-bottom 0.3s var(--demoblock-bezier),
+	transition:
+		max-height 0.3s var(--demoblock-bezier),
+		opacity 0.3s cubic-bezier(0.4, 0, 1, 1),
+		margin-top 0.3s var(--demoblock-bezier),
+		margin-bottom 0.3s var(--demoblock-bezier),
+		padding-top 0.3s var(--demoblock-bezier),
+		padding-bottom 0.3s var(--demoblock-bezier),
 		transform 0.3s var(--demoblock-bezier);
 }

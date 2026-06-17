@@ -2,13 +2,19 @@
 import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
-const { value, month = dayjs().month(), year = dayjs().year(), modeArr, conditionHideDatePickerContainerShow } = defineProps<{
+const {
+	value,
+	month = dayjs().month(),
+	year = dayjs().year(),
+	modeArr,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
 	value: any;
 	month?: number;
 	year?: number;
 	modeArr: string[];
 	conditionHideDatePickerContainerShow: Function;
-}>()
+}>();
 
 const emit = defineEmits<{
 	'year-change': [value: number];
@@ -57,18 +63,23 @@ const mouseenter = (date: Dayjs) => {
 	<table class="dd-picker-content">
 		<tbody>
 			<tr v-for="year in dateInfo">
-				<td :class="[
-					'dd-picker-cell',
+				<td
+					:class="[
+						'dd-picker-cell',
 
-					{
-						'dd-picker-cell-in-view': isCurrYear,
-						'dd-picker-cell-selected': dateValue
-							? dayjs(dateValue).isSameOrAfter(dayjs(date), 'y') &&
-							dayjs(dateValue).isSameOrBefore(dayjs(date).add(9, 'y'), 'y')
-							: false,
-					},
-				]" v-for="{ date, isCurrYear } in year" :key="date" @click="dateClick(date, isCurrYear)"
-					@mouseenter="mouseenter(date)">
+						{
+							'dd-picker-cell-in-view': isCurrYear,
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSameOrAfter(dayjs(date), 'y') &&
+									dayjs(dateValue).isSameOrBefore(dayjs(date).add(9, 'y'), 'y')
+								: false,
+						},
+					]"
+					v-for="{ date, isCurrYear } in year"
+					:key="date"
+					@click="dateClick(date, isCurrYear)"
+					@mouseenter="mouseenter(date)"
+				>
 					<div class="dd-picker-cell-inner">
 						{{ dayjs(date).format('YYYY').replace(/^0+/, '') || 0 }}-{{
 							dayjs(date).add(9, 'y').format('YYYY').replace(/^0+/, '') || 0

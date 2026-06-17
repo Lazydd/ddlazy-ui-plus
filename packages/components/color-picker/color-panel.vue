@@ -52,7 +52,7 @@ const hexToRgb = (hex: string): [number, number, number] | null => {
 				parseInt(result[1], 16) / 255,
 				parseInt(result[2], 16) / 255,
 				parseInt(result[3], 16) / 255,
-		  ]
+			]
 		: null;
 };
 
@@ -72,7 +72,7 @@ watch(
 		if (newColor !== currentColorHex.value) {
 			initColor(newColor);
 		}
-	}
+	},
 );
 
 const currentColor = computed(() => {
@@ -344,7 +344,9 @@ onUnmounted(() => {
 			height: 16px;
 			border: 2px solid var(--dd-color-picker-handler-color);
 			border-radius: 50%;
-			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+			box-shadow:
+				0 10px 15px -3px rgba(0, 0, 0, 0.1),
+				0 4px 6px -2px rgba(0, 0, 0, 0.05);
 			transform: translate(-50%, -50%);
 		}
 	}
@@ -387,7 +389,9 @@ onUnmounted(() => {
 		border: 2px solid var(--dd-color-picker-handler-color);
 		border-radius: 50%;
 		transform: translate(-6px, -2px);
-		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	}
 	.dd-color-picker-slider-hue {
 		position: relative;

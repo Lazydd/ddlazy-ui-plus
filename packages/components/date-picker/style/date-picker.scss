@@ -10,7 +10,9 @@
 	align-items: center;
 	border: 1px solid var(--dd-border-color);
 	border-radius: 6px;
-	transition: border 0.2s, box-shadow 0.2s;
+	transition:
+		border 0.2s,
+		box-shadow 0.2s;
 	width: fit-content;
 	&:hover {
 		border-color: var(--dd-border-hover-color);
@@ -92,7 +94,9 @@
 	transform: translateY(-50%);
 	cursor: pointer;
 	opacity: 0;
-	transition: opacity 0.2s, color 0.2s;
+	transition:
+		opacity 0.2s,
+		color 0.2s;
 	height: 14px;
 	&:hover {
 		color: rgba(0, 0, 0, 0.45);
@@ -208,7 +212,9 @@
 			height: 24px;
 			line-height: 24px;
 			border-radius: 4px;
-			transition: background 0.2s, border 0.2s;
+			transition:
+				background 0.2s,
+				border 0.2s;
 		}
 		&.dd-picker-cell-selected {
 			.dd-picker-cell-inner {

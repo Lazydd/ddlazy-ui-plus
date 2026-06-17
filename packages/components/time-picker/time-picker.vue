@@ -93,7 +93,7 @@ const setNowDisabled = computed(
 	() =>
 		disabledHours().includes(dayjs().hour()) ||
 		disabledMinutes(timeInfo.value.hour).includes(dayjs().minute()) ||
-		disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(dayjs().second())
+		disabledSeconds(timeInfo.value.hour, timeInfo.value.minute).includes(dayjs().second()),
 );
 const setNow = () => {
 	if (setNowDisabled.value) {
@@ -126,38 +126,75 @@ watch(
 	() => timePickerContainerShow.value,
 	() => {
 		emit('openChange', timePickerContainerShow.value);
-	}
+	},
 );
 </script>
 
 <template>
-	<div :class="[
-		'dd-time-picker',
-		size,
-		{
-			'dd-picker-focused': timePickerContainerShow,
-			'dd-picker-disabled': disabled,
-			'dd-picker-borderless': !bordered,
-		},
-	]" ref="timePicker" @click="timePickerClick">
-		<TimeInput ref="timePickerInput" :formatShow :formatValue :disabled :placeholder :allowClear :readonly
-			@clearClick="clearClick">
+	<div
+		:class="[
+			'dd-time-picker',
+			size,
+			{
+				'dd-picker-focused': timePickerContainerShow,
+				'dd-picker-disabled': disabled,
+				'dd-picker-borderless': !bordered,
+			},
+		]"
+		ref="timePicker"
+		@click="timePickerClick"
+	>
+		<TimeInput
+			ref="timePickerInput"
+			:formatShow
+			:formatValue
+			:disabled
+			:placeholder
+			:allowClear
+			:readonly
+			@clearClick="clearClick"
+		>
 			<slot name="suffixIcon" v-if="$slots.suffixIcon" />
 		</TimeInput>
 		<Teleport to="body">
-			<Popover v-if="timePickerRef" v-model:visible="timePickerContainerShow" :instance="timePickerRef"
-				:arrow="false" :padding="0" @outSideClick="outSideClick">
+			<Popover
+				v-if="timePickerRef"
+				v-model:visible="timePickerContainerShow"
+				:instance="timePickerRef"
+				:arrow="false"
+				:padding="0"
+				@outSideClick="outSideClick"
+			>
 				<div class="dd-picker-panel">
 					<div class="dd-picker-time-panel">
 						<div class="dd-picker-content">
-							<Time ref="hour" type="hour" :step="hourStep" v-model:value="timeValue"
-								:disabled-time="disabledHours()" :hide-disabled-options @click="changeFormat" />
-							<Time ref="minute" type="minute" :step="minuteStep" v-model:value="timeValue"
-								:disabled-time="disabledMinutes(timeInfo.hour)" :hide-disabled-options
-								@click="changeFormat" />
-							<Time ref="second" type="second" :step="secondStep" v-model:value="timeValue"
-								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)" :hide-disabled-options
-								@click="changeFormat" />
+							<Time
+								ref="hour"
+								type="hour"
+								:step="hourStep"
+								v-model:value="timeValue"
+								:disabled-time="disabledHours()"
+								:hide-disabled-options
+								@click="changeFormat"
+							/>
+							<Time
+								ref="minute"
+								type="minute"
+								:step="minuteStep"
+								v-model:value="timeValue"
+								:disabled-time="disabledMinutes(timeInfo.hour)"
+								:hide-disabled-options
+								@click="changeFormat"
+							/>
+							<Time
+								ref="second"
+								type="second"
+								:step="secondStep"
+								v-model:value="timeValue"
+								:disabled-time="disabledSeconds(timeInfo.hour, timeInfo.minute)"
+								:hide-disabled-options
+								@click="changeFormat"
+							/>
 						</div>
 					</div>
 					<div class="dd-picker-footer">
@@ -166,15 +203,23 @@ watch(
 						</div>
 						<ul class="dd-picker-ranges">
 							<li class="dd-picker-now" v-if="showNow">
-								<span :class="[
-									'dd-picker-now-btn',
-									{ 'dd-picker-now-btn-disabled': setNowDisabled },
-								]" @click="setNow">
+								<span
+									:class="[
+										'dd-picker-now-btn',
+										{ 'dd-picker-now-btn-disabled': setNowDisabled },
+									]"
+									@click="setNow"
+								>
 									此刻
 								</span>
 							</li>
 							<li class="dd-picker-ok">
-								<dd-button type="primary" :disabled="!timeValue" size="small" @click="ok">
+								<dd-button
+									type="primary"
+									:disabled="!timeValue"
+									size="small"
+									@click="ok"
+								>
 									确定
 								</dd-button>
 							</li>

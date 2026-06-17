@@ -7,26 +7,31 @@ defineOptions({
 });
 
 const { disabled } = defineProps(radioButtonProps);
-const modelChecked = defineModel<RadioButtonProps['checked']>('checked')
+const modelChecked = defineModel<RadioButtonProps['checked']>('checked');
 
 const radioClick = () => {
 	if (disabled || modelChecked) return;
-	modelChecked.value = true
+	modelChecked.value = true;
 };
 </script>
 
 <template>
-	<label :class="[
-		'dd-radio-button-wrapper',
-		{
-			'dd-radio-button-wrapper-disabled': disabled,
-			'dd-radio-button-wrapper-checked': modelChecked,
-		},
-	]" @click.stop="radioClick">
-		<span :class="[
-			'dd-radio-button',
-			{ 'dd-radio-button-checked': modelChecked, 'dd-radio-disabled': disabled },
-		]">
+	<label
+		:class="[
+			'dd-radio-button-wrapper',
+			{
+				'dd-radio-button-wrapper-disabled': disabled,
+				'dd-radio-button-wrapper-checked': modelChecked,
+			},
+		]"
+		@click.stop="radioClick"
+	>
+		<span
+			:class="[
+				'dd-radio-button',
+				{ 'dd-radio-button-checked': modelChecked, 'dd-radio-disabled': disabled },
+			]"
+		>
 			<input type="radio" class="dd-radio-input" :disabled :value :checked="modelChecked" />
 			<span class="dd-radio-button-inner" />
 		</span>

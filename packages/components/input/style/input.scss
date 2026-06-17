@@ -54,7 +54,7 @@
 		line-height: 1.5;
 		background-color: var(--dd-input-background-color);
 		background-image: none;
-		border:1px solid var(--dd-input-border-color);
+		border: 1px solid var(--dd-input-border-color);
 		border-radius: var(--dd-radius-size);
 		transition: all 0.2s;
 		&:hover:not([disabled]) {
@@ -94,7 +94,9 @@
 			background-color: var(--dd-input-background-color);
 			padding: 4px 11px;
 			min-height: 32px;
-			transition: all 0.3s, height 0s;
+			transition:
+				all 0.3s,
+				height 0s;
 			resize: vertical;
 			border-radius: var(--dd-radius-size);
 			min-height: 32px;

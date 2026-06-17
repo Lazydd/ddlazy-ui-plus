@@ -80,7 +80,8 @@
 		background-color: var(--dd-inner-background-color);
 		background-clip: padding-box;
 		border-radius: 8px;
-		box-shadow: 0 6px 16px 0 var(--dd-arrow-inner-color-2),
+		box-shadow:
+			0 6px 16px 0 var(--dd-arrow-inner-color-2),
 			0 3px 6px -4px var(--dd-arrow-inner-color-3),
 			0 9px 28px 8px var(--dd-arrow-inner-color-1);
 	}

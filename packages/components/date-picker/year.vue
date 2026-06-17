@@ -2,14 +2,20 @@
 import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
-const { month = dayjs().month(), year = dayjs().year(), modeArr, disabledDate, conditionHideDatePickerContainerShow } = defineProps<{
+const {
+	month = dayjs().month(),
+	year = dayjs().year(),
+	modeArr,
+	disabledDate,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
 	value: any;
 	month?: number;
 	year?: number;
 	modeArr: string[];
 	disabledDate: Function;
 	conditionHideDatePickerContainerShow: Function;
-}>()
+}>();
 
 const emit = defineEmits<{
 	'year-change': [value: number];
@@ -62,18 +68,24 @@ const mouseenter = (date: Dayjs) => {
 	<table class="dd-picker-content">
 		<tbody>
 			<tr v-for="year in dateInfo">
-				<td :class="[
-					'dd-picker-cell',
+				<td
+					:class="[
+						'dd-picker-cell',
 
-					{
-						'dd-picker-cell-in-view': isCurrYear,
-						'dd-picker-cell-selected': dateValue
-							? dayjs(dateValue).isSame(dayjs(date), 'y')
-							: false,
-						'dd-picker-cell-disabled': disabledDate(date),
-					},
-				]" v-for="{ date, isCurrYear, format } in year" :key="date" :title="dayjs(date).format(format)"
-					@click="dateClick(date, isCurrYear)" @mouseenter="mouseenter(date)">
+						{
+							'dd-picker-cell-in-view': isCurrYear,
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSame(dayjs(date), 'y')
+								: false,
+							'dd-picker-cell-disabled': disabledDate(date),
+						},
+					]"
+					v-for="{ date, isCurrYear, format } in year"
+					:key="date"
+					:title="dayjs(date).format(format)"
+					@click="dateClick(date, isCurrYear)"
+					@mouseenter="mouseenter(date)"
+				>
 					<div class="dd-picker-cell-inner">
 						{{ dayjs(date).format(format)?.replace(/^0+/, '') || 0 }}
 						<!-- 此处需要去除开头的0 -->

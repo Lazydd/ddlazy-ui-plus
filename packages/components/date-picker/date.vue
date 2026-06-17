@@ -2,14 +2,20 @@
 import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 import { useCalendar } from '../../utils/hook';
-const { month = dayjs().month(), year = dayjs().year(), multiple = false, disabledDate, conditionHideDatePickerContainerShow } = defineProps<{
+const {
+	month = dayjs().month(),
+	year = dayjs().year(),
+	multiple = false,
+	disabledDate,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
 	value: any;
 	month?: number;
 	year?: number;
 	multiple?: boolean;
 	disabledDate: Function;
 	conditionHideDatePickerContainerShow: Function;
-}>()
+}>();
 
 const emit = defineEmits<{
 	click: [value: Dayjs];
@@ -57,18 +63,24 @@ const mouseenter = (date: Dayjs) => {
 		</thead>
 		<tbody>
 			<tr v-for="week in dateInfo.dates">
-				<td :class="[
-					'dd-picker-cell',
-					{
-						'dd-picker-cell-in-view': isCurrMonth,
-						'dd-picker-cell-today': dayjs().isSame(date, 'D'),
-						'dd-picker-cell-selected': dateValue
-							? dayjs(dateValue).isSame(date, 'D')
-							: false,
-						'dd-picker-cell-disabled': disabledDate(date),
-					},
-				]" v-for="{ date, isCurrMonth } in week" :key="(date as any)" :title="dayjs(date).format('YYYY-MM-DD')"
-					@click="dateClick(date, isCurrMonth)" @mouseenter="mouseenter(date)">
+				<td
+					:class="[
+						'dd-picker-cell',
+						{
+							'dd-picker-cell-in-view': isCurrMonth,
+							'dd-picker-cell-today': dayjs().isSame(date, 'D'),
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSame(date, 'D')
+								: false,
+							'dd-picker-cell-disabled': disabledDate(date),
+						},
+					]"
+					v-for="{ date, isCurrMonth } in week"
+					:key="date as any"
+					:title="dayjs(date).format('YYYY-MM-DD')"
+					@click="dateClick(date, isCurrMonth)"
+					@mouseenter="mouseenter(date)"
+				>
 					<div class="dd-picker-cell-inner">{{ dayjs(date).format('D') }}</div>
 				</td>
 			</tr>

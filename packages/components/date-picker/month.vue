@@ -2,14 +2,20 @@
 import { computed } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
 
-const { month = dayjs().month(), year = dayjs().year(), modeArr, disabledDate, conditionHideDatePickerContainerShow } = defineProps<{
+const {
+	month = dayjs().month(),
+	year = dayjs().year(),
+	modeArr,
+	disabledDate,
+	conditionHideDatePickerContainerShow,
+} = defineProps<{
 	value: any;
 	month?: number;
 	year?: number;
 	modeArr: string[];
 	disabledDate: Function;
 	conditionHideDatePickerContainerShow: Function;
-}>()
+}>();
 
 const emit = defineEmits<{
 	'set-month': [value: number];
@@ -44,17 +50,23 @@ const mouseenter = (date: Dayjs) => {
 	<table class="dd-picker-content">
 		<tbody>
 			<tr v-for="month in dateInfo">
-				<td :class="[
-					'dd-picker-cell',
-					'dd-picker-cell-in-view',
-					{
-						'dd-picker-cell-selected': dateValue
-							? dayjs(dateValue).isSame(dayjs(date), 'M')
-							: false,
-						'dd-picker-cell-disabled': disabledDate(date),
-					},
-				]" v-for="{ date } in month" :key="date" :title="dayjs(date).format('YYYY-MM')" @click="dateClick(date)"
-					@mouseenter="mouseenter(date)">
+				<td
+					:class="[
+						'dd-picker-cell',
+						'dd-picker-cell-in-view',
+						{
+							'dd-picker-cell-selected': dateValue
+								? dayjs(dateValue).isSame(dayjs(date), 'M')
+								: false,
+							'dd-picker-cell-disabled': disabledDate(date),
+						},
+					]"
+					v-for="{ date } in month"
+					:key="date"
+					:title="dayjs(date).format('YYYY-MM')"
+					@click="dateClick(date)"
+					@mouseenter="mouseenter(date)"
+				>
 					<div class="dd-picker-cell-inner">{{ dayjs(date).format('M') }}月</div>
 				</td>
 			</tr>

@@ -25,7 +25,7 @@ defineOptions({
 });
 
 const { presets, color, format, disabled } = defineProps(colorPickerProps);
-const modelValue = defineModel<ColorPickerProps['value']>('value')
+const modelValue = defineModel<ColorPickerProps['value']>('value');
 
 const emit = defineEmits<{
 	(e: 'change', value: string): void;
@@ -182,7 +182,7 @@ const formatOutputColor = (color: string, alphaValue: number): string => {
 
 const selectColor = (color: string) => {
 	const outputColor = formatOutputColor(color, alpha.value);
-	modelValue.value = outputColor
+	modelValue.value = outputColor;
 	emit('change', outputColor);
 };
 
@@ -191,7 +191,7 @@ const selectColor = (color: string) => {
 const onHexInput = (input: string) => {
 	if (/^#[0-9A-Fa-f]{6}$/.test(input)) {
 		const outputColor = formatOutputColor(input, alpha.value);
-		modelValue.value = outputColor
+		modelValue.value = outputColor;
 		emit('change', outputColor);
 	}
 };
@@ -205,7 +205,7 @@ const onRgbInput = (index: number, newValue: number) => {
 	rgb[index] = newValue;
 	const hex = rgbToHex(...(rgb as [number, number, number]));
 	const outputColor = formatOutputColor(hex, alpha.value);
-	modelValue.value = outputColor
+	modelValue.value = outputColor;
 	emit('change', outputColor);
 };
 
@@ -220,7 +220,7 @@ const onHslInput = (index: number, newValue: number) => {
 	const rgb = hslToRgb(...(hsl as [number, number, number]));
 	const hex = rgbToHex(...rgb);
 	const outputColor = formatOutputColor(hex, alpha.value);
-	modelValue.value = outputColor
+	modelValue.value = outputColor;
 	emit('change', outputColor);
 };
 
@@ -230,7 +230,7 @@ const onColorChange = (color: string) => {
 		alpha.value = 100;
 	}
 	const outputColor = formatOutputColor(color, alpha.value);
-	modelValue.value = outputColor
+	modelValue.value = outputColor;
 	emit('change', outputColor);
 };
 const clearable = ref(false);
@@ -239,7 +239,7 @@ const clear = () => {
 	alpha.value = 0;
 	clearable.value = true;
 	const outputColor = formatOutputColor(displayColor.value, 0);
-	modelValue.value = outputColor
+	modelValue.value = outputColor;
 	emit('change', outputColor);
 	colorPickerContainerShow.value = false;
 };
@@ -253,8 +253,12 @@ const colorClick = () => {
 </script>
 
 <template>
-	<div :class="[size, 'dd-color-picker-container']" :style="{ cursor: disabled ? 'not-allowed' : 'pointer' }"
-		ref="colorPicker" @click="colorClick">
+	<div
+		:class="[size, 'dd-color-picker-container']"
+		:style="{ cursor: disabled ? 'not-allowed' : 'pointer' }"
+		ref="colorPicker"
+		@click="colorClick"
+	>
 		<div class="dd-color-picker-operation" v-if="clearable">
 			<div class="dd-color-picker-clear" />
 		</div>
@@ -262,29 +266,52 @@ const colorClick = () => {
 			<slot>
 				<div class="dd-color-picker">
 					<div class="dd-color-picker-trigger">
-						<div class="dd-color-picker-inner"
-							:style="{ background: displayColor, opacity: Number(alpha) / 100 }" />
+						<div
+							class="dd-color-picker-inner"
+							:style="{ background: displayColor, opacity: Number(alpha) / 100 }"
+						/>
 					</div>
 				</div>
 			</slot>
 		</template>
 		<Teleport to="body">
-			<Popover v-if="colorPickerRef" v-model:visible="colorPickerContainerShow" :instance="colorPickerRef">
+			<Popover
+				v-if="colorPickerRef"
+				v-model:visible="colorPickerContainerShow"
+				:instance="colorPickerRef"
+			>
 				<div class="dd-color-picker-inner-content">
 					<div class="dd-color-picker-operation" v-if="allowClear">
 						<div class="dd-color-picker-clear" @click="clear" />
 					</div>
-					<color-panel v-model:alpha="alpha" :model-value="value" :disabledAlpha @change="onColorChange" />
+					<color-panel
+						v-model:alpha="alpha"
+						:model-value="value"
+						:disabledAlpha
+						@change="onColorChange"
+					/>
 					<div class="dd-color-picker-input-container">
-						<dd-select v-model:value="inputFormat" :bordered="false" size="small" generate autoWidth
-							:popover-width="68" :options="[
+						<dd-select
+							v-model:value="inputFormat"
+							:bordered="false"
+							size="small"
+							generate
+							autoWidth
+							:popover-width="68"
+							:options="[
 								{ label: 'HEX', value: 'hex' },
 								{ label: 'HSL', value: 'hsl' },
 								{ label: 'RGB', value: 'rgb' },
-							]" />
+							]"
+						/>
 
 						<div class="dd-color-picker-input" v-if="inputFormat === 'hex'">
-							<dd-input :maxlength="6" v-model:value="hexValue" size="small" @change="onHexInput">
+							<dd-input
+								:maxlength="6"
+								v-model:value="hexValue"
+								size="small"
+								@change="onHexInput"
+							>
 								<template #prefix>
 									<div>#</div>
 								</template>
@@ -293,26 +320,61 @@ const colorClick = () => {
 
 						<template v-if="inputFormat === 'rgb'">
 							<template v-for="(value, index) in rgbValues" :key="index">
-								<dd-input-number :max="359" :min="0" :step="1" :value="value" size="small"
-									@change="onRgbInput(index, $event)" />
+								<dd-input-number
+									:max="359"
+									:min="0"
+									:step="1"
+									:value="value"
+									size="small"
+									@change="onRgbInput(index, $event)"
+								/>
 							</template>
 						</template>
 
 						<template v-if="inputFormat === 'hsl'">
-							<dd-input-number :max="360" :min="0" :step="1" :value="hslValues[0]" size="small"
-								@change="onHslInput(0, $event)" />
-							<dd-input-number :max="100" :min="0" :step="1" :value="hslValues[1]" size="small"
-								@change="onHslInput(1, $event)" />
-							<dd-input-number :max="100" :min="0" :step="1" :value="hslValues[2]" size="small"
-								@change="onHslInput(2, $event)" />
+							<dd-input-number
+								:max="360"
+								:min="0"
+								:step="1"
+								:value="hslValues[0]"
+								size="small"
+								@change="onHslInput(0, $event)"
+							/>
+							<dd-input-number
+								:max="100"
+								:min="0"
+								:step="1"
+								:value="hslValues[1]"
+								size="small"
+								@change="onHslInput(1, $event)"
+							/>
+							<dd-input-number
+								:max="100"
+								:min="0"
+								:step="1"
+								:value="hslValues[2]"
+								size="small"
+								@change="onHslInput(2, $event)"
+							/>
 						</template>
-						<dd-input-number v-model:value="alpha" size="small" :max="100" :min="0" :step="1"
-							:precision="2" />
+						<dd-input-number
+							v-model:value="alpha"
+							size="small"
+							:max="100"
+							:min="0"
+							:step="1"
+							:precision="2"
+						/>
 					</div>
 				</div>
 				<div class="dd-color-picker-presets-color">
-					<div v-for="color in finalPresetColors" class="dd-color-picker-color-block-inner" :key="color"
-						:style="{ backgroundColor: color }" @click="selectColor(color)" />
+					<div
+						v-for="color in finalPresetColors"
+						class="dd-color-picker-color-block-inner"
+						:key="color"
+						:style="{ backgroundColor: color }"
+						@click="selectColor(color)"
+					/>
 				</div>
 			</Popover>
 		</Teleport>

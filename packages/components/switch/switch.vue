@@ -13,9 +13,7 @@ const emit = defineEmits<{
 
 const switchClick = (e: PointerEvent) => {
 	if (disabled || loading) return;
-	const newValue = modelValue.value === checkedValue
-		? unCheckedValue
-		: checkedValue;
+	const newValue = modelValue.value === checkedValue ? unCheckedValue : checkedValue;
 	modelValue.value = newValue;
 	emit('change', modelValue.value, e);
 };

@@ -3,7 +3,19 @@ import type { TreeNodeType, SwitcherIconType } from './types';
 import { toRaw, ref } from 'vue';
 import defaultIcon from './icon/defaultIcon.vue';
 
-const { disabled = false, checkable = false, showIcon = false, multiple = false, selectedKeys, checkedKeys, expandedKeys, treeMap, depTree, load = () => { }, onExpandedNodes = () => { } } = defineProps<{
+const {
+	disabled = false,
+	checkable = false,
+	showIcon = false,
+	multiple = false,
+	selectedKeys,
+	checkedKeys,
+	expandedKeys,
+	treeMap,
+	depTree,
+	load = () => {},
+	onExpandedNodes = () => {},
+} = defineProps<{
 	data: TreeNodeType;
 	treeMap: Map<string | number, TreeNodeType>;
 	disabled?: boolean;
@@ -17,16 +29,21 @@ const { disabled = false, checkable = false, showIcon = false, multiple = false,
 	depTree: Function;
 	load?: Function;
 	onExpandedNodes?: (node: any, checked: boolean) => void;
-}>()
+}>();
 
 const emit = defineEmits<{
 	onSelectNodes: [nodes: TreeNodeType[]];
 	onCheckedNodes: [nodes: TreeNodeType, checked: boolean];
 }>();
 
-
 defineSlots<{
-	switcherIcon(props: SwitcherIconType & { title: string; data: TreeNodeType; defaultIcon: typeof defaultIcon }): any;
+	switcherIcon(
+		props: SwitcherIconType & {
+			title: string;
+			data: TreeNodeType;
+			defaultIcon: typeof defaultIcon;
+		},
+	): any;
 	icon?(props: { key: string | number; selected: boolean }): any;
 	title?(props: { data: TreeNodeType; title: string }): any;
 }>();
@@ -55,9 +72,7 @@ const handleLoadTreeData = (node: TreeNodeType) => {
 const expand = (value: string | number, node: TreeNodeType) => {
 	// if (node.disabled || props.disabled) return;
 	if (!handleLoadTreeData(node))
-		expandedKeys.has(value)
-			? expandedKeys.delete(value)
-			: expandedKeys.add(value);
+		expandedKeys.has(value) ? expandedKeys.delete(value) : expandedKeys.add(value);
 	onExpandedNodes(node, node.isChecked);
 };
 const select = (value: string | number, disabled: boolean, node: TreeNodeType) => {
@@ -122,74 +137,112 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 <template>
 	<div :class="['dd-tree-treenode', { 'dd-tree-treenode-disabled': data.disabled || disabled }]">
 		<span class="dd-tree-indent">
-			<span :class="[
-				'dd-tree-indent-unit',
-				{
-					'dd-tree-index-start': !data.line?.[i],
-				},
-			]" v-for="(v, i) in data.level" :key="v" />
+			<span
+				:class="[
+					'dd-tree-indent-unit',
+					{
+						'dd-tree-index-start': !data.line?.[i],
+					},
+				]"
+				v-for="(v, i) in data.level"
+				:key="v"
+			/>
 		</span>
-		<span v-if="!data.isLeaf || (!data.children && checkable && !showIcon)"
+		<span
+			v-if="!data.isLeaf || (!data.children && checkable && !showIcon)"
 			:class="['dd-tree-switcher', { 'dd-tree-switcher-noop': !data.children }]"
-			@click="expand(data.value, data)">
-			<svg class="dd-circular" viewBox="0 0 50 50" width="1em" height="1em" v-if="loadingKeys.has(data.value)">
+			@click="expand(data.value, data)"
+		>
+			<svg
+				class="dd-circular"
+				viewBox="0 0 50 50"
+				width="1em"
+				height="1em"
+				v-if="loadingKeys.has(data.value)"
+			>
 				<circle class="path" cx="25" cy="25" r="20" fill="none" />
 			</svg>
-			<span v-else-if="!data.isLeaf" role="img" aria-label="caret-down" :class="[
-				'anticon',
-				'dd-tree-switcher-icon',
-				{
-					'dd-tree-switcher-icon-close': $slots.switcherIcon
-						? false
-						: !expandedKeys.has(data.value),
-				},
-			]">
-				<slot name="switcherIcon" v-bind="{
-					active: expandedKeys.has(data.value),
-					key: data.value,
-					selected: selectedKeys?.has(data.value),
-					expanded: expandedKeys.has(data.value),
-					checked: checkedKeys.has(data.value),
-					switcherCls: {
-						'dd-tree-switcher-icon': true,
-						'dd-tree-switcher-icon-close': !expandedKeys.has(data.value),
+			<span
+				v-else-if="!data.isLeaf"
+				role="img"
+				aria-label="caret-down"
+				:class="[
+					'anticon',
+					'dd-tree-switcher-icon',
+					{
+						'dd-tree-switcher-icon-close': $slots.switcherIcon
+							? false
+							: !expandedKeys.has(data.value),
 					},
-					children: data.children,
-					data,
-					defaultIcon,
-					title: data.label,
-				}">
+				]"
+			>
+				<slot
+					name="switcherIcon"
+					v-bind="{
+						active: expandedKeys.has(data.value),
+						key: data.value,
+						selected: selectedKeys?.has(data.value),
+						expanded: expandedKeys.has(data.value),
+						checked: checkedKeys.has(data.value),
+						switcherCls: {
+							'dd-tree-switcher-icon': true,
+							'dd-tree-switcher-icon-close': !expandedKeys.has(data.value),
+						},
+						children: data.children,
+						data,
+						defaultIcon,
+						title: data.label,
+					}"
+				>
 					<defaultIcon />
 				</slot>
 			</span>
 		</span>
 		<span class="dd-tree-iconEle" v-if="data.isLeaf">
 			<span role="img" aria-label="file" class="anticon anticon-file" v-if="showIcon">
-				<slot name="icon" v-bind="{ key: data.value, selected: selectedKeys?.has(data.value) }">
-					<svg focusable="false" data-icon="file" width="1em" height="1em" fill="currentColor"
-						aria-hidden="true" viewBox="64 64 896 896">
+				<slot
+					name="icon"
+					v-bind="{ key: data.value, selected: selectedKeys?.has(data.value) }"
+				>
+					<svg
+						focusable="false"
+						data-icon="file"
+						width="1em"
+						height="1em"
+						fill="currentColor"
+						aria-hidden="true"
+						viewBox="64 64 896 896"
+					>
 						<path
-							d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z" />
+							d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494z"
+						/>
 					</svg>
 				</slot>
 			</span>
 		</span>
-		<span :class="[
-			'dd-tree-checkbox',
-			{
-				'dd-tree-checkbox-checked': data.isChecked,
-				'dd-tree-checkbox-indeterminate': data.isHalfChecked,
-				'dd-tree-checkbox-disabled': data.disabled || data.disableCheckbox || disabled,
-			},
-		]" v-if="checkable" @click="checked(data?.disabled ?? data?.disableCheckbox ?? false, data)">
+		<span
+			:class="[
+				'dd-tree-checkbox',
+				{
+					'dd-tree-checkbox-checked': data.isChecked,
+					'dd-tree-checkbox-indeterminate': data.isHalfChecked,
+					'dd-tree-checkbox-disabled': data.disabled || data.disableCheckbox || disabled,
+				},
+			]"
+			v-if="checkable"
+			@click="checked(data?.disabled ?? data?.disableCheckbox ?? false, data)"
+		>
 			<div class="dd-tree-checkbox-inner" />
 		</span>
-		<span :class="[
-			'dd-tree-node-content-wrapper',
-			{
-				'dd-tree-node-selected': selectedKeys?.has(data.value),
-			},
-		]" @click="select(data.value, data?.disabled ?? false, data)">
+		<span
+			:class="[
+				'dd-tree-node-content-wrapper',
+				{
+					'dd-tree-node-selected': selectedKeys?.has(data.value),
+				},
+			]"
+			@click="select(data.value, data?.disabled ?? false, data)"
+		>
 			<span class="dd-tree-title" :title="data.label">
 				<slot name="title" v-bind="{ data, title: data.label }">
 					{{ data.label }}
@@ -319,12 +372,12 @@ const setParentCheckedKeys = (node: TreeNodeType, isChecked: boolean) => {
 				cursor: pointer;
 				user-select: none;
 
-				>svg {
+				> svg {
 					transform: rotate(-90deg);
 				}
 			}
 
-			>svg {
+			> svg {
 				transition: transform 0.3s;
 			}
 		}
