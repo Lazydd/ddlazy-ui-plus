@@ -5,7 +5,7 @@
 	"description": "A Component Library for Vue3.",
 	"main": "lib/ddlazy-ui-plus.es",
 	"engines": {
-		"node": "^18.0.0 || >=20.0.0"
+		"node": "^22.0.0 || >=22.0.0"
 	},
 	"repository": {
 		"type": "git",
