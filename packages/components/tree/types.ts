@@ -63,14 +63,15 @@ export const treeProps = {
 		type: Object as PropType<{ children: string; label: string; value: string }>,
 		default: () => ({ children: 'children', label: 'label', value: 'value' }),
 	},
-	height: {
-		type: Number,
-	},
 	autoExpandParent: {
 		type: Boolean,
 		defualt: false,
 	},
 	defaultExpandAll: {
+		type: Boolean,
+		defualt: false,
+	},
+	virtual: {
 		type: Boolean,
 		defualt: false,
 	},

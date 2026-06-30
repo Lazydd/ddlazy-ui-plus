@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { UseVirtualList } from '@vueuse/components';
+import { useVirtualList } from '@vueuse/core';
 import { treeProps, TreeNodeType, TreeProps } from './types';
 import TreeNode from './tree-node.vue';
 import { ref, computed, watch, useTemplateRef } from 'vue';
@@ -208,16 +208,19 @@ const onSelectNodes = (node: TreeNodeType[]) => {
 	emit('select', keys, { node });
 };
 
-const virtualListOptions = ref({
+const {
+	list,
+	containerProps,
+	wrapperProps,
+	scrollTo: scrollToFunc,
+} = useVirtualList(flattenTree, {
 	itemHeight: 28,
 	overscan: 10,
 });
-const virtualListRef = useTemplateRef<HTMLElement | null>('virtualList');
 const scrollTo = (key: string | number) => {
-	if (!virtualListRef.value) return;
 	const index = flattenTree.value.findIndex((v) => v.key === key);
 	if (index === -1) return;
-	virtualListRef.value.scrollTo(index as ScrollToOptions);
+	scrollToFunc(index);
 	return instance;
 };
 
@@ -252,21 +255,11 @@ defineExpose(instance);
 		<div class="dd-tree-list">
 			<div class="dd-tree-list-holder">
 				<div :class="['dd-tree-list-holder-inner', { 'dd-tree-block-node': blockNode }]">
-					<template
-						v-if="
-							height &&
-							flattenTree.length > Math.ceil(height / virtualListOptions.itemHeight)
-						"
-					>
-						<UseVirtualList
-							:list="flattenTree"
-							:options="virtualListOptions"
-							:height="height + 'px'"
-							style="width: 100%"
-							ref="virtualList"
-						>
-							<template #="{ data }">
+					<template v-if="virtual">
+						<div v-bind="containerProps" style="height: 100%">
+							<div v-bind="wrapperProps">
 								<TreeNode
+									v-for="{ data } in list"
 									:data
 									:tree-map
 									:multiple
@@ -296,8 +289,8 @@ defineExpose(instance);
 										<slot name="title" v-bind="title" />
 									</template>
 								</TreeNode>
-							</template>
-						</UseVirtualList>
+							</div>
+						</div>
 					</template>
 					<template v-else v-for="data in flattenTree">
 						<TreeNode
