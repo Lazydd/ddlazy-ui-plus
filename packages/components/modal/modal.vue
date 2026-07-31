@@ -138,6 +138,6 @@ onUnmounted(() => {
 	</Teleport>
 </template>
 
-<style>
+<style scoped>
 @import './style/modal.scss';
 </style>

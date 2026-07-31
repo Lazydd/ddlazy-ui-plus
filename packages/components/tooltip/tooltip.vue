@@ -17,6 +17,6 @@ const { content, placement, maxWidth } = defineProps(tooltipProps);
 	</div>
 </template>
 
-<style>
+<style scoped>
 @import './style/tooltip.scss';
 </style>

@@ -67,6 +67,6 @@ const switchClick = (e: PointerEvent) => {
 	</button>
 </template>
 
-<style>
+<style scoped>
 @import './style/switch.scss';
 </style>
