@@ -19,10 +19,6 @@ export const tooltipProps = {
 		type: String,
 		default: '',
 	},
-	space: {
-		type: Number,
-		default: 8,
-	},
 	maxWidth: {
 		type: Number,
 		default: 500,
