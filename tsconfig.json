@@ -10,13 +10,11 @@
 		"strict": false,
 		"jsx": "preserve",
 		"types": ["vite/client"],
-		"ignoreDeprecations": "6.0",
-		"baseUrl": ".",
 		"paths": {
-			"@theme/*": [".vitepress/theme/*"],
-			"@/lib/*": ["lib/*"],
-			"@/packages/*": ["packages/*"],
-			"@/docs/*": ["docs/*"]
+			"@theme/*": ["./.vitepress/theme/*"],
+			"@/lib/*": ["./lib/*"],
+			"@/packages/*": ["./packages/*"],
+			"@/docs/*": ["./docs/*"]
 		}
 	},
 	"include": [
