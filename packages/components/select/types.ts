@@ -62,6 +62,9 @@ export const selectProps = {
 	popoverWidth: {
 		type: Number,
 	},
+	popupClassName: {
+		type: String,
+	},
 } as const;
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;

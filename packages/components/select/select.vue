@@ -297,7 +297,7 @@ const passwordIcon = computed(() =>
 				:autoWidth="false"
 				:padding="4"
 				:generate
-				:popupClassName="size"
+				:popupClassName="size + ' ' + popupClassName"
 				:width="popoverWidth"
 				v-bind="$attrs"
 				class="dd-select-popover"

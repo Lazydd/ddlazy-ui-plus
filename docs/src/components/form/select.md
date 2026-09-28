@@ -398,6 +398,7 @@ options.value = c;
 | maxTagCount    | 最多显示多少个 `tag`       | `number`                                                         | —       |
 | bordered       | 无边框样式                 | `boolean`                                                        | `false` |
 | generate       | 是否立即生成组件示例       | `boolean`                                                        | `false` |
+| popupClassName | 下拉菜单的 className 属性  | `string`                                                         | —       |
 
 ### Select Events
 

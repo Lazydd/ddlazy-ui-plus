@@ -398,6 +398,7 @@ options.value = c;
 | maxTagCount    | Max tag count to show                   | `number`                                                         | —       |
 | bordered       | Bordered-less                           | `boolean`                                                        | `false` |
 | generate       | generate component examples immediately | `boolean`                                                        | `false` |
+| popupClassName | className of dropdown menu              | `string`                                                         | —       |
 
 ### Select Events
 

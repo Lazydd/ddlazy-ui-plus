@@ -279,6 +279,7 @@ const colorClick = () => {
 				v-if="colorPickerRef"
 				v-model:visible="colorPickerContainerShow"
 				:instance="colorPickerRef"
+				:ignore="['.formatPick']"
 			>
 				<div class="dd-color-picker-inner-content">
 					<div class="dd-color-picker-operation" v-if="allowClear">
@@ -298,6 +299,7 @@ const colorClick = () => {
 							generate
 							autoWidth
 							:popover-width="68"
+							popupClassName="formatPick"
 							:options="[
 								{ label: 'HEX', value: 'hex' },
 								{ label: 'HSL', value: 'hsl' },

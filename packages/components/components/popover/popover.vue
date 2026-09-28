@@ -24,7 +24,7 @@ const props = withDefaults(
 		padding?: number;
 		popupArrowClassName?: string | Object;
 		popupClassName?: string | Object;
-		ignore?: HTMLElement[] | null;
+		ignore?: (HTMLElement | string)[] | null;
 		generate?: boolean;
 	}>(),
 	{
@@ -32,6 +32,7 @@ const props = withDefaults(
 		autoWidth: true,
 		padding: 12,
 		generate: false,
+		ignore: () => [],
 	},
 );
 const emit = defineEmits<{
@@ -142,7 +143,7 @@ const outSideClick = () => {
 				:style="{ inset: insetStyle }"
 				ref="popover"
 				v-show="visible"
-				v-on-click-outside="[outSideClick, { ignore: [instance] }]"
+				v-on-click-outside="[outSideClick, { ignore: [instance, ...ignore] }]"
 			>
 				<div
 					:class="['dd-popover-arrow', popoverPlacement, popupArrowClassName]"
