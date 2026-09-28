@@ -15,7 +15,9 @@ const props = withDefaults(
 	},
 );
 
-defineEmits(['select-item-click']);
+defineEmits<{
+	'select-item-click': [item: SelectOptionsType];
+}>();
 
 const virtualListRef = useTemplateRef<HTMLElement | null>('virtualList');
 

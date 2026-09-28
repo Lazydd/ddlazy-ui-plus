@@ -59,7 +59,7 @@ const maxCountSelect = computed(() =>
 	select.value.slice(0, (maxTagCount ?? 0) >= 0 ? maxTagCount : undefined),
 );
 
-const selectItemClick = (item) => {
+const selectItemClick = (item: SelectOptionsType) => {
 	emit('select', item.value, item);
 	if (multiple) {
 		const index = select.value.findIndex((v) => v.value === item.value);
