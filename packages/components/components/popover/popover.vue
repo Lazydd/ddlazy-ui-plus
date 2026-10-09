@@ -36,9 +36,10 @@ const props = withDefaults(
 	},
 );
 const emit = defineEmits<{
-	'update:visible': [value: boolean];
 	outSideClick: [value: boolean];
 }>();
+
+const visible = defineModel<boolean>('visible');
 
 const insetStyle = ref('');
 const popoverRef = useTemplateRef('popover');
@@ -77,7 +78,7 @@ const nodeAttributes = computed(() => {
 });
 
 const setInset = async () => {
-	if (!props.instance || !props.visible) return;
+	if (!props.instance || !visible.value) return;
 	const { top, left, width, height } = getOffset(props.instance);
 	instanceWidth.value = width;
 	let insetTop = top + height + arrowGap.value;
@@ -123,14 +124,14 @@ watch([() => instanceAttribute.width.value, () => instanceAttribute.height.value
 const created = ref(false);
 
 watchEffect(() => {
-	if (props.visible) {
+	if (visible.value) {
 		created.value = true;
 	}
 	setInset();
 });
 
 const outSideClick = () => {
-	emit('update:visible', false);
+	visible.value = false;
 	emit('outSideClick', props.visible);
 };
 </script>
