@@ -369,7 +369,7 @@ const colorClick = () => {
 						/>
 					</div>
 				</div>
-				<div class="dd-color-picker-presets-color">
+				<div class="dd-color-picker-presets-color" v-if="finalPresetColors?.length">
 					<div
 						v-for="color in finalPresetColors"
 						class="dd-color-picker-color-block-inner"

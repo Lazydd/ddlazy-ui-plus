@@ -34,11 +34,11 @@
 			display: flex;
 			flex-direction: column;
 			width: 234px;
-			margin-bottom: 12px;
+			gap: 12px;
 		}
 	}
-
 	&-presets-color {
+		margin-top: 12px;
 		width: 100%;
 		display: grid;
 		grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -50,18 +50,6 @@
 		width: 24px;
 		height: 24px;
 		border-radius: 4px;
-	}
-	&-inner {
-		width: 100%;
-		height: 100%;
-		border: 1px solid rgba(0, 0, 0, 0.06);
-		border-radius: inherit;
-		&-content {
-			display: flex;
-			flex-direction: column;
-			width: 234px;
-			gap: 12px;
-		}
 	}
 	&-operation {
 		width: 24px;
