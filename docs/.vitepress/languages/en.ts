@@ -161,6 +161,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			text: 'Data Display',
 			items: [
 				{
+					text: 'Table',
+					link: '/en/components/data display/table',
+				},
+				{
 					text: 'Tree',
 					link: '/en/components/data display/tree',
 				},

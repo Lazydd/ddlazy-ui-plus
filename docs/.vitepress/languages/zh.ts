@@ -161,6 +161,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 			text: 'Data Display',
 			items: [
 				{
+					text: 'Table 表格',
+					link: '/components/data display/table',
+				},
+				{
 					text: 'Tree 树形控件',
 					link: '/components/data display/tree',
 				},

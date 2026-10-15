@@ -25,6 +25,7 @@ export * from './date-picker';
 export * from './tree';
 export * from './color-picker';
 export * from './modal';
+export * from './table';
 
 export default {
 	install(app: App) {

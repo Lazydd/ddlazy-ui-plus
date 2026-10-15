@@ -26,6 +26,7 @@
 	--dd-size: 14px;
 	--dd-small: 12px;
 }
+
 :root {
 	--dd-radius-large: 8px;
 	--dd-radius-size: 6px;
@@ -44,11 +45,13 @@
 	--dd-arrow-inner-color-2: rgba(0, 0, 0, 0.08);
 	--dd-arrow-inner-color-3: rgba(0, 0, 0, 0.12);
 }
+
 /* tooltip */
 :root {
 	--dd-tooltip-color: var(--dd-white);
 	--dd-tooltip-background-color: var(--dd-background-color-1);
 }
+
 /* input */
 :root {
 	--dd-input-border-color: var(--dd-border-color);
@@ -58,11 +61,13 @@
 	--dd-input-icon-color: var(--dd-icon-color);
 	--dd-input-icon-color-active: var(--dd-icon-color-active);
 }
+
 /* empty */
 :root {
 	--dd-empty-fill-color: #d9d9d9;
 	--dd-empty-color: rgba(0, 0, 0, 0.25);
 }
+
 /* select */
 :root {
 	--dd-select-color: var(--dd-color-1);
@@ -77,11 +82,13 @@
 	--dd-select-selection-item-border-color: transparent;
 	--dd-select-disabled-background-color: transparent;
 }
+
 /* loading */
 :root {
 	--dd-loading-color: var(--dd-color-1);
 	--dd-loading-shadow-color: var(--dd-white);
 }
+
 /* switch */
 :root {
 	--dd-switch-active-background-color: var(--dd-primary);
@@ -89,6 +96,7 @@
 	--dd-switch-hover-background-2: rgba(0, 0, 0, 0.25);
 	--dd-switch-background-color: rgba(0, 0, 0, 0.25);
 }
+
 /* input-number */
 :root {
 	--dd-input-number-background-color: var(--dd-white);
@@ -97,6 +105,7 @@
 	--dd-input-number-border-color: var(--dd-border-color);
 	--dd-input-number-icon-color: rgba(0, 0, 0, 0.45);
 }
+
 /* radio */
 :root {
 	--dd-radio-color: var(--dd-color-1);
@@ -108,6 +117,7 @@
 	--dd-radio-active-background-color: var(--dd-primary);
 	--dd-radio-border-inner-background-color: var(--dd-white);
 }
+
 /* radio-button */
 :root {
 	--dd-radio-button-color: var(--dd-color-1);
@@ -123,6 +133,7 @@
 	--dd--radio-button-background-color: var(--dd-white);
 	--dd--radio-button-checked-background-color: var(--dd-white);
 }
+
 /* time-picker */
 :root {
 	--dd-time-picker-color: var(--dd-color-1);
@@ -136,6 +147,7 @@
 	--dd-time-picker-clear-background-color: var(--dd-white);
 	--dd-time-picker-icon-active-color: var(--dd-icon-color-active);
 }
+
 /* date-picker */
 :root {
 	--dd-date-picker-color: var(--dd-color-1);
@@ -148,6 +160,7 @@
 	--dd-date-picker-clear-background-color: var(--dd-white);
 	--dd-date-picker-icon-active-color: var(--dd-icon-color-active);
 }
+
 /* tree */
 :root {
 	--dd-tree-color: var(--dd-color-1);
@@ -163,4 +176,33 @@
 	--dd-color-picker-border-color: var(--dd-border-color);
 	--dd-color-picker-background-color: var(--dd-white);
 	--dd-color-picker-handler-color: var(--dd-white);
+}
+
+:root {
+	--vxe-ui-font-primary-color: var(--dd-primary);
+	/* 表头 */
+	--vxe-ui-table-header-background-color: #fafafa;
+	/* 表内容 */
+	--vxe-ui-layout-background-color: #ffffff;
+	/* 斑马纹颜色 */
+	--vxe-ui-table-row-striped-background-color: #fafafa;
+	/* 鼠标移上去颜色 */
+	--vxe-ui-table-row-hover-background-color: #fafafa;
+	--vxe-ui-table-column-hover-background-color: #fafafa;
+	/* 斑马纹鼠标移上去颜色 */
+	--vxe-ui-table-row-hover-striped-background-color: #fafafa;
+	/* 表格边框颜色 */
+	--vxe-ui-table-border-color: #f0f0f0;
+	/* 圆角 */
+	--vxe-ui-table-border-radius: 4px;
+	/* 表头加粗 */
+	--vxe-ui-table-header-font-weight: 600;
+	/* 表头颜色 */
+	--vxe-ui-table-header-font-color: rgba(0, 0, 0, 0.88);
+	/* 行选中颜色 */
+	--vxe-ui-table-row-current-background-color: #e6f4ff;
+	/* 行选中鼠标移上去颜色 */
+	--vxe-ui-table-row-hover-current-background-color: #bae0ff;
+	/* 单选复选框边框颜色 */
+	--vxe-ui-input-border-color: var(--dd-border-color);
 }
