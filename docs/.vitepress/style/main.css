@@ -185,6 +185,15 @@
 	margin-bottom: 16px;
 }
 
+.demoblock table {
+	margin: unset;
+}
+
+.demoblock th, .demoblock td {
+	border: unset;
+	padding: unset;
+}
+
 .content {
 	border: none !important;
 }
