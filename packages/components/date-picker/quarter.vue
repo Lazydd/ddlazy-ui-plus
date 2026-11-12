@@ -42,29 +42,25 @@ const mouseenter = (date: Dayjs) => {
 <template>
 	<table class="dd-picker-content">
 		<tbody>
-			<tr v-for="quarter in dateInfo">
+			<tr v-for="(quarter, i) in dateInfo" :key="i">
 				<td
 					:class="[
 						'dd-picker-cell',
 						'dd-picker-cell-in-view',
 						{
 							'dd-picker-cell-selected': dateValue
-								? dayjs(dateValue).isSame(dayjs(date), 'Q')
+								? dateValue.isSame(date, 'Q')
 								: false,
 							'dd-picker-cell-disabled': disabledDate(date),
 						},
 					]"
 					v-for="({ date }, i) in quarter"
 					:key="i"
-					:title="
-						dayjs(date)
-							.format('YYYY-Q')
-							.replace(/-(?!.*-)/, '-Q')
-					"
+					:title="date.format('YYYY-Q').replace(/-(?!.*-)/, '-Q')"
 					@click="dateClick(date)"
 					@mouseenter="mouseenter(date)"
 				>
-					<div class="dd-picker-cell-inner">Q{{ dayjs(date).format('Q') }}</div>
+					<div class="dd-picker-cell-inner">Q{{ date.format('Q') }}</div>
 				</td>
 			</tr>
 		</tbody>

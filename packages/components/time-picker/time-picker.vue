@@ -37,7 +37,7 @@ const formatValue = defineModel<Dayjs | undefined>('value', {
 		let formatType: TimePickerFormatType;
 		if (value) {
 			formatType = valueFormat;
-			newValue = dayjs(value).format(formatType as string);
+			newValue = value.format(formatType as string);
 		}
 		return newValue;
 	},
@@ -107,7 +107,7 @@ const ok = () => {
 	if (!timeValue.value) return;
 	timePickerContainerShow.value = false;
 	const temp = tempValue.value ?? timeValue.value;
-	if (!formatValue.value?.isSame(dayjs(temp, 'HH:mm:ss'), 'second')) {
+	if (!formatValue.value?.isSame(temp.format('HH:mm:ss'), 'second')) {
 		emit('change', temp);
 	}
 	formatValue.value = temp;

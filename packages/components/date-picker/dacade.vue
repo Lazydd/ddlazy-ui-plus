@@ -24,7 +24,7 @@ const emit = defineEmits<{
 
 const dateValue = defineModel<Dayjs>('value');
 
-const dateInfo = computed(() => {
+const dateInfo = computed<{ date: Dayjs; isCurrYear: boolean }[][]>(() => {
 	const base = Math.floor(year / 100) * 100;
 	const startYear = base - 1;
 	const endYear = base + 10;
@@ -44,9 +44,9 @@ const dateClick = (date: Dayjs, isCurrYear: boolean) => {
 	} else {
 		if (!isCurrYear) {
 			const time = dayjs({ year, month });
-			if (dayjs(date).isBefore(time, 'y')) {
+			if (date.isBefore(time, 'y')) {
 				emit('year-change', -100);
-			} else if (dayjs(date).isAfter(time, 'y')) {
+			} else if (date.isAfter(time, 'y')) {
 				emit('year-change', 100);
 			}
 		}
@@ -62,7 +62,7 @@ const mouseenter = (date: Dayjs) => {
 <template>
 	<table class="dd-picker-content">
 		<tbody>
-			<tr v-for="year in dateInfo">
+			<tr v-for="(year, i) in dateInfo" :key="i">
 				<td
 					:class="[
 						'dd-picker-cell',
@@ -70,19 +70,19 @@ const mouseenter = (date: Dayjs) => {
 						{
 							'dd-picker-cell-in-view': isCurrYear,
 							'dd-picker-cell-selected': dateValue
-								? dayjs(dateValue).isSameOrAfter(dayjs(date), 'y') &&
-									dayjs(dateValue).isSameOrBefore(dayjs(date).add(9, 'y'), 'y')
+								? dateValue.isSameOrAfter(date, 'y') &&
+									dateValue.isSameOrBefore(date.add(9, 'y'), 'y')
 								: false,
 						},
 					]"
 					v-for="{ date, isCurrYear } in year"
-					:key="date"
+					:key="date.day()"
 					@click="dateClick(date, isCurrYear)"
 					@mouseenter="mouseenter(date)"
 				>
 					<div class="dd-picker-cell-inner">
-						{{ dayjs(date).format('YYYY').replace(/^0+/, '') || 0 }}-{{
-							dayjs(date).add(9, 'y').format('YYYY').replace(/^0+/, '') || 0
+						{{ date.format('YYYY').replace(/^0+/, '') || 0 }}-{{
+							date.add(9, 'y').format('YYYY').replace(/^0+/, '') || 0
 						}}
 					</div>
 				</td>

@@ -146,8 +146,8 @@ const eOpen = ref(false);
 const ok = () => {
 	const [t1, t2] = formatValue.value;
 	if (
-		!t1?.isSame(dayjs(tempValue.value[0], 'HH:mm:ss'), 'second') ||
-		!t2?.isSame(dayjs(tempValue.value[1], 'HH:mm:ss'), 'second')
+		!t1?.isSame(tempValue.value[0].format('HH:mm:ss'), 'second') ||
+		!t2?.isSame(tempValue.value[1].format('HH:mm:ss'), 'second')
 	) {
 		emit('change', tempValue.value);
 	}

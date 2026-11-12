@@ -25,7 +25,7 @@ const emit = defineEmits<{
 
 const dateValue = defineModel<Dayjs>('value');
 
-const dateInfo = computed(() => {
+const dateInfo = computed<{ date: Dayjs; isCurrYear: boolean; format: string }[][]>(() => {
 	const base = Math.floor(year / 10) * 10;
 	const startYear = base - 1;
 	const endYear = base + 10;
@@ -49,9 +49,9 @@ const dateClick = (date: Dayjs, isCurrYear: boolean) => {
 	} else {
 		if (!isCurrYear) {
 			const time = dayjs({ year, month });
-			if (dayjs(date).isBefore(time, 'y')) {
+			if (date.isBefore(time, 'y')) {
 				emit('year-change', -10);
-			} else if (dayjs(date).isAfter(time, 'y')) {
+			} else if (date.isAfter(time, 'y')) {
 				emit('year-change', 10);
 			}
 		}
@@ -67,7 +67,7 @@ const mouseenter = (date: Dayjs) => {
 <template>
 	<table class="dd-picker-content">
 		<tbody>
-			<tr v-for="year in dateInfo">
+			<tr v-for="(year, i) in dateInfo" :key="i">
 				<td
 					:class="[
 						'dd-picker-cell',
@@ -75,19 +75,19 @@ const mouseenter = (date: Dayjs) => {
 						{
 							'dd-picker-cell-in-view': isCurrYear,
 							'dd-picker-cell-selected': dateValue
-								? dayjs(dateValue).isSame(dayjs(date), 'y')
+								? dateValue.isSame(date, 'y')
 								: false,
 							'dd-picker-cell-disabled': disabledDate(date),
 						},
 					]"
 					v-for="{ date, isCurrYear, format } in year"
-					:key="date"
-					:title="dayjs(date).format(format)"
+					:key="date.day()"
+					:title="date.format(format)"
 					@click="dateClick(date, isCurrYear)"
 					@mouseenter="mouseenter(date)"
 				>
 					<div class="dd-picker-cell-inner">
-						{{ dayjs(date).format(format)?.replace(/^0+/, '') || 0 }}
+						{{ date.format(format)?.replace(/^0+/, '') || 0 }}
 						<!-- 此处需要去除开头的0 -->
 					</div>
 				</td>

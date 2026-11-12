@@ -34,9 +34,9 @@ const dateClick = (date: Dayjs, isCurrMonth: boolean) => {
 	emit('click', date);
 	if (!isCurrMonth) {
 		const time = dayjs({ year, month });
-		if (dayjs(date).isBefore(time, 'M')) {
+		if (date.isBefore(time, 'M')) {
 			emit('month-change', -1);
-		} else if (dayjs(date).isAfter(time, 'M')) {
+		} else if (date.isAfter(time, 'M')) {
 			emit('month-change', 1);
 		}
 	}
@@ -62,7 +62,7 @@ const mouseenter = (date: Dayjs) => {
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="week in dateInfo.dates">
+			<tr v-for="(week, i) in dateInfo.dates" :key="i">
 				<td
 					:class="[
 						'dd-picker-cell',
@@ -70,18 +70,18 @@ const mouseenter = (date: Dayjs) => {
 							'dd-picker-cell-in-view': isCurrMonth,
 							'dd-picker-cell-today': dayjs().isSame(date, 'D'),
 							'dd-picker-cell-selected': dateValue
-								? dayjs(dateValue).isSame(date, 'D')
+								? dateValue.isSame(date, 'D')
 								: false,
 							'dd-picker-cell-disabled': disabledDate(date),
 						},
 					]"
 					v-for="{ date, isCurrMonth } in week"
-					:key="date as any"
-					:title="dayjs(date).format('YYYY-MM-DD')"
+					:key="date.day()"
+					:title="date.format('YYYY-MM-DD')"
 					@click="dateClick(date, isCurrMonth)"
 					@mouseenter="mouseenter(date)"
 				>
-					<div class="dd-picker-cell-inner">{{ dayjs(date).format('D') }}</div>
+					<div class="dd-picker-cell-inner">{{ date.format('D') }}</div>
 				</td>
 			</tr>
 		</tbody>

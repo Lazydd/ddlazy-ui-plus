@@ -24,7 +24,7 @@ const emit = defineEmits<{
 
 const dateValue = defineModel<Dayjs>('value');
 
-const dateInfo = computed(() => {
+const dateInfo = computed<{ date: Dayjs }[][]>(() => {
 	return Array.from({ length: 12 }, (_, i) => ({
 		date: dayjs({ year, month: i }),
 	})).reduce((arr, item, index) => {
@@ -49,25 +49,25 @@ const mouseenter = (date: Dayjs) => {
 <template>
 	<table class="dd-picker-content">
 		<tbody>
-			<tr v-for="month in dateInfo">
+			<tr v-for="(month, i) in dateInfo" :key="i">
 				<td
 					:class="[
 						'dd-picker-cell',
 						'dd-picker-cell-in-view',
 						{
 							'dd-picker-cell-selected': dateValue
-								? dayjs(dateValue).isSame(dayjs(date), 'M')
+								? dateValue.isSame(date, 'M')
 								: false,
 							'dd-picker-cell-disabled': disabledDate(date),
 						},
 					]"
 					v-for="{ date } in month"
-					:key="date"
-					:title="dayjs(date).format('YYYY-MM')"
+					:key="date.day()"
+					:title="date.format('YYYY-MM')"
 					@click="dateClick(date)"
 					@mouseenter="mouseenter(date)"
 				>
-					<div class="dd-picker-cell-inner">{{ dayjs(date).format('M') }}月</div>
+					<div class="dd-picker-cell-inner">{{ date.format('M') }}月</div>
 				</td>
 			</tr>
 		</tbody>

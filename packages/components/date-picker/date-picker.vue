@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createName } from '../../utils/index';
-import { datePickerProps, type FormatType } from './types';
+import { datePickerProps, type FormatType, type DatePickerModeType } from './types';
 
 import { ref, computed, useTemplateRef, type Component, watchEffect, nextTick, watch } from 'vue';
 import dayjs, { Dayjs } from 'dayjs';
@@ -65,7 +65,7 @@ const conditionHideDatePickerContainerShow = () => {
 	datePickerContainerShow.value = false;
 };
 
-const formatDate = (value) => {
+const formatDate = (value: DatePickerModeType) => {
 	let formatType: FormatType;
 	switch (value) {
 		case 'date':
@@ -104,9 +104,9 @@ const dataValue = defineModel<any>('value', {
 		return value;
 	},
 });
-const formatValue = computed({
+const formatValue = computed<Dayjs | null>({
 	get() {
-		return dataTemp.value ? dayjs(dataTemp.value) : dataValue.value;
+		return dataTemp.value ? dataTemp.value : dataValue.value;
 	},
 	set(value) {
 		let newValue = null;
@@ -370,13 +370,13 @@ const mouseenter = (value: Dayjs) => {
 	let formatType: FormatType;
 	formatType = formatDate(mode);
 	if (format) formatType = format;
-	if (activeMode.value === 'week') value = dayjs(value).year(value.year()).week(value.week());
+	if (activeMode.value === 'week') value = value.year(value.year()).week(value.week());
 	else if (activeMode.value === 'month')
-		value = dayjs(value).year(value.year()).month(value.month()).date(info.value.date);
+		value = value.year(value.year()).month(value.month()).date(info.value.date);
 	else if (activeMode.value === 'quarter')
-		value = dayjs(value).year(info.value.year).quarter(value.quarter());
+		value = value.year(info.value.year).quarter(value.quarter());
 	else if (activeMode.value === 'year' || activeMode.value === 'dacade')
-		value = dayjs(value).year(value.year()).month(info.value.month).date(info.value.date);
+		value = value.year(value.year()).month(info.value.month).date(info.value.date);
 
 	const newValue = value.format(formatType as string);
 	let temp = mode === 'quarter' ? newValue.replace(/-(?!.*-)/, '-Q') : newValue;
