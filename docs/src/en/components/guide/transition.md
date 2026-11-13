@@ -4,7 +4,7 @@ You can use ddlazy-ui-plus built-in transitions directly.
 
 ## Fade
 
-`dd-fade`.
+`dd-fade`
 
 :::demo
 

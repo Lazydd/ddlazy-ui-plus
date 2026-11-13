@@ -4,7 +4,7 @@ ddlazy-ui-plus 内应用在部分组件的过渡动画，你也可以直接使�
 
 ## fade 淡入淡出
 
-`dd-fade`.
+`dd-fade`
 
 :::demo
 
