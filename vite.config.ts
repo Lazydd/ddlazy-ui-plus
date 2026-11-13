@@ -50,15 +50,9 @@ export default defineConfig({
 				},
 			},
 		},
-		terserOptions: {
-			compress: {
-				drop_console: false, //去掉console
-				drop_debugger: false, //去掉debugger
-			},
-		},
 		cssCodeSplit: true,
 		sourcemap: false,
-		minify: 'oxc', //esbuild 打包速度快     terser 打包体积小
+		minify: 'oxc',
 		assetsInlineLimit: 4000,
 	},
 });

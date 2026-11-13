@@ -27,7 +27,7 @@ const extraHead =
 					`window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
-				  
+
 					gtag('config', 'G-RN9ZL9TS70');`,
 				],
 				[
@@ -37,7 +37,7 @@ const extraHead =
 					(function() {
 					  var hm = document.createElement("script");
 					  hm.src = "https://hm.baidu.com/hm.js?da6ff7ee2337f49fb5ac79060ed3e5bb";
-					  var s = document.getElementsByTagName("script")[0]; 
+					  var s = document.getElementsByTagName("script")[0];
 					  s.parentNode.insertBefore(hm, s);
 					})();`,
 				],
@@ -123,7 +123,7 @@ export default {
 			port: 9999,
 		},
 		build: {
-			minify: 'terser',
+			minify: 'oxc',
 			chunkSizeWarningLimit: Infinity,
 		},
 		json: {
