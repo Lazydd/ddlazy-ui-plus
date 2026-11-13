@@ -31,8 +31,8 @@ const emit = defineEmits<{
 	blur: [e: FocusEvent];
 }>();
 const slots = defineSlots<{
-	dropdownRender: HTMLElement;
-	suffixIcon: HTMLElement;
+	dropdownRender?: () => HTMLElement;
+	suffixIcon?: () => HTMLElement;
 }>();
 
 const selectRef = useTemplateRef('select');
