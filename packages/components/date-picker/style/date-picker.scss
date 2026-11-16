@@ -186,7 +186,7 @@
 	:deep(th) {
 		color: var(--dd-date-picker-color);
 	}
-	:deep().dd-picker-cell {
+	:deep(.dd-picker-cell) {
 		position: relative;
 		min-width: 24px;
 		font-weight: normal;
@@ -204,7 +204,7 @@
 			transition: all 0.3s;
 			content: '';
 		}
-		&-inner {
+		.dd-picker-cell-inner {
 			position: relative;
 			z-index: 2;
 			display: inline-block;
@@ -216,15 +216,15 @@
 				background 0.2s,
 				border 0.2s;
 		}
-		&.dd-picker-cell-selected {
-			.dd-picker-cell-inner {
-				color: #fff;
-				background: #1677ff;
-			}
+	}
+	:deep(.dd-picker-cell-selected) {
+		.dd-picker-cell-inner {
+			color: #fff;
+			background: #1677ff;
 		}
-		&.dd-picker-cell-in-view {
-			color: var(--dd-date-picker-color);
-		}
+	}
+	:deep(.dd-picker-cell-in-view) {
+		color: var(--dd-date-picker-color);
 	}
 }
 

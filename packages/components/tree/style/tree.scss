@@ -20,7 +20,7 @@
 			}
 		}
 	}
-	&-block-node:deep() {
+	:deep(.dd-tree-block-node) {
 		align-items: stretch;
 		.dd-tree-node-content-wrapper {
 			flex: auto;
