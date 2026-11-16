@@ -19,7 +19,7 @@ importers:
         version: 4.20.42(vue@3.5.45(typescript@6.0.3))
       vxe-table:
         specifier: ^4.23.19
-        version: 4.23.19
+        version: 4.23.20
     devDependencies:
       '@ddlazy/utils':
         specifier: ^0.0.7
@@ -2582,8 +2582,8 @@ packages:
   vxe-pc-ui@4.20.42:
     resolution: {integrity: sha512-Lrn6Tia0ZXqHkVGan4Qbv3IZn6I4oky7ggcailmD3uekf16k00we8b6b1BpktaMPGNuSY9PvB8vFpJBHG+CG+A==}
 
-  vxe-table@4.23.19:
-    resolution: {integrity: sha512-/IddQthhhkwxbULofNVHqqepu1sWXizuep43IKa8Dv2F8Er4lTAooPWnAn5LVxJugMa782GBWK3K5mMBjbhyPw==}
+  vxe-table@4.23.20:
+    resolution: {integrity: sha512-MdLJj33tK1Vu5SX9vYuw/hvFT+XG57SIAqiKqJHasn5DAyvk4lpay99Jk0qChuDIOZe62SNPFAJH3ePsC+lztw==}
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
@@ -5324,7 +5324,7 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  vxe-table@4.23.19: {}
+  vxe-table@4.23.20: {}
 
   webpack-virtual-modules@0.6.2: {}
 
