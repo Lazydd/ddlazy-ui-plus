@@ -110,6 +110,10 @@ function getGuide(): DefaultTheme.SidebarItem[] {
 					link: '/components/form/radio',
 				},
 				{
+					text: 'Checkbox 复选框',
+					link: '/components/form/checkbox',
+				},
+				{
 					text: 'Select 选择器',
 					link: '/components/form/select',
 				},

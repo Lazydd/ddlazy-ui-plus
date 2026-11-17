@@ -1,0 +1,38 @@
+.dd-checkbox-wrapper {
+	margin: 0;
+	padding: 0;
+	color: var(--dd-checkbox-color);
+	font-size: 14px;
+	list-style: none;
+	display: inline-flex;
+	align-items: center;
+	margin-inline-start: 0;
+	margin-inline-end: var(--dd-checkbox-size);
+	cursor: pointer;
+
+	&-disabled {
+		cursor: not-allowed;
+		color: var(--dd-checkbox-disabled-color);
+	}
+
+	.dd-checkbox-input {
+		width: 16px;
+		height: 16px;
+		margin: 0;
+		cursor: pointer;
+
+		&:checked,
+		&:indeterminate {
+			accent-color: var(--dd-checkbox-active-color);
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+		}
+	}
+
+	.dd-checkbox-label {
+		padding-inline-start: var(--dd-checkbox-size);
+		padding-inline-end: var(--dd-checkbox-size);
+	}
+}

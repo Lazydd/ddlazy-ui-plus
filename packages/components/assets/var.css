@@ -33,6 +33,12 @@
 	--dd-radius-small: 4px;
 }
 
+:root {
+	--dd-checkbox-large: 8px;
+	--dd-checkbox-size: 6px;
+	--dd-checkbox-small: 4px;
+}
+
 /* popover */
 :root {
 	--arrow-x: 16px;
@@ -132,6 +138,18 @@
 	--dd-radio-button-border-inner-background-color: var(--dd-white);
 	--dd--radio-button-background-color: var(--dd-white);
 	--dd--radio-button-checked-background-color: var(--dd-white);
+}
+
+/* checkbox */
+:root {
+	--dd-checkbox-color: var(--dd-color-1);
+	--dd-checkbox-disabled-color: var(--dd-disabled-color);
+	--dd-radio-disabled-background-color: var(--dd-disabled-background-color-2);
+	--dd-radio-border-color: var(--dd-border-color);
+	--dd-checkbox-active-color: var(--dd-primary);
+	--dd-radio-active-border-color: var(--dd-primary);
+	--dd-radio-active-background-color: var(--dd-primary);
+	--dd-radio-border-inner-background-color: var(--dd-white);
 }
 
 /* time-picker */
