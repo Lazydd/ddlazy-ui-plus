@@ -13,7 +13,7 @@ const emit = defineEmits<{
 }>();
 
 const radioClick = () => {
-	if (disabled || modelChecked) return;
+	if (disabled || modelChecked.value) return;
 	modelChecked.value = true;
 	emit('change', true);
 };
